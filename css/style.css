@@ -376,13 +376,13 @@ body {
 }
 
 .subtitle-row-small {
-    font-size: 25px;
+    font-size: 22px;
     padding-bottom: 30px;
     padding-top: 30px;
 }
 
 .subtitle-row-xs {
-    font-size: 18px;
+    font-size: 20px;
     padding-bottom: 20px;
     padding-top: 20px;
 }
@@ -431,12 +431,6 @@ i {
         font-size: 20px;
         padding-bottom: 20px;
         padding-top: 20px;
-    }
-
-    .subtitle-row-small {
-        font-size: 14px;
-        padding-bottom: 15px;
-        padding-top: 15px;
     }
 
     .content-row {

@@ -110,7 +110,7 @@ function menu_focus(element, i) {
     $('.nav > li').removeClass('active');
     $(element).addClass('active');
 
-    var icon = $(element).find('.icon');
+    var icon = $(element).find('.fa');
 
     var left_pos = icon.offset().left - $('.nav').offset().left;
     var el_width = icon.width() + $(element).find('.text').width() + 10;
