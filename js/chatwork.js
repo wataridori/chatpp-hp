@@ -325,8 +325,8 @@ var L = {
     chat_deleted: "\u30e1\u30c3\u30bb\u30fc\u30b8\u306f\u524a\u9664\u3055\u308c\u307e\u3057\u305f",
     chat_editing_label_on_message: "\u30e1\u30c3\u30bb\u30fc\u30b8\u7de8\u96c6\u4e2d",
     chatroom_tasklist_mytaskonly: "\u81ea\u5206\u306e\u30bf\u30b9\u30af\u306e\u307f\u8868\u793a",
-    list_overflow: "\u6b8b\u308a%%num%%\u4ef6",
     task_nothing: "\u73fe\u5728\u30bf\u30b9\u30af\u306f\u3042\u308a\u307e\u305b\u3093",
+    task_num: " (%%num%%\u4ee5\u4e0a)",
     error_upload_filesize: "\u30d5\u30a1\u30a4\u30eb\u30b5\u30a4\u30ba\u304c\u5927\u304d\u3059\u304e\u308b\u305f\u3081\u3001\u30d5\u30a1\u30a4\u30eb\u3092\u30a2\u30c3\u30d7\u30ed\u30fc\u30c9\u3067\u304d\u307e\u305b\u3093\u3067\u3057\u305f",
     error_upload_filetype: "\u30b5\u30dd\u30fc\u30c8\u3055\u308c\u3066\u3044\u306a\u3044\u5f62\u5f0f\u306e\u305f\u3081\u3001\u30d5\u30a1\u30a4\u30eb\u3092\u30a2\u30c3\u30d7\u30ed\u30fc\u30c9\u3067\u304d\u307e\u305b\u3093\u3067\u3057\u305f",
     invitation_link_code_copy: "\u30b3\u30d4\u30fc",
@@ -424,7 +424,6 @@ var L = {
     live_start: "ChatWork Live\u3092\u958b\u59cb\u3057\u307e\u3057\u305f",
     file_uploaded: "\u30d5\u30a1\u30a4\u30eb\u3092\u30a2\u30c3\u30d7\u30ed\u30fc\u30c9\u3057\u307e\u3057\u305f\u3002",
     task_edited: "\u30bf\u30b9\u30af\u3092\u7de8\u96c6\u3057\u307e\u3057\u305f\u3002",
-    chatroom_adminsetting_edited: "\u30c1\u30e3\u30c3\u30c8\u8a2d\u5b9a\u3092\u5909\u66f4\u3057\u307e\u3057\u305f\u3002",
     chatroom_contact_added_by_facebook: "Facebook\u306e\u53cb\u9054\u8ffd\u52a0\u8a2d\u5b9a\u306b\u3088\u308a\u30b3\u30f3\u30bf\u30af\u30c8\u304c\u8ffd\u52a0\u3055\u308c\u307e\u3057\u305f\u3002",
     chatroom_contact_added: "\u30b3\u30f3\u30bf\u30af\u30c8\u3092\u8ffd\u52a0\u3057\u307e\u3057\u305f\u3002",
     chatroom_chatname_is: "\u30c1\u30e3\u30c3\u30c8\u540d\u3092\u300c",
@@ -579,7 +578,7 @@ function bytename(b, a, e, d) {
     e == void 0 && (e = 2);
     var f;
     if (d != void 0)
-        for (var g in unim) unim[g] == d && (f = g);
+        for (var i in unim) unim[i] == d && (f = i);
     for (c = 0; b >= 1024;) c++, b /= 1024;
     if (f) {
         d = c - f;
@@ -729,25 +728,25 @@ function number_format(b, a, e, d) {
 }
 
 function round(b, a, e) {
-    var d, f, g;
+    var d, f, i;
     a |= 0;
     a = Math.pow(10, a);
     b *= a;
-    g = b > 0 | -(b < 0);
-    f = b % 1 === 0.5 * g;
+    i = b > 0 | -(b < 0);
+    f = b % 1 === 0.5 * i;
     d = Math.floor(b);
     if (f) switch (e) {
         case "PHP_ROUND_HALF_DOWN":
-            b = d + (g < 0);
+            b = d + (i < 0);
             break;
         case "PHP_ROUND_HALF_EVEN":
-            b = d + d % 2 * g;
+            b = d + d % 2 * i;
             break;
         case "PHP_ROUND_HALF_ODD":
             b = d + !(d % 2);
             break;
         default:
-            b = d + (g > 0)
+            b = d + (i > 0)
     }
     return (f ? b : Math.round(b)) / a
 }
@@ -768,11 +767,11 @@ function utf8_encode(b) {
     var a = "",
         e, d, f = 0;
     e = d = 0;
-    for (var f = b.length, g = 0; g < f; g++) {
-        var j = b.charCodeAt(g),
-            k = null;
-        j < 128 ? d++ : k = j > 127 && j < 2048 ? String.fromCharCode(j >> 6 | 192) + String.fromCharCode(j & 63 | 128) : String.fromCharCode(j >> 12 | 224) + String.fromCharCode(j >> 6 & 63 | 128) + String.fromCharCode(j & 63 | 128);
-        k !== null && (d > e && (a += b.slice(e, d)), a += k, e = d = g + 1)
+    for (var f = b.length, i = 0; i < f; i++) {
+        var h = b.charCodeAt(i),
+            j = null;
+        h < 128 ? d++ : j = h > 127 && h < 2048 ? String.fromCharCode(h >> 6 | 192) + String.fromCharCode(h & 63 | 128) : String.fromCharCode(h >> 12 | 224) + String.fromCharCode(h >> 6 & 63 | 128) + String.fromCharCode(h & 63 | 128);
+        j !== null && (d > e && (a += b.slice(e, d)), a += j, e = d = i + 1)
     }
     d > e && (a += b.slice(e, f));
     return a
@@ -787,7 +786,7 @@ function strtotime(b, a) {
     else if (isNaN(f = Date.parse(b))) a = a ? new Date(a * 1E3) : new Date;
     else return f / 1E3 | 0;
     var b = b.toLowerCase(),
-        g = {
+        i = {
             day: {
                 sun: 0,
                 mon: 1,
@@ -799,7 +798,7 @@ function strtotime(b, a) {
             },
             mon: ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"]
         },
-        j = function(b) {
+        h = function(b) {
             var f = b[2] && b[2] === "ago",
                 d = (d = b[0] === "last" ? -1 : 1) * (f ? -1 : 1);
             switch (b[0]) {
@@ -829,7 +828,7 @@ function strtotime(b, a) {
                             a.setSeconds(a.getSeconds() + d);
                             break;
                         default:
-                            f = g.day[b[1].substring(0, 3)], typeof f !== "undefined" && (f -= a.getDay(), f === 0 ? f = 7 * d : f > 0 ? b[0] === "last" && (f -= 7) : b[0] === "next" && (f += 7), a.setDate(a.getDate() + f))
+                            f = i.day[b[1].substring(0, 3)], typeof f !== "undefined" && (f -= a.getDay(), f === 0 ? f = 7 * d : f > 0 ? b[0] === "last" && (f -= 7) : b[0] === "next" && (f += 7), a.setDate(a.getDate() + f))
                     }
                     break;
                 default:
@@ -861,13 +860,13 @@ function strtotime(b, a) {
         };
     f = b.match(/^(\d{2,4}-\d{1,2}-\d{1,2})(?:\s(\d{1,2}:\d{2}(:\d{2})?)?(?:\.(\d+))?)?$/);
     if (f !== null) return f[2] ? f[3] || (f[2] += ":00") :
-        f[2] = "00:00:00", e = f[1].split(/-/g), e[1] = g.mon[e[1] - 1] || e[1], e[0] = +e[0], e[0] = e[0] >= 0 && e[0] <= 69 ? "20" + (e[0] < 10 ? "0" + e[0] : e[0] + "") : e[0] >= 70 && e[0] <= 99 ? "19" + e[0] : e[0] + "", parseInt(this.strtotime(e[2] + " " + e[1] + " " + e[0] + " " + f[2]) + (f[4] ? f[4] / 1E3 : ""), 10);
+        f[2] = "00:00:00", e = f[1].split(/-/g), e[1] = i.mon[e[1] - 1] || e[1], e[0] = +e[0], e[0] = e[0] >= 0 && e[0] <= 69 ? "20" + (e[0] < 10 ? "0" + e[0] : e[0] + "") : e[0] >= 70 && e[0] <= 99 ? "19" + e[0] : e[0] + "", parseInt(this.strtotime(e[2] + " " + e[1] + " " + e[0] + " " + f[2]) + (f[4] ? f[4] / 1E3 : ""), 10);
     f = b.match(RegExp("([+-]?\\d+\\s(years?|months?|weeks?|days?|hours?|min|minutes?|sec|seconds?|sun\\.?|sunday|mon\\.?|monday|tue\\.?|tuesday|wed\\.?|wednesday|thu\\.?|thursday|fri\\.?|friday|sat\\.?|saturday)|(last|next)\\s(years?|months?|weeks?|days?|hours?|min|minutes?|sec|seconds?|sun\\.?|sunday|mon\\.?|monday|tue\\.?|tuesday|wed\\.?|wednesday|thu\\.?|thursday|fri\\.?|friday|sat\\.?|saturday))(\\sago)?",
         "gi"));
     if (f === null) return !1;
     e = 0;
     for (d = f.length; e < d; e++)
-        if (!j(f[e].split(" "))) return !1;
+        if (!h(f[e].split(" "))) return !1;
     return a.getTime() / 1E3 | 0
 }
 
@@ -881,46 +880,46 @@ function ucfirst(b) {
         return (a >> 16) + (b >> 16) + (f >> 16) << 16 | f & 65535
     }
 
-    function e(b, f, d, e, g, h) {
-        b = a(a(f, b), a(e, h));
-        return a(b << g | b >>> 32 - g, d)
+    function e(b, f, d, e, i, g) {
+        b = a(a(f, b), a(e, g));
+        return a(b << i | b >>> 32 - i, d)
     }
 
-    function d(a, b, f, d, g, h, i) {
-        return e(b & f | ~b & d, a, b, g, h, i)
+    function d(a, b, f, d, i, g, h) {
+        return e(b & f | ~b & d, a, b, i, g, h)
     }
 
-    function f(a, b, f, d, g, h, i) {
-        return e(b & d | f & ~d, a, b, g, h, i)
+    function f(a, b, f, d, i, g, h) {
+        return e(b & d | f & ~d, a, b, i, g, h)
     }
 
-    function g(a, b, f, d, g, h, i) {
-        return e(f ^ (b | ~d), a, b, g, h, i)
+    function i(a, b, f, d, i, g, h) {
+        return e(f ^ (b | ~d), a, b, i, g, h)
     }
 
-    function j(b, h) {
-        b[h >> 5] |= 128 << h % 32;
-        b[(h + 64 >>> 9 << 4) + 14] = h;
-        var i, j, n, m, k, p = 1732584193,
-            q = -271733879,
+    function h(b, g) {
+        b[g >> 5] |= 128 << g % 32;
+        b[(g + 64 >>> 9 << 4) + 14] = g;
+        var h, l, n, m, j, q = 1732584193,
+            p = -271733879,
             t = -1732584194,
-            r = 271733878;
-        for (i = 0; i < b.length; i += 16) j = p, n = q, m = t, k = r, p = d(p,
-                q, t, r, b[i], 7, -680876936), r = d(r, p, q, t, b[i + 1], 12, -389564586), t = d(t, r, p, q, b[i + 2], 17, 606105819), q = d(q, t, r, p, b[i + 3], 22, -1044525330), p = d(p, q, t, r, b[i + 4], 7, -176418897), r = d(r, p, q, t, b[i + 5], 12, 1200080426), t = d(t, r, p, q, b[i + 6], 17, -1473231341), q = d(q, t, r, p, b[i + 7], 22, -45705983), p = d(p, q, t, r, b[i + 8], 7, 1770035416), r = d(r, p, q, t, b[i + 9], 12, -1958414417), t = d(t, r, p, q, b[i + 10], 17, -42063), q = d(q, t, r, p, b[i + 11], 22, -1990404162), p = d(p, q, t, r, b[i + 12], 7, 1804603682), r = d(r, p, q, t, b[i + 13], 12, -40341101), t = d(t, r, p, q, b[i + 14], 17, -1502002290),
-            q = d(q, t, r, p, b[i + 15], 22, 1236535329), p = f(p, q, t, r, b[i + 1], 5, -165796510), r = f(r, p, q, t, b[i + 6], 9, -1069501632), t = f(t, r, p, q, b[i + 11], 14, 643717713), q = f(q, t, r, p, b[i], 20, -373897302), p = f(p, q, t, r, b[i + 5], 5, -701558691), r = f(r, p, q, t, b[i + 10], 9, 38016083), t = f(t, r, p, q, b[i + 15], 14, -660478335), q = f(q, t, r, p, b[i + 4], 20, -405537848), p = f(p, q, t, r, b[i + 9], 5, 568446438), r = f(r, p, q, t, b[i + 14], 9, -1019803690), t = f(t, r, p, q, b[i + 3], 14, -187363961), q = f(q, t, r, p, b[i + 8], 20, 1163531501), p = f(p, q, t, r, b[i + 13], 5, -1444681467), r = f(r, p, q, t, b[i + 2], 9, -51403784),
-            t = f(t, r, p, q, b[i + 7], 14, 1735328473), q = f(q, t, r, p, b[i + 12], 20, -1926607734), p = e(q ^ t ^ r, p, q, b[i + 5], 4, -378558), r = e(p ^ q ^ t, r, p, b[i + 8], 11, -2022574463), t = e(r ^ p ^ q, t, r, b[i + 11], 16, 1839030562), q = e(t ^ r ^ p, q, t, b[i + 14], 23, -35309556), p = e(q ^ t ^ r, p, q, b[i + 1], 4, -1530992060), r = e(p ^ q ^ t, r, p, b[i + 4], 11, 1272893353), t = e(r ^ p ^ q, t, r, b[i + 7], 16, -155497632), q = e(t ^ r ^ p, q, t, b[i + 10], 23, -1094730640), p = e(q ^ t ^ r, p, q, b[i + 13], 4, 681279174), r = e(p ^ q ^ t, r, p, b[i], 11, -358537222), t = e(r ^ p ^ q, t, r, b[i + 3], 16, -722521979), q = e(t ^ r ^ p, q, t, b[i + 6], 23, 76029189), p = e(q ^
-                t ^ r, p, q, b[i + 9], 4, -640364487), r = e(p ^ q ^ t, r, p, b[i + 12], 11, -421815835), t = e(r ^ p ^ q, t, r, b[i + 15], 16, 530742520), q = e(t ^ r ^ p, q, t, b[i + 2], 23, -995338651), p = g(p, q, t, r, b[i], 6, -198630844), r = g(r, p, q, t, b[i + 7], 10, 1126891415), t = g(t, r, p, q, b[i + 14], 15, -1416354905), q = g(q, t, r, p, b[i + 5], 21, -57434055), p = g(p, q, t, r, b[i + 12], 6, 1700485571), r = g(r, p, q, t, b[i + 3], 10, -1894986606), t = g(t, r, p, q, b[i + 10], 15, -1051523), q = g(q, t, r, p, b[i + 1], 21, -2054922799), p = g(p, q, t, r, b[i + 8], 6, 1873313359), r = g(r, p, q, t, b[i + 15], 10, -30611744), t = g(t, r, p, q, b[i + 6], 15, -1560198380),
-            q = g(q, t, r, p, b[i + 13], 21, 1309151649), p = g(p, q, t, r, b[i + 4], 6, -145523070), r = g(r, p, q, t, b[i + 11], 10, -1120210379), t = g(t, r, p, q, b[i + 2], 15, 718787259), q = g(q, t, r, p, b[i + 9], 21, -343485551), p = a(p, j), q = a(q, n), t = a(t, m), r = a(r, k);
-        return [p, q, t, r]
+            s = 271733878;
+        for (h = 0; h < b.length; h += 16) l = q, n = p, m = t, j = s, q = d(q,
+                p, t, s, b[h], 7, -680876936), s = d(s, q, p, t, b[h + 1], 12, -389564586), t = d(t, s, q, p, b[h + 2], 17, 606105819), p = d(p, t, s, q, b[h + 3], 22, -1044525330), q = d(q, p, t, s, b[h + 4], 7, -176418897), s = d(s, q, p, t, b[h + 5], 12, 1200080426), t = d(t, s, q, p, b[h + 6], 17, -1473231341), p = d(p, t, s, q, b[h + 7], 22, -45705983), q = d(q, p, t, s, b[h + 8], 7, 1770035416), s = d(s, q, p, t, b[h + 9], 12, -1958414417), t = d(t, s, q, p, b[h + 10], 17, -42063), p = d(p, t, s, q, b[h + 11], 22, -1990404162), q = d(q, p, t, s, b[h + 12], 7, 1804603682), s = d(s, q, p, t, b[h + 13], 12, -40341101), t = d(t, s, q, p, b[h + 14], 17, -1502002290),
+            p = d(p, t, s, q, b[h + 15], 22, 1236535329), q = f(q, p, t, s, b[h + 1], 5, -165796510), s = f(s, q, p, t, b[h + 6], 9, -1069501632), t = f(t, s, q, p, b[h + 11], 14, 643717713), p = f(p, t, s, q, b[h], 20, -373897302), q = f(q, p, t, s, b[h + 5], 5, -701558691), s = f(s, q, p, t, b[h + 10], 9, 38016083), t = f(t, s, q, p, b[h + 15], 14, -660478335), p = f(p, t, s, q, b[h + 4], 20, -405537848), q = f(q, p, t, s, b[h + 9], 5, 568446438), s = f(s, q, p, t, b[h + 14], 9, -1019803690), t = f(t, s, q, p, b[h + 3], 14, -187363961), p = f(p, t, s, q, b[h + 8], 20, 1163531501), q = f(q, p, t, s, b[h + 13], 5, -1444681467), s = f(s, q, p, t, b[h + 2], 9, -51403784),
+            t = f(t, s, q, p, b[h + 7], 14, 1735328473), p = f(p, t, s, q, b[h + 12], 20, -1926607734), q = e(p ^ t ^ s, q, p, b[h + 5], 4, -378558), s = e(q ^ p ^ t, s, q, b[h + 8], 11, -2022574463), t = e(s ^ q ^ p, t, s, b[h + 11], 16, 1839030562), p = e(t ^ s ^ q, p, t, b[h + 14], 23, -35309556), q = e(p ^ t ^ s, q, p, b[h + 1], 4, -1530992060), s = e(q ^ p ^ t, s, q, b[h + 4], 11, 1272893353), t = e(s ^ q ^ p, t, s, b[h + 7], 16, -155497632), p = e(t ^ s ^ q, p, t, b[h + 10], 23, -1094730640), q = e(p ^ t ^ s, q, p, b[h + 13], 4, 681279174), s = e(q ^ p ^ t, s, q, b[h], 11, -358537222), t = e(s ^ q ^ p, t, s, b[h + 3], 16, -722521979), p = e(t ^ s ^ q, p, t, b[h + 6], 23, 76029189), q = e(p ^
+                t ^ s, q, p, b[h + 9], 4, -640364487), s = e(q ^ p ^ t, s, q, b[h + 12], 11, -421815835), t = e(s ^ q ^ p, t, s, b[h + 15], 16, 530742520), p = e(t ^ s ^ q, p, t, b[h + 2], 23, -995338651), q = i(q, p, t, s, b[h], 6, -198630844), s = i(s, q, p, t, b[h + 7], 10, 1126891415), t = i(t, s, q, p, b[h + 14], 15, -1416354905), p = i(p, t, s, q, b[h + 5], 21, -57434055), q = i(q, p, t, s, b[h + 12], 6, 1700485571), s = i(s, q, p, t, b[h + 3], 10, -1894986606), t = i(t, s, q, p, b[h + 10], 15, -1051523), p = i(p, t, s, q, b[h + 1], 21, -2054922799), q = i(q, p, t, s, b[h + 8], 6, 1873313359), s = i(s, q, p, t, b[h + 15], 10, -30611744), t = i(t, s, q, p, b[h + 6], 15, -1560198380),
+            p = i(p, t, s, q, b[h + 13], 21, 1309151649), q = i(q, p, t, s, b[h + 4], 6, -145523070), s = i(s, q, p, t, b[h + 11], 10, -1120210379), t = i(t, s, q, p, b[h + 2], 15, 718787259), p = i(p, t, s, q, b[h + 9], 21, -343485551), q = a(q, l), p = a(p, n), t = a(t, m), s = a(s, j);
+        return [q, p, t, s]
     }
 
-    function k(a) {
+    function j(a) {
         var b, f = "";
         for (b = 0; b < a.length * 32; b += 8) f += String.fromCharCode(a[b >> 5] >>> b % 32 & 255);
         return f
     }
 
-    function l(a) {
+    function k(a) {
         var b, f = [];
         f[(a.length >> 2) - 1] = void 0;
         for (b = 0; b < f.length; b += 1) f[b] = 0;
@@ -928,12 +927,12 @@ function ucfirst(b) {
         return f
     }
 
-    function h(a) {
-        return k(j(l(a),
+    function g(a) {
+        return j(h(k(a),
             a.length * 8))
     }
 
-    function i(a) {
+    function l(a) {
         var b = "",
             f, d;
         for (d = 0; d < a.length; d += 1) f = a.charCodeAt(d), b += "0123456789abcdef".charAt(f >>> 4 & 15) + "0123456789abcdef".charAt(f & 15);
@@ -943,22 +942,22 @@ function ucfirst(b) {
     function m(a, b) {
         var f = unescape(encodeURIComponent(a)),
             d = unescape(encodeURIComponent(b)),
-            e = l(f),
-            g = [],
-            i = [];
-        g[15] = i[15] = void 0;
-        e.length > 16 && (e = j(e, f.length * 8));
-        for (f = 0; f < 16; f += 1) g[f] = e[f] ^ 909522486, i[f] = e[f] ^ 1549556828;
-        d = j(g.concat(l(d)), 512 + d.length * 8);
-        return k(j(i.concat(d), 640))
+            e = k(f),
+            i = [],
+            g = [];
+        i[15] = g[15] = void 0;
+        e.length > 16 && (e = h(e, f.length * 8));
+        for (f = 0; f < 16; f += 1) i[f] = e[f] ^ 909522486, g[f] = e[f] ^ 1549556828;
+        d = h(i.concat(k(d)), 512 + d.length * 8);
+        return j(h(g.concat(d), 640))
     }
 
     function n(a, b, f) {
         if (!b) {
-            if (!f) return i(h(unescape(encodeURIComponent(a))));
-            return h(unescape(encodeURIComponent(a)))
+            if (!f) return l(g(unescape(encodeURIComponent(a))));
+            return g(unescape(encodeURIComponent(a)))
         }
-        if (!f) return i(m(b, a));
+        if (!f) return l(m(b, a));
         return m(b, a)
     }
     typeof define === "function" && define.amd ? define(function() {
@@ -1142,10 +1141,10 @@ function prepare_replace_code(b) {
         return b.key.length - a.key.length
     });
     for (var e = 0, f = a.length; e < f; e++) {
-        var g = d(a[e].key);
+        var i = d(a[e].key);
         b.reg_cmp.push({
             key: a[e].regex,
-            rep: '<img src="./image/emoticon/' + a[e].src + '" title="' + a[e].title + " " + g + '" alt="' + g + '" class="ui_emoticon"/>',
+            rep: '<img src="./image/emoticon/' + a[e].src + '" title="' + a[e].title + " " + i + '" alt="' + i + '" class="ui_emoticon"/>',
             reptxt: a[e].key
         })
     }
@@ -1437,10 +1436,10 @@ function ChatWork(b) {
         a.localStorage = new LocalStorage;
         a.view.prepare()
     };
-    var g = !1;
+    var i = !1;
     a.prepareRegExp = function() {
         prepare_replace_code(a);
-        g = !0
+        i = !0
     };
     a.getLiveUrl = function(a,
         b, f) {
@@ -1481,7 +1480,7 @@ function ChatWork(b) {
         function() {
             CW.view.hideProgress()
         };
-    var j = {};
+    var h = {};
     a.read = function(b, f) {
         var d;
         b == void 0 && (b = 4E3);
@@ -1489,35 +1488,35 @@ function ChatWork(b) {
             a.cancelRead(d.id);
             var e = d.getUnreadNum();
             if (e > 0) {
-                var g = RL.rooms[d.id],
-                    i = g.getViewStat();
-                g.reading = !0;
-                j[d.id] = setTimeout(function() {
-                    RM && RM.id == g.id ? i = RM.getViewStat() : e = g.getUnreadNum();
-                    e > i.noview_num && CW.get("gateway.php", {
+                var i = RL.rooms[d.id],
+                    g = i.getViewStat();
+                i.reading = !0;
+                h[d.id] = setTimeout(function() {
+                    RM && RM.id == i.id ? g = RM.getViewStat() : e = i.getUnreadNum();
+                    e > g.noview_num && CW.get("gateway.php", {
                         cmd: "read",
-                        room_id: g.id,
-                        mid: g.mid,
-                        last_chat_id: i.last_read_id
+                        room_id: i.id,
+                        mid: i.mid,
+                        last_chat_id: g.last_read_id
                     }, function(a) {
                         if (a.read_num) {
-                            var b = g.getUnreadNum();
-                            g.read_num =
+                            var b = i.getUnreadNum();
+                            i.read_num =
                                 a.read_num;
-                            var f = g.getUnreadNum(),
-                                d = g.getMentionNum();
-                            g.mention_num = a.mention_num;
-                            a = g.getMentionNum();
+                            var f = i.getUnreadNum(),
+                                d = i.getMentionNum();
+                            i.mention_num = a.mention_num;
+                            a = i.getMentionNum();
                             b > 0 && f == 0 ? RL.unread_room_sum-- : b == 0 && f > 0 && RL.unread_room_sum++;
                             d > 0 && a == 0 ? RL.mention_room_sum-- : d == 0 && a > 0 && RL.mention_room_sum++;
-                            RL.view.updateUnreadNum(g.id);
+                            RL.view.updateUnreadNum(i.id);
                             RL.view.updateSumNumbers();
-                            RM.id == g.id && g.timeline.read(e)
+                            RM.id == i.id && i.timeline.read(e)
                         }
-                        g.reading = !1
+                        i.reading = !1
                     }, function(a, b) {
                         if (b && b.error && b.error == "no_member") {
-                            var f = g.id;
+                            var f = i.id;
                             CW.post("gateway.php", {
                                 cmd: "is_room_member",
                                 rid: f
@@ -1525,7 +1524,7 @@ function ChatWork(b) {
                                 a.is_room_member == !1 && (RL.deleteRoom(f), RL.build())
                             })
                         }
-                        g.reading = !1
+                        i.reading = !1
                     });
                     RM && RM.getUnreadNum() > 0 && CW.read()
                 }, b)
@@ -1533,7 +1532,7 @@ function ChatWork(b) {
         }
     };
     a.cancelRead = function(a) {
-        j[a] && clearTimeout(j[a])
+        h[a] && clearTimeout(h[a])
     };
     a.sendFeedback = function(a) {
         a = $.extend({
@@ -1561,8 +1560,8 @@ function ChatWork(b) {
     a.stopSound = function(b) {
         return a.view.stopSound(b)
     };
-    var k = !0,
-        l = !1;
+    var j = !0,
+        k = !1;
     a.watch = function(b) {
         if (!a.watching) {
             a.watching = !0;
@@ -1572,7 +1571,7 @@ function ChatWork(b) {
             }, 3E5);
             if (a.last_id == 0) {
                 if (!RL) return;
-                k && (k = !1, a.view.firstWatch());
+                j && (j = !1, a.view.firstWatch());
                 CW.get("gateway.php", {
                     cmd: "init_load",
                     rid: RL.lazy_select,
@@ -1593,69 +1592,73 @@ function ChatWork(b) {
                     var d =
                         f.update_info,
                         e = {},
-                        g;
-                    for (g in d) {
-                        var i = d[g];
-                        switch (g) {
+                        i;
+                    for (i in d) {
+                        var h = d[i];
+                        switch (i) {
                             case "room":
-                                for (var h in i) {
-                                    if (i[h].rd && (RL.deleteRoom(h), !i[h].a)) continue;
-                                    i[h].lt != void 0 && RL.setLastUpdateTime(h, i[h].lt);
-                                    i[h].i && RL.setInfoUpdate(h);
-                                    i[h].p && RL.setPersonalUpdate(h);
-                                    i[h].d && RL.setDescUpdate(h);
-                                    i[h].m && RL.setMemberUpdate(h);
-                                    i[h].t && RL.setTaskUpdate(h);
-                                    if (i[h].cd)
-                                        for (var j in i[h].cd)
-                                            if (RL.rooms[h].timeline && (RL.rooms[h].timeline.deleteChat(j), RL.setUpdate(!0)), RM && h == RM.id) e.RM = !0;
-                                    if (i[h].ce)
-                                        for (j in i[h].ce)
-                                            if (!i[h].cd || !i[h].cd[j])
-                                                if (RL.rooms[h].timeline &&
-                                                    (RL.rooms[h].timeline.refreshChat(j), RL.setUpdate(!0)), RM && h == RM.id) e.RM = !0;
-                                    if (i[h].fe)
-                                        for (var n in i[h].fe)(!i[h].fd || !i[h].fd[n]) && FL.refreshFile(n);
-                                    if (i[h].fd)
-                                        for (n in i[h].fd)
-                                            if (FL.deleteFileStat(n), RM && h == RM.id) e.RM = !0;
-                                    if (i[h].tc)
-                                        for (var m in i[h].tc)(!i[h].td || !i[h].td[m]) && TK.checkTask(m, i[h].tc[m], !0);
-                                    if (i[h].te)
-                                        for (m in i[h].te)(!i[h].td || !i[h].td[m]) && TK.refreshTask(m);
-                                    if (i[h].td)
-                                        for (m in i[h].td) TK.deleteTaskStat(m);
-                                    if (i[h].s != void 0) RL.rooms[h].sticky = i[h].s, RL.setUpdate(!0);
-                                    i[h].lvc !=
-                                        void 0 && CW.openLiveNotification(i[h].lvc, h);
-                                    i[h].lvr != void 0 && CW.closeLiveNotification(i[h].lvr, h)
+                                for (var g in h) {
+                                    if (h[g].rd && (RL.deleteRoom(g), !h[g].a)) continue;
+                                    h[g].lt != void 0 && RL.setLastUpdateTime(g, h[g].lt);
+                                    h[g].i && RL.setInfoUpdate(g);
+                                    h[g].p && RL.setPersonalUpdate(g);
+                                    h[g].d && RL.setDescUpdate(g);
+                                    h[g].m && RL.setMemberUpdate(g);
+                                    h[g].t && RL.setTaskUpdate(g);
+                                    if (h[g].cd)
+                                        for (var l in h[g].cd)
+                                            if (RL.rooms[g].timeline && (RL.rooms[g].timeline.deleteChat(l), RL.setUpdate(!0)), RM && g == RM.id) e.RM = !0;
+                                    if (h[g].ce)
+                                        for (l in h[g].ce)
+                                            if (!h[g].cd || !h[g].cd[l])
+                                                if (RL.rooms[g].timeline &&
+                                                    (RL.rooms[g].timeline.refreshChat(l), RL.setUpdate(!0)), RM && g == RM.id) e.RM = !0;
+                                    if (h[g].fe)
+                                        for (var n in h[g].fe)(!h[g].fd || !h[g].fd[n]) && FL.refreshFile(n);
+                                    if (h[g].fd)
+                                        for (n in h[g].fd)
+                                            if (FL.deleteFileStat(n), RM && g == RM.id) e.RM = !0;
+                                    if (h[g].tc) {
+                                        for (var m in h[g].tc)(!h[g].td || !h[g].td[m]) && TK.checkTask(m, h[g].tc[m], !0);
+                                        TK.reflashTaskList(g)
+                                    }
+                                    if (h[g].te)
+                                        for (m in h[g].te)(!h[g].td || !h[g].td[m]) && TK.refreshTask(m);
+                                    if (h[g].td) {
+                                        for (m in h[g].td) TK.deleteTaskStat(m);
+                                        TK.reflashTaskList(g)
+                                    }
+                                    if (h[g].s != void 0) RL.rooms[g].sticky =
+                                        h[g].s, RL.setUpdate(!0);
+                                    h[g].lvc != void 0 && CW.openLiveNotification(h[g].lvc, g);
+                                    h[g].lvr != void 0 && CW.closeLiveNotification(h[g].lvr, g)
                                 }
                                 break;
                             case "account":
-                                if (i.a) {
+                                if (h.a) {
                                     var o = [],
-                                        k;
-                                    for (k in i.a) o.push(parseInt(k, 10));
+                                        j;
+                                    for (j in h.a) o.push(parseInt(j, 10));
                                     AC.refreshAccount(o, !0)
                                 }
-                                i.s && ST.getSetting();
-                                if (i.r)
-                                    for (h in o = i.r, AC.account_dat[o] && AC.refreshContactList(), RL.rooms) RL.rooms[h].member_dat[o] && RL.setMemberUpdate(h);
-                                i.n && ST.getAnnounce();
+                                h.s && ST.getSetting();
+                                if (h.r)
+                                    for (g in o = h.r, AC.account_dat[o] && AC.refreshContactList(), RL.rooms) RL.rooms[g].member_dat[o] && RL.setMemberUpdate(g);
+                                h.n && ST.getAnnounce();
                                 break;
                             case "contact":
-                                i.l && AC.refreshContactList();
-                                if (i.m) {
+                                h.l && AC.refreshContactList();
+                                if (h.m) {
                                     o = [];
-                                    for (k in i.m) o.push(parseInt(k, 10));
+                                    for (j in h.m) o.push(parseInt(j, 10));
                                     AC.refreshMentionInfo(o)
                                 }
-                                i.a && i.a.length >
-                                    0 && AC.client_addContact(i.a);
-                                i.d && i.d.length > 0 && AC.client_deleteContact(i.d);
+                                h.a &&
+                                    h.a.length > 0 && AC.client_addContact(h.a);
+                                h.d && h.d.length > 0 && AC.client_deleteContact(h.d);
                                 break;
                             case "category":
-                                i.l && RL.refreshCategory()
+                                h.l && RL.refreshCategory()
                         }
                     }
                     e.RM && RM.build();
@@ -1664,7 +1667,7 @@ function ChatWork(b) {
                     b && a.comet()
                 }
                 if (a.announce_id != f.announce_id) a.announce_id = f.announce_id, ST.getAnnounce();
-                f.update != void 0 && (l || (d = f.update.replace("a", ""), f.update.indexOf("a") == -1 && a.view.alertUpdated(d), a.view.showUpdated(d)), l = !0)
+                f.update != void 0 && (k || (d = f.update.replace("a", ""), f.update.indexOf("a") == -1 && a.view.alertUpdated(d), a.view.showUpdated(d)), k = !0)
             });
             a.watching = !1
         }
@@ -1783,9 +1786,9 @@ function ChatWork(b) {
                     a.ajax_lasttime = microtime(!0)
                 };
                 else {
-                    var g = b.success;
+                    var i = b.success;
                     b.success = function(f) {
-                        if (f && f.status.success == !0) a.ajax_lasttime = microtime(!0), g(f.result);
+                        if (f && f.status.success == !0) a.ajax_lasttime = microtime(!0), i(f.result);
                         else {
                             var d = "";
                             if (f && (d = f.status.message, d == "NO LOGIN" || d == "INVALID USER" || d == "NO TOKEN" || d == "INVALID TOKEN" || d == "IP ERROR")) CW.setConnectionError(d), CW.checkOnline();
@@ -1798,25 +1801,25 @@ function ChatWork(b) {
             } else typeof b.error == "function" && b.error()
         }
     };
-    var h = !1,
-        i = null,
+    var g = !1,
+        l = null,
         m = 1E4;
     a.checkOnline = function(b, f) {
         typeof b != "function" && (b = function() {});
-        f && (i && (clearTimeout(i), i = null), h = !1);
-        if (h === !1) {
-            h = !0;
+        f && (l && (clearTimeout(l), l = null), g = !1);
+        if (g === !1) {
+            g = !0;
             var d = function() {
-                    h = !1;
+                    g = !1;
                     CW.setOnline();
                     b()
                 },
                 e = function(f) {
                     f == void 0 && (f = m);
                     m *= m < 10 ? 3 : 1.2;
-                    i || (i = setTimeout(function() {
-                        h = !1;
-                        i = null;
+                    l || (l = setTimeout(function() {
+                        g = !1;
+                        l = null;
                         a.checkOnline(b)
                     }, f))
                 };
@@ -1835,7 +1838,7 @@ function ChatWork(b) {
     a.renderMessage = function(b, f) {
         if (!b || b.length == void 0) return "";
         f == void 0 && (f = {});
-        g || a.prepareRegExp();
+        i || a.prepareRegExp();
         return a.view.renderMessage(b, f)
     };
     var n = new Date;
@@ -1844,14 +1847,14 @@ function ChatWork(b) {
         var f = n.getFullYear(),
             d = n.getMonth() + 1,
             e = n.getDate(),
-            g = n.getHours(),
-            i = n.getMinutes(),
-            h = n.getSeconds();
-        g < 10 && (g = "0" + g);
+            i = n.getHours(),
+            h = n.getMinutes(),
+            g = n.getSeconds();
         i < 10 && (i = "0" + i);
         h < 10 && (h = "0" + h);
+        g < 10 && (g = "0" + g);
         b == void 0 && (b = ST.data.dateformat + " H:i");
-        return b.replace("Y", f).replace("m", d).replace("d", e).replace("H", g).replace("i", i).replace("s", h)
+        return b.replace("Y", f).replace("m", d).replace("d", e).replace("H", i).replace("i", h).replace("s", g)
     };
     var o = {
         hovertip: !0,
@@ -1952,14 +1955,14 @@ function ChatWork(b) {
     a.registerAvatar = function(b) {
         a.view.registerAvatar(b)
     };
-    var s = {
+    var r = {
         type: "timeline"
     };
     a.getFilePanel = function(b, f) {
         if (f == void 0) f =
-            s;
+            r;
         else
-            for (var d in s) f[d] == void 0 && (f[d] = s[d]);
+            for (var d in r) f[d] == void 0 && (f[d] = r[d]);
         return a.view.getFilePanel(FL.file_id2file_dat[b] == void 0 ? !1 : FL.file_id2file_dat[b], f)
     };
     var v = {
@@ -2303,18 +2306,18 @@ function Account(b) {
     };
     a.client_addContact =
         function(b) {
-            for (var d, e = [], k = 0; k < b.length; k++) d = parseInt(b[k], 10), e.push(d), a.account_dat[d] = void 0, a.isContact(d) || (a.contact_list.push(d), a.contact_flag[d] = !0, a.myrequest_dat != void 0 && a.myrequest_dat[d] != void 0 && delete a.myrequest_dat[d], a.request_dat != void 0 && a.request_dat[d] != void 0 && delete a.request_dat[d]);
+            for (var d, e = [], j = 0; j < b.length; j++) d = parseInt(b[j], 10), e.push(d), a.account_dat[d] = void 0, a.isContact(d) || (a.contact_list.push(d), a.contact_flag[d] = !0, a.myrequest_dat != void 0 && a.myrequest_dat[d] != void 0 && delete a.myrequest_dat[d], a.request_dat != void 0 && a.request_dat[d] != void 0 && delete a.request_dat[d]);
             e.length > 0 && a.refreshAccount(e, !0, function() {
                 a.buildMyContact()
             })
         };
     a.client_deleteContact = function(b) {
-        for (var d, e = [], k = 0; k < b.length; k++)
-            if (d = parseInt(b[k], 10), a.isContact(d)) {
-                for (var l = 0; l <
-                    a.contact_list.length; l++)
-                    if (a.contact_list[l] == d) {
-                        a.contact_list.splice(l, 1);
+        for (var d, e = [], j = 0; j < b.length; j++)
+            if (d = parseInt(b[j], 10), a.isContact(d)) {
+                for (var k = 0; k <
+                    a.contact_list.length; k++)
+                    if (a.contact_list[k] == d) {
+                        a.contact_list.splice(k, 1);
                         break
                     }
                 delete a.contact_flag[d];
@@ -2346,33 +2349,33 @@ function Account(b) {
     var d = {};
     a.getUnknown = function(b) {
         var e = [],
-            j;
-        for (j in a.unknown_flag) a.isUnknown(j) ? d[j] == void 0 && (e.push(parseInt(j, 10)), d[j] = !0) : delete a.unknown_flag[j];
+            h;
+        for (h in a.unknown_flag) a.isUnknown(h) ? d[h] == void 0 && (e.push(parseInt(h, 10)), d[h] = !0) : delete a.unknown_flag[h];
         e.length > 0 ? a.refreshAccount(e, !1, b) : typeof b == "function" && b()
     };
     a.refreshAccount = function(b, d, e) {
         if (b.length > 0) {
             var d = d ? 1 : 0,
-                k = {},
-                l = Array.prototype.concat(b),
-                h = function(i) {
-                    var m = i.splice(0, 5E3);
+                j = {},
+                k = Array.prototype.concat(b),
+                g = function(l) {
+                    var m = l.splice(0, 5E3);
                     CW.post("gateway.php", {
                         cmd: "get_account_info",
                         aid: m,
                         get_private_data: d
                     }, function(d) {
-                        for (var g in d.account_dat) a.setAccountDat(g, d.account_dat[g]), k[g] = d.account_dat[g];
-                        if (i.length) return h(i);
+                        for (var i in d.account_dat) a.setAccountDat(i, d.account_dat[i]), j[i] = d.account_dat[i];
+                        if (l.length) return g(l);
                         a.unknown_flag = {};
-                        typeof e == "function" && e(k);
+                        typeof e == "function" && e(j);
                         a.view.updateAvatar(b);
                         a.view.updateCover(b);
                         a.view.updateName(b);
                         CW.is_business ? a.refreshInternal() : RL.build()
                     })
                 };
-            h(l)
+            g(k)
         }
     };
     a.refreshAccountDetailData = function(b, d, e) {
@@ -2413,12 +2416,12 @@ function Account(b) {
                 mtel: a.setMobileTel,
                 ud: a.setUndisclosed
             };
-        a.setAccountDat = function(e, k, l) {
-            var h = "",
-                i;
-            for (i in d) k[i] !=
-                void 0 && (d[i](e, k[i]), h = i + "_priv", k[h] != void 0 && a.setParam(e, h, k[h]));
-            b[e] = l ? !0 : !1
+        a.setAccountDat = function(e, j, k) {
+            var g = "",
+                l;
+            for (l in d) j[l] !=
+                void 0 && (d[l](e, j[l]), g = l + "_priv", j[g] != void 0 && a.setParam(e, g, j[g]));
+            b[e] = k ? !0 : !1
         };
         a.hasDetailData = function(a) {
             if (b[a]) return !0;
@@ -2443,28 +2446,28 @@ function Account(b) {
                 a.updateContactList(b.contact_dat, b.mention_dat, b.myrequest_dat, b.request_dat)
             })
     };
-    a.updateContactList = function(b, d, e, k) {
-        for (var l = {}, h = {}, i = [], m = 0; m < a.contact_list.length; m++) l[a.contact_list[m]] = !0, h[a.contact_list[m]] = !0;
+    a.updateContactList = function(b, d, e, j) {
+        for (var k = {}, g = {}, l = [], m = 0; m < a.contact_list.length; m++) k[a.contact_list[m]] = !0, g[a.contact_list[m]] = !0;
         a.contact_list = [];
         a.contact_flag = {};
         a.setName(0, "ChatWork");
         for (var n in a.account_dat) a.setRoomId(n, 0);
-        for (n in b) n = parseInt(n, 10), a.contact_flag[n] = !0, CW.registerAvatar(n), a.contact_list.push(n), a.setAccountDat(n, b[n]), delete l[n], h[n] || i.push(n);
-        i && (a.view.updateAvatar(i),
-            a.view.updateName(i));
+        for (n in b) n = parseInt(n, 10), a.contact_flag[n] = !0, CW.registerAvatar(n), a.contact_list.push(n), a.setAccountDat(n, b[n]), delete k[n], g[n] || l.push(n);
+        l && (a.view.updateAvatar(l),
+            a.view.updateName(l));
         for (n in d) a.setNickName(n, d[n].nn), a.setMentionNum(n, d[n].mn);
         for (n in e) a.setAccountDat(n, e[n]);
         a.myrequest_dat = e;
         d = [];
-        for (n in k) a.setAccountDat(n, k[n]), CW.init_loaded && !a.request_dat[n] && d.push(n);
+        for (n in j) a.setAccountDat(n, j[n]), CW.init_loaded && !a.request_dat[n] && d.push(n);
         d && (a.view.updateAvatar(d), a.view.updateName(d));
         if (CW.init_loaded) {
             d = [];
-            for (n in a.request_dat) !k[n] && !b[n] && (a.account_dat[n] = void 0, d.push(n));
-            for (n in l) a.account_dat[n] = void 0, d.push(n);
+            for (n in a.request_dat) !j[n] && !b[n] && (a.account_dat[n] = void 0, d.push(n));
+            for (n in k) a.account_dat[n] = void 0, d.push(n);
             d.length > 0 && a.refreshAccount(d)
         }
-        a.request_dat = k;
+        a.request_dat = j;
         a.refreshInternal();
         a.buildMyStatus();
         a.buildMyContact()
@@ -2679,7 +2682,7 @@ function File() {
         }, function(a) {
             a.storage != void 0 && a.storage_limit != void 0 &&
                 b.updateStorageInfo(a.storage, a.storage_limit, a.storage_limit_time, a.is_storage_limit);
-            for (var d = 0, k = f.length; d < k; d++) b.deleteFileStat(f[d]);
+            for (var d = 0, j = f.length; d < j; d++) b.deleteFileStat(f[d]);
             typeof e == "function" && e(a)
         }, function(a) {
             typeof d == "function" && d(a)
@@ -2722,9 +2725,9 @@ function File() {
         }, function(e) {
             for (var d in e.file_dat) {
                 var f = !1,
-                    g;
-                for (g in e.file_dat[d]) b.file_id2file_dat[d][g] !=
-                    e.file_dat[d][g] && (b.file_id2file_dat[d][g] = e.file_dat[d][g], f = !0);
+                    i;
+                for (i in e.file_dat[d]) b.file_id2file_dat[d][i] !=
+                    e.file_dat[d][i] && (b.file_id2file_dat[d][i] = e.file_dat[d][i], f = !0);
                 f && b.buildByFileId(a)
             }
         })
@@ -2798,10 +2801,12 @@ function Task() {
     b.checkTask = function(a, e, d) {
         if (b.hasTask(a)) {
             var f = parseInt(e, 10) > 0 ? "done" : "open";
-            if (b.task_id2task_dat[a].st != f) b.task_id2task_dat[a].st = f, b.buildByTaskId(a, !0), d || (b.task_id2task_dat[a].aid == AC.myid || b.task_id2task_dat[a].bid == AC.myid) && CW.get("gateway.php", {
+            if (b.task_id2task_dat[a].st != f) b.task_id2task_dat[a].st = f, d ? b.buildByTaskId(a, !0) : (b.task_id2task_dat[a].aid == AC.myid || b.task_id2task_dat[a].bid == AC.myid) && CW.get("gateway.php", {
                 cmd: "check_task",
                 task_id: a,
                 to: e
+            }, function() {
+                b.reflashTaskList(b.task_id2task_dat[a].rid)
             })
         }
     };
@@ -2821,15 +2826,19 @@ function Task() {
             cmd: "delete_task",
             task_id: a
         }, function(d) {
-            d.storage != void 0 && d.storage_limit != void 0 && b.updateStorageInfo(d.storage, d.storage_limit, d.storage_limit_time, d.is_storage_limit);
-            b.deleteTaskStat(a);
+            d.storage != void 0 && d.storage_limit != void 0 && b.updateStorageInfo(d.storage, d.storage_limit,
+                d.storage_limit_time, d.is_storage_limit);
+            b.deleteTaskStat(a, !0);
+            b.reflashTaskList(b.task_id2task_dat[a].rid, !0, function() {
+                b.buildByTaskId(a)
+            });
             typeof e == "function" && e(d)
         }, function(a) {
             typeof d == "function" && d(a)
         })
     };
-    b.deleteTaskStat = function(a) {
-        if (b.hasTask(a) && b.task_id2task_dat[a].st != "deleted") b.task_id2task_dat[a].st = "deleted", delete b.task_id2task_dat[a].tn, b.buildByTaskId(a)
+    b.deleteTaskStat = function(a, e) {
+        if (b.hasTask(a) && b.task_id2task_dat[a].st != "deleted") b.task_id2task_dat[a].st = "deleted", delete b.task_id2task_dat[a].tn, e || b.buildByTaskId(a)
     };
     b.refreshTask = function(a) {
         b.hasTask(a) && CW.get("gateway.php", {
@@ -2838,8 +2847,8 @@ function Task() {
         }, function(e) {
             for (var d in e.task_dat) {
                 var f = !1,
-                    g;
-                for (g in e.task_dat[d]) b.task_id2task_dat[d][g] != e.task_dat[d][g] && (b.task_id2task_dat[d][g] = e.task_dat[d][g], f = !0);
+                    i;
+                for (i in e.task_dat[d]) b.task_id2task_dat[d][i] != e.task_dat[d][i] && (b.task_id2task_dat[d][i] = e.task_dat[d][i], f = !0);
                 f && b.buildByTaskId(a)
             }
         })
@@ -2847,8 +2856,22 @@ function Task() {
     b.buildByTaskId = function(a, e) {
         b.view.buildByTaskId(a, e)
     };
+    b.reflashTaskList = function(a, e, d) {
+        CW.get("gateway.php", {
+            cmd: "load_task",
+            room_id: a,
+            status: "open"
+        }, function(f) {
+            for (task_id in f.task_dat) b.setTask(f.task_dat[task_id]);
+            RL.rooms[a].refreshTaskNum();
+            RL.build(!0);
+            RM.tasklist.build();
+            typeof d === "function" && d(f)
+        })
+    };
     b.getMyTaskList = function(a, b) {
-        b == void 0 && (b = "my");
+        b == void 0 &&
+            (b = "my");
         var d = [],
             f;
         for (f in TK.task_id2task_dat)(b == "my" ? TK.task_id2task_dat[f].aid : TK.task_id2task_dat[f].bid) == AC.myid && TK.task_id2task_dat[f].st == a && d.push(f);
@@ -2857,16 +2880,16 @@ function Task() {
     b.sortTaskList = function(a) {
         a.sort(function(a, d) {
             var f = 0,
-                g = 0;
+                i = 0;
             b.task_id2task_dat[a].lt && (f = parseInt(b.task_id2task_dat[a].lt, 10));
-            b.task_id2task_dat[d].lt && (g = parseInt(b.task_id2task_dat[d].lt, 10));
-            if (f > 0 && g == 0) return -1;
-            else if (g > 0 &&
-                f == 0) return 1;
-            if (f < g) return -1;
-            else if (f > g) return 1;
+            b.task_id2task_dat[d].lt && (i = parseInt(b.task_id2task_dat[d].lt, 10));
+            if (f > 0 && i == 0) return -1;
+            else if (i > 0 && f == 0) return 1;
+            if (f < i) return -1;
+            else if (f > i) return 1;
             else {
-                if (b.task_id2task_dat[a].aid == AC.myid && b.task_id2task_dat[d].aid != AC.myid) return -1;
+                if (b.task_id2task_dat[a].aid == AC.myid && b.task_id2task_dat[d].aid !=
+                    AC.myid) return -1;
                 else if (b.task_id2task_dat[a].aid != AC.myid && b.task_id2task_dat[d].aid == AC.myid) return 1;
                 return b.task_id2task_dat[a].id - b.task_id2task_dat[d].id
             }
@@ -2957,8 +2980,8 @@ function RoomList() {
     b.getSortedRoomList = function(a) {
         var d = [],
             e = [],
-            k;
-        for (k in b.rooms) b.rooms[k].sticky ? e.push(k) : d.push(k);
+            j;
+        for (j in b.rooms) b.rooms[j].sticky ? e.push(j) : d.push(j);
         switch (a) {
             case "name":
                 d = b.sortByName(d);
@@ -2968,7 +2991,7 @@ function RoomList() {
                 d = b.sortByLastUpdateTime(d), e = b.sortByLastUpdateTime(e)
         }
         a = 0;
-        for (k = d.length; a < k; a++) e.push(d[a]);
+        for (j = d.length; a < j; a++) e.push(d[a]);
         return e
     };
     b.sortByName = function(a) {
@@ -3024,12 +3047,12 @@ function RoomList() {
         if (b.rooms[a] != void 0) {
             b.rooms[a].free();
             delete b.rooms[a];
-            var d, e, k;
-            for (k in b.category_dat) {
-                e = b.category_dat[k].list;
-                for (var l = 0, h = e.length; l < h; l++)
-                    if (d = e[l], d == a) {
-                        e.splice(l, 1);
+            var d, e, j;
+            for (j in b.category_dat) {
+                e = b.category_dat[j].list;
+                for (var k = 0, g = e.length; k < g; k++)
+                    if (d = e[k], d == a) {
+                        e.splice(k, 1);
                         break
                     }
             }
@@ -3053,7 +3076,7 @@ function RoomList() {
     b.selectRoom = function(a, d, e) {
         e === void 0 &&
             (e = {});
-        var k = $.extend({
+        var j = $.extend({
             jumpTo: 0,
             jumpToCallback: function() {},
             smoothScroll: !1,
@@ -3065,8 +3088,8 @@ function RoomList() {
                 b.view.selectRoom(a);
                 RL.rooms[a].rswitch = !0;
                 (d = parseInt(d, 10)) || (d = void 0);
-                if (d) k.jumpTo = d, k.jump_to_chat_id = d, k.highlight = e.highlight !== void 0 ? e.highlight : !0;
-                RL.rooms[a].build(k);
+                if (d) j.jumpTo = d, j.jump_to_chat_id = d, j.highlight = e.highlight !== void 0 ? e.highlight : !0;
+                RL.rooms[a].build(j);
                 b.focusRoom(a);
                 (b.filter_readonly || b.filter_toonly || b.filter_taskonly || b.filter_internalonly) && setTimeout(function() {
                     RL.build()
@@ -3137,11 +3160,11 @@ function RoomList() {
         var a = [],
             d = [],
             e = [],
-            k = [],
-            l = {},
-            h = !1,
-            i;
-        for (i in b.update_flag) RL.rooms[i] && (h = !0, b.update_flag[i].info != void 0 && a.push(i), b.update_flag[i].personal != void 0 && d.push(i), b.update_flag[i].member != void 0 && e.push(i), b.update_flag[i].task != void 0 && (RL.rooms[i].tasklist ? (l[i] = RL.rooms[i].tasklist.getTaskList(), l[i].length == 0 && (l[i] = 1)) : l[i] = 1), b.update_flag[i].desc != void 0 && k.push(i));
+            j = [],
+            k = {},
+            g = !1,
+            l;
+        for (l in b.update_flag) RL.rooms[l] && (g = !0, b.update_flag[l].info != void 0 && a.push(l), b.update_flag[l].personal != void 0 && d.push(l), b.update_flag[l].member != void 0 && e.push(l), b.update_flag[l].task != void 0 && (RL.rooms[l].tasklist ? (k[l] = RL.rooms[l].tasklist.getTaskList(), k[l].length == 0 && (k[l] = 1)) : k[l] = 1), b.update_flag[l].desc != void 0 && j.push(l));
         if (RM && b.update_flag[RM.id] != void 0)
             for (var m in b.update_flag[RM.id])
                 if (m != "personal") {
@@ -3150,34 +3173,34 @@ function RoomList() {
                 }
         b.has_update = !1;
         b.update_flag = {};
-        if (h) {
-            h = {};
+        if (g) {
+            g = {};
             if (a.length) {
                 m = 0;
                 for (var n = a.length; m < n; m++) {
-                    i = a[m];
-                    h[i] = {};
-                    if (b.rooms[i]) {
-                        var o = b.rooms[i];
-                        h[i].c = o.chat_num;
-                        h[i].u = o.getUnreadNum();
-                        h[i].l = o.timeline ? b.rooms[i].timeline.getLastChatId() : 0;
+                    l = a[m];
+                    g[l] = {};
+                    if (b.rooms[l]) {
+                        var o = b.rooms[l];
+                        g[l].c = o.chat_num;
+                        g[l].u = o.getUnreadNum();
+                        g[l].l = o.timeline ? b.rooms[l].timeline.getLastChatId() : 0;
                         if (o.filelist) {
                             var u = o.filelist.getFileNum();
-                            h[i].f = $.isNumeric(u) ? u : o.filelist.getFileList().length;
-                            h[i].lf = o.filelist.getLastFileId()
+                            g[l].f = $.isNumeric(u) ? u : o.filelist.getFileList().length;
+                            g[l].lf = o.filelist.getLastFileId()
                         }
-                    } else h[i].c = 0, h[i].u = 0, h[i].l = 0;
-                    h[i].t = b.last_update_time_dat[i] ? b.last_update_time_dat[i] : 0
+                    } else g[l].c = 0, g[l].u = 0, g[l].l = 0;
+                    g[l].t = b.last_update_time_dat[l] ? b.last_update_time_dat[l] : 0
                 }
             }
             CW.post("gateway.php", {
                 cmd: "get_room_info",
-                i: h,
+                i: g,
                 p: d,
                 m: e,
-                d: k,
-                t: l,
+                d: j,
+                t: k,
                 rid: RL.lazy_select,
                 type: b.load_type,
                 load_file_version: "2"
@@ -3187,153 +3210,154 @@ function RoomList() {
         } else b.has_update = !1, b.build()
     };
     b.updateRoomData = function(a) {
-        var g = !1,
-            j = !1,
-            k = {},
-            l;
-        for (l in a) {
-            rval = a[l];
-            RL.rooms[l] == void 0 && (RL.rooms[l] = new Room(l));
-            var h = RL.rooms[l],
-                i = h.getUnreadNum();
-            h.mid = rval.mid;
-            if (rval.c != void 0) h.chat_num = parseInt(rval.c, 10), h.name = "", h.allow_see_member = 1, h.allow_upload_file = 1, h.allow_add_task = 1, h.allow_send_message = 1, h.join_need_accept = 1, h["public"] = 0, h.link_name = "", h.header = "", h.icon = b.preset_typemap[1],
-                h.icon_preset = !0;
-            if (rval.f != void 0) h.file_num = parseInt(rval.f, 10);
-            if (rval.t != void 0) h.task_num = parseInt(rval.t, 10);
-            rval.n != void 0 && h.setName(rval.n);
-            if (rval.mid) h.read_num = 0, h.mytask_num = 0, h.mention_num = 0, h.sticky = 0;
-            if (rval.r != void 0) h.read_num = parseInt(rval.r, 10);
-            if (rval.mt != void 0) h.mytask_num = parseInt(rval.mt, 10);
-            if (rval.mn != void 0) h.mention_num = parseInt(rval.mn, 10);
-            if (rval.s != void 0) h.sticky = parseInt(rval.s, 10);
-            if (rval.aml != void 0) h.allow_see_member = parseInt(rval.aml, 10);
-            if (rval.af != void 0) h.allow_upload_file =
+        var i = !1,
+            h = !1,
+            j = {},
+            k;
+        for (k in a) {
+            rval = a[k];
+            RL.rooms[k] == void 0 && (RL.rooms[k] = new Room(k));
+            var g = RL.rooms[k],
+                l = g.getUnreadNum();
+            g.mid = rval.mid;
+            if (rval.c != void 0) g.chat_num = parseInt(rval.c, 10), g.name = "", g.allow_see_member = 1, g.allow_upload_file = 1, g.allow_add_task = 1, g.allow_send_message = 1, g.join_need_accept = 1, g["public"] = 0, g.link_name = "", g.header = "", g.icon = b.preset_typemap[1],
+                g.icon_preset = !0;
+            if (rval.f != void 0) g.file_num = parseInt(rval.f, 10);
+            if (rval.t != void 0) g.task_num = parseInt(rval.t, 10);
+            rval.n != void 0 && g.setName(rval.n);
+            if (rval.mid) g.read_num = 0, g.mytask_num = 0, g.mention_num = 0, g.sticky = 0;
+            if (rval.r != void 0) g.read_num = parseInt(rval.r, 10);
+            if (rval.mt != void 0) g.mytask_num = parseInt(rval.mt, 10);
+            if (rval.mn != void 0) g.mention_num = parseInt(rval.mn, 10);
+            if (rval.s != void 0) g.sticky = parseInt(rval.s, 10);
+            if (rval.aml != void 0) g.allow_see_member = parseInt(rval.aml, 10);
+            if (rval.af != void 0) g.allow_upload_file =
                 parseInt(rval.af, 10);
-            if (rval.at != void 0) h.allow_add_task = parseInt(rval.at, 10);
-            if (rval.am != void 0) h.allow_send_message = parseInt(rval.am, 10);
-            if (rval.ja != void 0) h.join_need_accept = parseInt(rval.ja, 10);
-            rval.p != void 0 && (h["public"] = parseInt(rval.p, 10));
-            if (rval.ic != void 0) b.preset_typemap[rval.ic] ? (h.icon = b.preset_typemap[rval.ic], h.icon_preset = !0) : (h.icon = rval.ic, h.icon_preset = !1);
-            if (rval.hr != void 0) h.header = rval.hr;
-            if (rval.pd != void 0) h.public_description = rval.pd;
-            if (rval.ln != void 0) h.link_name = rval.ln;
-            if (rval.d != void 0) h.description = rval.d;
+            if (rval.at != void 0) g.allow_add_task = parseInt(rval.at, 10);
+            if (rval.am != void 0) g.allow_send_message = parseInt(rval.am, 10);
+            if (rval.ja != void 0) g.join_need_accept = parseInt(rval.ja, 10);
+            rval.p != void 0 && (g["public"] = parseInt(rval.p, 10));
+            if (rval.ic != void 0) b.preset_typemap[rval.ic] ? (g.icon = b.preset_typemap[rval.ic], g.icon_preset = !0) : (g.icon = rval.ic, g.icon_preset = !1);
+            if (rval.hr != void 0) g.header = rval.hr;
+            if (rval.pd != void 0) g.public_description = rval.pd;
+            if (rval.ln != void 0) g.link_name = rval.ln;
+            if (rval.d != void 0) g.description = rval.d;
             if (rval.m != void 0) {
-                for (var m in rval.m) rval.m[m] = b.role_map[rval.m[m]], k[m] = !0;
-                h.setMember(rval.m)
+                for (var m in rval.m) rval.m[m] = b.role_map[rval.m[m]], j[m] = !0;
+                g.setMember(rval.m)
             }
             if (rval.mr != void 0)
-                for (var n in h.member_request = rval.mr, h.member_request) {
-                    var o = h.member_request[n];
+                for (var n in g.member_request = rval.mr, g.member_request) {
+                    var o = g.member_request[n];
                     AC.isUnknown(o.id) && AC.setAccountDat(o.id, o)
                 }
-            if (rval.tp != void 0) h.type = b.room_type_map[rval.tp];
-            rval.lt != void 0 && RL.setLastUpdateTime(l, rval.lt);
-            !i && i < h.getUnreadNum() && (j = !0);
+            if (rval.tp != void 0) g.type = b.room_type_map[rval.tp];
+            rval.lt != void 0 && RL.setLastUpdateTime(k, rval.lt);
+            !l && l < g.getUnreadNum() && (h = !0);
             if (rval.task_dat) {
-                if (!h.tasklist) h.tasklist = new TaskList(h);
-                var i = [],
+                if (!g.tasklist) g.tasklist = new TaskList(g);
+                var l = [],
                     u;
                 for (u in rval.task_dat) TK.setTask(rval.task_dat[u]),
-                    i.push(u);
-                if (i.length > 0) TK.buildByTaskId(i), h.tasklist.loaded = !0
+                    l.push(u);
+                if (l.length > 0) TK.buildByTaskId(l), g.tasklist.loaded = !0
             }
             if (rval.file_list) {
-                if (!h.filelist) h.filelist = new FileList(h);
+                if (!g.filelist) g.filelist = new FileList(g);
                 n = 0;
-                for (i = rval.file_list.length; n < i; n++) h.filelist.insertFile(rval.file_list[n]);
-                h.filelist.setFileNum(rval.file_num);
+                for (l = rval.file_list.length; n < l; n++) g.filelist.insertFile(rval.file_list[n]);
+                g.filelist.setFileNum(rval.file_num);
                 FL.myfile_load_flag.loaded && FL.buildAllMyFile()
             }
             if (rval.chat_list && rval.chat_list.length > 0) {
-                if (!h.timeline) h.timeline = new TimeLine(h);
+                if (!g.timeline) g.timeline = new TimeLine(g);
                 if (CW.enable_popup && !CW.is_first_load) {
                     n = 0;
-                    for (i = rval.chat_list; n < i; n++) k[rval.chat_list[n].aid] = !0
+                    for (l = rval.chat_list; n < l; n++) j[rval.chat_list[n].aid] = !0
                 }
-                var s = "";
+                var r = "";
                 n = 0;
-                for (i = rval.chat_list.length; n <
-                    i; n++)
-                    if (g = !0, h.timeline.addChat(rval.chat_list[n]), CW.enable_popup && !CW.is_first_load && (o = rval.chat_list[n], e[o.id] == void 0)) {
+                for (l = rval.chat_list.length; n <
+                    l; n++)
+                    if (i = !0, g.timeline.addChat(rval.chat_list[n]), CW.enable_popup && !CW.is_first_load && (o = rval.chat_list[n], e[o.id] == void 0)) {
                         e[o.id] = !0;
                         var v = ST.data.notifier_message == "1" ? CW.renderMessage(o.msg, {
                                 text: !0
                             }) : L.notifier_newmessage,
-                            s = v.length > 0 && AC.myid != o.aid ? {
+                            r = v.length > 0 && AC.myid != o.aid ? {
                                 id: o.id,
                                 aid: o.aid,
-                                room_id: h.id,
+                                room_id: g.id,
                                 msg: v
                             } : ""
                     }
             }
-            b.updateMasterData(l, rval)
+            b.updateMasterData(k, rval)
         }
         a = function() {
-            s && (!ST.data.notifier_onlyto || b.rooms[s.room_id].timeline.chat_id2chat_dat[s.id].mn) && CW.popup(CW.getAvatarPanel(s.aid, {
+            r && (!ST.data.notifier_onlyto || b.rooms[r.room_id].timeline.chat_id2chat_dat[r.id].mn) && CW.popup(CW.getAvatarPanel(r.aid, {
                     src: !0
-                }), RL.rooms[s.room_id].getName(),
-                AC.getName(s.aid) + ":" + s.msg, s.room_id);
-            !wfocus && g && !d && !CW.is_first_load && ST.data.popup_sound == 1 && audioObjSupport && (d = !0, ST.view.isMultiSound(ST.data.sound_type) ? j ? CW.playSound(ST.data.sound_type) : CW.playSound(ST.data.sound_type + "2") : CW.playSound(ST.data.sound_type), setTimeout(function() {
+                }), RL.rooms[r.room_id].getName(),
+                AC.getName(r.aid) + ":" + r.msg, r.room_id);
+            !wfocus && i && !d && !CW.is_first_load && ST.data.popup_sound == 1 && audioObjSupport && (d = !0, ST.view.isMultiSound(ST.data.sound_type) ? h ? CW.playSound(ST.data.sound_type) : CW.playSound(ST.data.sound_type + "2") : CW.playSound(ST.data.sound_type), setTimeout(function() {
                 d = !1
             }, 1E3));
             if (CW.is_first_load) CW.is_first_load = !1;
             b.build()
         };
-        for (m in k) AC.getName(m);
+        for (m in j) AC.getName(m);
         AC.hasUnknown() ? AC.getUnknown(a) : a();
         b.view.updateRoomData()
     };
-    b.build = function() {
+    b.build = function(a) {
+        a = a || !1;
         if (b.has_update) return b.load();
         else {
-            var a =
+            var d =
                 b.getSortedRoomList();
             b.filtered_room_list = [];
-            var d = null,
-                e = !1,
+            var e = null,
+                j = !1,
                 k = {};
             if (b.filter_category && !b.category_defaults[b.filter_category])
-                for (var e = !0, d = 0, l = b.category_dat[b.filter_category].list.length; d < l; d++) k[b.category_dat[b.filter_category].list[d]] = !0;
+                for (var j = !0, e = 0, g = b.category_dat[b.filter_category].list.length; e < g; e++) k[b.category_dat[b.filter_category].list[e]] = !0;
             b.unread_room_sum = 0;
             b.mention_room_sum = 0;
             b.mytask_room_sum = 0;
             b.unread_total = 0;
             b.mytask_total = 0;
-            l = [];
-            b.filter_word && (l = CW.splitWithSpace(b.filter_word));
-            for (var h = 0; h < a.length; h++)
-                if (a[h] != void 0) {
-                    var d = b.rooms[a[h]],
-                        i = d.getUnreadNum(),
-                        m = 0;
-                    i > 0 && (b.unread_total +=
-                        i, b.unread_room_sum++, m = d.getMentionNum(), m > 0 && b.mention_room_sum++);
-                    d.mytask_num > 0 && (b.mytask_total += d.mytask_num, b.mytask_room_sum++);
-                    if (l.length > 0) {
-                        i = d.getName();
-                        if (!i) continue;
-                        if (d.type == "contact") {
-                            if (!AC.isMatchedWithKeyList(l, d.getAccountId())) continue
-                        } else if (!CW.isMatchedWithKeyList(l, i)) continue
-                    } else if (!RM || !(d.id == RM.id && b.filter_remain_flag[d.id] != void 0)) {
-                        if (e) {
-                            if (k[d.id] != !0) continue
+            g = [];
+            b.filter_word && (g = CW.splitWithSpace(b.filter_word));
+            for (var l = 0; l < d.length; l++)
+                if (d[l] != void 0) {
+                    var e = b.rooms[d[l]],
+                        m = e.getUnreadNum(),
+                        n = 0;
+                    m > 0 && (b.unread_total +=
+                        m, b.unread_room_sum++, n = e.getMentionNum(), n > 0 && b.mention_room_sum++);
+                    e.mytask_num > 0 && (b.mytask_total += e.mytask_num, b.mytask_room_sum++);
+                    if (g.length > 0) {
+                        m = e.getName();
+                        if (!m) continue;
+                        if (e.type == "contact") {
+                            if (!AC.isMatchedWithKeyList(g, e.getAccountId())) continue
+                        } else if (!CW.isMatchedWithKeyList(g, m)) continue
+                    } else if (!RM || !(e.id == RM.id && b.filter_remain_flag[e.id] != void 0)) {
+                        if (j) {
+                            if (k[e.id] != !0) continue
                         } else {
-                            if (b.filter_category == "contact" && d.type != "contact") continue;
-                            if (b.filter_category == "group" && d.type !=
+                            if (b.filter_category == "contact" && e.type != "contact") continue;
+                            if (b.filter_category == "group" && e.type !=
                                 "group") continue;
-                            if (b.filter_category == "mytask" && d.mytask_num == 0) continue
+                            if (b.filter_category == "mytask" && e.mytask_num == 0) continue
                         }
-                        if (b.filter_readonly && i == 0) continue;
-                        if (b.filter_toonly && m == 0) continue;
-                        if (b.filter_taskonly && d.mytask_num == 0) continue;
-                        if (b.filter_internalonly && !d.isInternal()) continue
+                        if (b.filter_readonly && m == 0) continue;
+                        if (b.filter_toonly && n == 0) continue;
+                        if (b.filter_taskonly && e.mytask_num == 0) continue;
+                        if (b.filter_internalonly && !e.isInternal()) continue
                     }
-                    b.filter_remain_flag[d.id] = !0;
-                    b.filtered_room_list.push(a[h])
+                    b.filter_remain_flag[e.id] = !0;
+                    b.filtered_room_list.push(d[l])
                 }
             b.view.build(b.filtered_room_list);
             b.view.updateSumNumbers();
@@ -3344,8 +3368,8 @@ function RoomList() {
                         0, b.lazy_select_chat = 0, CW.alert(L.chatroom_error_no_member, function() {
                             b.selectRoom(RM.id)
                         })
-                } else b.rebuild_room && RM && RM.build();
-            b.rebuild_room = !1
+                } else !a && b.rebuild_room && RM && RM.build();
+            if (!a) b.rebuild_room = !1
         }
     };
     b.refreshCategory = function() {
@@ -3361,7 +3385,8 @@ function RoomList() {
         RL.buildCategory()
     };
     b.buildCategory = function() {
-        b.filter_category && !b.category_defaults[b.filter_category] && b.category_dat[b.filter_category] == void 0 && b.selectCategory("all");
+        b.filter_category && !b.category_defaults[b.filter_category] && b.category_dat[b.filter_category] == void 0 &&
+            b.selectCategory("all");
         b.view.buildCategory()
     };
     b.getFocusedRoomId = function() {
@@ -3387,7 +3412,8 @@ function RoomList() {
                 }
                 d.message && CW.alert(d.message)
             }
-            if (d.room_dat != void 0) d = d.room_dat, d.id = a, b.view.showJoinPublicChatDialog(d)
+            if (d.room_dat != void 0) d = d.room_dat,
+                d.id = a, b.view.showJoinPublicChatDialog(d)
         })
     };
     b.joinPublicChat = function(a) {
@@ -3409,11 +3435,11 @@ function RoomList() {
         })
     };
     b.updateMasterData = function(a, d) {
-        b.view.updateMasterData(a, d)
+        b.view.updateMasterData(a,
+            d)
     };
     b.getGroupChatNum = function() {
-        var a =
-            0,
+        var a = 0,
             b = this.rooms,
             d;
         for (d in b) b[d].type === "group" && a++;
@@ -3598,21 +3624,21 @@ function Room(b) {
             if (this.description === !1) d.desc = 1;
             var f = this;
             CW.get("gateway.php", d, function(b) {
-                var d, k;
+                var d, j;
                 if (b.task_dat)
                     for (d in b.task_dat) TK.setTask(b.task_dat[d]);
                 if (b.file_list) {
                     d = 0;
-                    for (k = b.file_list.length; d <
-                        k; d++) f.filelist.insertFile(b.file_list[d])
+                    for (j = b.file_list.length; d <
+                        j; d++) f.filelist.insertFile(b.file_list[d])
                 }
                 f.filelist.setFileNum(b.file_num);
                 if (e.jumpTo) {
                     d = 0;
-                    for (k = b.chat_list.length; d < k; d++) f.timeline.insertChat(b.chat_list[d])
+                    for (j = b.chat_list.length; d < j; d++) f.timeline.insertChat(b.chat_list[d])
                 } else {
                     d = 0;
-                    for (k = b.chat_list.length; d < k; d++) f.timeline.addChat(b.chat_list[d])
+                    for (j = b.chat_list.length; d < j; d++) f.timeline.addChat(b.chat_list[d])
                 }
                 if (b.description != void 0) f.description = b.description;
                 if (b.public_description != void 0) f.public_description = b.public_description;
@@ -3716,8 +3742,8 @@ TimeLine.prototype = {
             room_id: a.room.id,
             first_chat_id: e
         }, function(d) {
-            for (var f = {}, g = 0, j = d.chat_list.length; g < j; g++) a.insertChat(d.chat_list[g]), f[d.chat_list[g].aid] = !0;
-            for (var k in f) AC.getName(k);
+            for (var f = {}, i = 0, h = d.chat_list.length; i < h; i++) a.insertChat(d.chat_list[i]), f[d.chat_list[i].aid] = !0;
+            for (var j in f) AC.getName(j);
             d = function() {
                 b();
                 RM && RM.id == a.room.id && a.build({
@@ -3813,33 +3839,33 @@ function ChatSend() {
     b.prepareUploadForm = function(a) {
         b.view.prepareUploadForm(a)
     };
-    b.sendMessage = function(a, b, d, f, g) {
-        var j, k;
+    b.sendMessage = function(a, b, d, f, i) {
+        var h, j;
         d == void 0 && (d = {});
-        j = d.read == void 0 || d.read ? 1 : 0;
-        k = d.edit_id ? d.edit_id : 0;
-        var l = RL.rooms[a];
-        l.timeline.getLastChatId();
+        h = d.read == void 0 || d.read ? 1 : 0;
+        j = d.edit_id ? d.edit_id : 0;
+        var k = RL.rooms[a];
+        k.timeline.getLastChatId();
         CW.post("gateway.php", {
             cmd: "send_chat",
             text: b,
             room_id: a,
-            last_chat_id: l.timeline.getLastChatId(),
-            read: j,
-            edit_id: k
+            last_chat_id: k.timeline.getLastChatId(),
+            read: h,
+            edit_id: j
         }, function(b) {
             if (b.chat_list)
-                for (var d = 0, e = b.chat_list.length; d < e; d++) l.timeline.addChat(b.chat_list[d]), RL.rooms[a].read_num++, RL.rooms[a].chat_num++;
+                for (var d = 0, e = b.chat_list.length; d < e; d++) k.timeline.addChat(b.chat_list[d]), RL.rooms[a].read_num++, RL.rooms[a].chat_num++;
             b.storage != void 0 && b.storage_limit != void 0 && FL.updateStorageInfo(b.storage, b.storage_limit, b.storage_limit_time, b.is_storage_limit);
-            k && CW.watch();
+            j && CW.watch();
             typeof f == "function" && f(b)
         }, function(a, b) {
             b && b.is_storage_limit ? CW.showStorageLimitDialog("message") :
-                typeof g == "function" && g(a, b)
+                typeof i == "function" && i(a, b)
         })
     };
-    b.sendChat = function(a, e, d, f, g, j) {
-        return b.sendMessage(a, e, f, g, j)
+    b.sendChat = function(a, e, d, f, i, h) {
+        return b.sendMessage(a, e, f, i, h)
     };
     b.deleteChat = function(a, b, d) {
         CW.get("gateway.php", {
@@ -3852,7 +3878,7 @@ function ChatSend() {
             typeof d == "function" ? d(a) : CW.alert(a)
         })
     };
-    b.sendTask = function(a, b, d, f, g, j) {
+    b.sendTask = function(a, b, d, f, i, h) {
         d ? d.toString().match(/^[0-9]+$/) || (d = strtotime_format(d, ST.data.dateformat)) : d = 0;
         CW.post("gateway.php", {
                 cmd: "add_task",
@@ -3861,14 +3887,14 @@ function ChatSend() {
                 assign: f,
                 room_id: a
             }, function(a) {
-                g(a);
+                i(a);
                 CW.watch()
             },
             function(a) {
-                j(a)
+                h(a)
             })
     };
-    b.editTask = function(a, b, d, f, g, j) {
+    b.editTask = function(a, b, d, f, i, h) {
         f ? f.match(/^[0-9]+$/) || (f = strtotime_format(f, ST.data.dateformat)) : f = 0;
         CW.post("gateway.php", {
             cmd: "edit_task",
@@ -3877,10 +3903,10 @@ function ChatSend() {
             task: d,
             task_limit: f
         }, function(a) {
-            typeof g == "function" && g(a);
+            typeof i == "function" && i(a);
             CW.watch()
         }, function(a) {
-            typeof j == "function" && j(a)
+            typeof h == "function" && h(a)
         })
     };
     b.convertToSend = function(a) {
@@ -4031,7 +4057,7 @@ function RoomSub() {
         b.view.hidePromotion();
         b.show_promotion && b.view.initializePromotion()
     };
-    b.addTask = function(a, b, d, f, g, j) {
+    b.addTask = function(a, b, d, f, i, h) {
         d ? d.toString().match(/^[0-9]+$/) || (d = strtotime_format(d, ST.data.dateformat)) : d = 0;
         CW.post("gateway.php", {
                 cmd: "add_task",
@@ -4040,11 +4066,11 @@ function RoomSub() {
                 assign: f,
                 room_id: a
             }, function(a) {
-                g(a);
+                i(a);
                 CW.watch()
             },
             function(a) {
-                j(a)
+                h(a)
             })
     };
     b.buildMember = function() {
@@ -4071,11 +4097,11 @@ function ChatWorkView(b) {
     var e = "",
         d = !1,
         f = !1,
-        g = null,
+        i = null,
+        h = null,
         j = null,
         k = null,
-        l = null,
-        h = null;
+        g = null;
     a.prepare = function() {
         a.prepareHiddenIframe();
         $C("#_wrapper").on("mouseenter", "._showDescription", function() {
@@ -4105,8 +4131,8 @@ function ChatWorkView(b) {
                 delay: TM.messagetip_delay
             }).open()
         }).on("click", "._joinLive", function() {
-            i || a.prepareLive();
-            i.open($(this))
+            l || a.prepareLive();
+            l.open($(this))
         }).on("click", "._profileTipCheckLabel", function() {
             $(this).closest("._contactPanel").find("._cwCB").click()
         });
@@ -4218,7 +4244,7 @@ function ChatWorkView(b) {
             a.showServiceAdmin("upgrade")
         });
         $("#_storageLimitLink").click(function() {
-            k.close();
+            j.close();
             a.model.plan ==
                 "free" ? a.showServiceAdmin("upgrade") : a.showOptionPlanPrice()
         });
@@ -4230,28 +4256,28 @@ function ChatWorkView(b) {
             });
             for (var b = ["ui_roomfilter", "ui_fold_roomlist", "ui_fold_roomsub", "ui_chatlist_width", "ui_subcontent_width", "ui_category"], d = 0, e = b.length; d < e; d++) {
                 var f = b[d],
-                    i = $.cookie(f);
-                i !== void 0 && $.cookie(f, i, {
+                    g = $.cookie(f);
+                g !== void 0 && $.cookie(f, g, {
                     expires: 3650
                 })
             }
         })
     };
-    var i = null;
+    var l = null;
     a.prepareLive = function() {
-        i = $("#_joinLiveTip").cwToolTip({
+        l = $("#_joinLiveTip").cwToolTip({
             open: function(a) {
                 this.data.live_id = a.attr("data-live-id");
                 this.data.account_id = a.attr("data-aid")
             }
         });
         var a = function(a) {
-            if (i.data.live_id) var b = CW.getLiveUrlById(i.data.live_id, a);
-            else i.data.account_id && (b = CW.getLiveUrl(AC.getRoomId(i.data.account_id), [AC.myid, i.data.account_id], a));
+            if (l.data.live_id) var b = CW.getLiveUrlById(l.data.live_id, a);
+            else l.data.account_id && (b = CW.getLiveUrl(AC.getRoomId(l.data.account_id), [AC.myid, l.data.account_id], a));
             window.open(b, "cwlive", "menubar=0,toolbar=0,titlebar=0,status=0,scrollbars=0,resizable=1");
-            i.close()
+            l.close()
         };
-        i.$el.on("click", "._joinLiveByVideo", function() {
+        l.$el.on("click", "._joinLiveByVideo", function() {
             a("video")
         }).on("click", "._joinLiveByVoice", function() {
             a("voice")
@@ -4283,8 +4309,8 @@ function ChatWorkView(b) {
                 id: "_downloadFrame",
                 name: "_downloadFrame"
             }], d = "", e = 0, f = b.length; e < f; e++) {
-            var i = b[e];
-            d += '<iframe id="' + i.id + '" name="' + i.name +
+            var g = b[e];
+            d += '<iframe id="' + g.id + '" name="' + g.name +
                 '" src="" style="display: none"></iframe>'
         }
         setTimeout(function() {
@@ -4344,11 +4370,11 @@ function ChatWorkView(b) {
     };
     a.confirm = function(a, b, d, e) {
         var f = "_confirmDialogBody" + o,
-            i = $('<div id="_confirmDialog' + o + '" class="dialog dialogPadding"><pre id="' + f + '" class="confirmDialogBody"></pre></div>');
-        $C("body").append(i);
+            g = $('<div id="_confirmDialog' + o + '" class="dialog dialogPadding"><pre id="' + f + '" class="confirmDialogBody"></pre></div>');
+        $C("body").append(g);
         e ?
             a = mlength($("#" + f).html(a).text()) : ($("#" + f).text(a), a = mlength(a));
-        i.cwDialog({
+        g.cwDialog({
             width: a > 50 ? 500 : 400,
             minHeight: 100,
             height: "auto",
@@ -4366,19 +4392,19 @@ function ChatWorkView(b) {
                 }
             },
             close: function() {
-                i.remove()
+                g.remove()
             }
         });
         o++
     };
     a.confirmDelete = function(a, b, d, e, f) {
-        var i = "_confirmDialogBody" + o,
-            h = $('<div id="_confirmDialog' + o + '" class="dialog dialogPadding"><pre id="' + i + '" class="confirmDialogBody"></pre></div>');
-        $C("body").append(h);
-        i = $("#" + i);
-        e ? a = mlength(i.html(a).text()) : (i.text(a), a = mlength(a));
+        var g = "_confirmDialogBody" + o,
+            i = $('<div id="_confirmDialog' + o + '" class="dialog dialogPadding"><pre id="' + g + '" class="confirmDialogBody"></pre></div>');
+        $C("body").append(i);
+        g = $("#" + g);
+        e ? a = mlength(g.html(a).text()) : (g.text(a), a = mlength(a));
         if (!f) f = L.button_delete_long;
-        h.cwDialog({
+        i.cwDialog({
             width: a > 50 ? 500 : 300,
             minHeight: 100,
             height: "auto",
@@ -4396,7 +4422,7 @@ function ChatWorkView(b) {
                 }
             },
             close: function() {
-                h.remove()
+                i.remove()
             }
         });
         o++
@@ -4413,23 +4439,23 @@ function ChatWorkView(b) {
     a.hideProgress = function() {
         u && (u.close(), u = null)
     };
-    a.registerKeyboardShortcut = function(b, d, e, f, i, h) {
-        a.keyfunc[a.getKeyCombinationMap(b, d, e, f, i)] = h;
+    a.registerKeyboardShortcut = function(b, d, e, f, g, i) {
+        a.keyfunc[a.getKeyCombinationMap(b, d, e, f, g)] = i;
         return a
     };
     a.getKeyCombinationMap = function(a, b, d, e, f) {
-        var i = "";
-        i += b ? "1" : "0";
-        i += d ? "1" : "0";
-        i += e ? "1" : "0";
-        i += f ? "1" : "0";
-        i += a;
-        return i
+        var g = "";
+        g += b ? "1" : "0";
+        g += d ? "1" : "0";
+        g += e ? "1" : "0";
+        g += f ? "1" : "0";
+        g += a;
+        return g
     };
-    var s = [],
+    var r = [],
         v = !1;
     a.onPostLoad = function(a) {
-        v ? a() : s.push(a)
+        v ? a() : r.push(a)
     };
     a.postLoad = function() {
         CW.security_dat.disable_external == 1 && $("#_addContactType").remove();
@@ -4476,7 +4502,7 @@ function ChatWorkView(b) {
         } else e.indexOf("contact") != -1 ? AC.view.openContactWindow() : e.indexOf("mytask") != -1 ? AC.view.openTaskWindow() : e.indexOf("chat_setting") != -1 ? ST.view.openSettingDialog() : e.indexOf("profile_setting") != -1 ? AC.view.openProfileWindow(AC.myid) :
             e.indexOf("service_admin") != -1 ? a.showServiceAdmin() : e.indexOf("information") != -1 && a.openInformationPanel();
         f = 0;
-        for (b = s.length; f < b; f++) s[f]();
+        for (b = r.length; f < b; f++) r[f]();
         $(window).scrollTop(0);
         v = !0
     };
@@ -4484,9 +4510,9 @@ function ChatWorkView(b) {
         var b = null,
             d = null,
             e = window.navigator.userAgent.toLowerCase().indexOf("chrome") != -1;
-        a.popup = function(a, f, i, h) {
-            if (!wfocus && NotificationAPI && NotificationAPI.checkPermission() == 0) b && (typeof b.cancel == "function" ? b.cancel() : typeof b.close == "function" && b.close()), e && (i = " " + i), b = NotificationAPI.createNotification(a, f, i), b.room_id =
-                h, b.onclick = function() {
+        a.popup = function(a, f, g, i) {
+            if (!wfocus && NotificationAPI && NotificationAPI.checkPermission() == 0) b && (typeof b.cancel == "function" ? b.cancel() : typeof b.close == "function" && b.close()), e && (g = " " + g), b = NotificationAPI.createNotification(a, f, g), b.room_id =
+                i, b.onclick = function() {
                     window.focus();
                     RL.selectRoom(this.room_id);
                     this.cancel()
@@ -4637,136 +4663,135 @@ function ChatWorkView(b) {
             return e.text ? "[Code]" : "[code][/code]"
         }));
         time();
-        for (var i in a.model.reg_cmp) b = e.text && a.model.reg_cmp[i].reptxt != void 0 ? b.replace(a.model.reg_cmp[i].key, a.model.reg_cmp[i].reptxt) : b.replace(a.model.reg_cmp[i].key,
-            a.model.reg_cmp[i].rep);
-        var h = b.match(/\[pname:\d+\]/g);
-        if (h)
-            for (i = 0; i < h.length; i++) var g = h[i].match(/\[pname:(\d+)\]/),
-                g = g[1],
-                n = e.text ? AC.getName(g) : CW.getName(g),
-                b = b.replace("[pname:" + g + "]", n);
-        if (h = b.match(/\[dtext:\w+\]/g))
-            for (i = 0; i < h.length; i++) g = h[i].match(/\[dtext:(\w+)\]/), g = g[1], L.hasOwnProperty(g) && "string" === typeof L[g] && (b = b.replace("[dtext:" + g + "]", L[g]));
-        if (h = b.match(/\[picon:\d+\]/g))
-            for (i = 0; i < h.length; i++) g = h[i].match(/\[picon:(\d+)\]/), g = g[1], b = b.replace("[picon:" + g + "]", CW.getAvatarPanel(g, {
+        for (var g in a.model.reg_cmp) b = e.text && a.model.reg_cmp[g].reptxt != void 0 ? b.replace(a.model.reg_cmp[g].key, a.model.reg_cmp[g].reptxt) : b.replace(a.model.reg_cmp[g].key,
+            a.model.reg_cmp[g].rep);
+        var i = b.match(/\[pname:\d+\]/g);
+        if (i)
+            for (g = 0; g < i.length; g++) var h = i[g].match(/\[pname:(\d+)\]/),
+                h = h[1],
+                l = e.text ? AC.getName(h) : CW.getName(h),
+                b = b.replace("[pname:" + h + "]", l);
+        if (i = b.match(/\[dtext:\w+\]/g))
+            for (g = 0; g < i.length; g++) h = i[g].match(/\[dtext:(\w+)\]/), h = h[1], L.hasOwnProperty(h) && "string" === typeof L[h] && (b = b.replace("[dtext:" + h + "]", L[h]));
+        if (i = b.match(/\[picon:\d+\]/g))
+            for (g = 0; g < i.length; g++) h = i[g].match(/\[picon:(\d+)\]/), h = h[1], b = b.replace("[picon:" + h + "]", CW.getAvatarPanel(h, {
                 size: "tiny"
             }));
-        if (h = b.match(/\[date:\d+\]/g))
-            for (i = 0; i < h.length; i++) g = h[i].match(/\[date:(\d+)\]/), g = g[1], b = b.replace("[date:" + g + "]", a.model.getDate(g));
-        if (h = b.match(/\[task aid=[0-9,]+ st=[^\s]+ lt=-?[0-9]*\]/g))
-            for (i = 0; i < h.length; i++) g = h[i].match(/\[task aid=([0-9,]+) st=([^\s]+) lt=(-?[0-9]*)\]/), e.text ? b = b.replace(g[0], "[") : (n = {
-                aid: g[1],
-                st: g[2],
-                lt: parseInt(g[3], 10)
-            }, n = TK.view.getTaskPanel(n, {
+        if (i = b.match(/\[date:\d+\]/g))
+            for (g = 0; g < i.length; g++) h = i[g].match(/\[date:(\d+)\]/), h = h[1], b = b.replace("[date:" + h + "]", a.model.getDate(h));
+        if (i = b.match(/\[task aid=[0-9,]+ st=[^\s]+ lt=-?[0-9]*\]/g))
+            for (g = 0; g < i.length; g++) h = i[g].match(/\[task aid=([0-9,]+) st=([^\s]+) lt=(-?[0-9]*)\]/), e.text ? b = b.replace(h[0], "[") : (l = {
+                aid: h[1],
+                st: h[2],
+                lt: parseInt(h[3], 10)
+            }, l = TK.view.getTaskPanel(l, {
                 type: "timeline",
                 mid: e.mid
-            }), b = b.replace(g[0], n));
-        if (h = b.match(/\[live id=[^\ ]+ rid=\d+]/g))
-            for (i = 0; i <
-                h.length; i++)
-                if (g = h[i].match(/\[live id=([^\ ]+) rid=(\d+)\]/), e.text) b = b.replace(g[0], "[ChatWork Live]");
+            }), b = b.replace(h[0], l));
+        if (i = b.match(/\[live id=[^\ ]+ rid=\d+]/g))
+            for (g = 0; g <
+                i.length; g++)
+                if (h = i[g].match(/\[live id=([^\ ]+) rid=(\d+)\]/), e.text) b = b.replace(h[0], "[ChatWork Live]");
                 else {
-                    var n = "",
-                        m = g[1],
-                        q = g[2];
-                    n += RL.rooms[q] ? '<div class="_joinLive button btnSuccess" data-live-id="' + m + '"><span class="icoFontVideoChat"></span><span>' + L.live_join + "</span></div>" : '<div class="button btnDisable"><span class="icoFontVideoChat"></span><span>' + L.live_join + "</span></div>";
-                    b = b.replace(g[0], n)
+                    var l = "",
+                        n = h[1],
+                        m = h[2];
+                    l += MOBILE === "ipad" ? '<div class="button btnDisable"><span class="icoFontVideoChat"></span><span>' + L.live_join + "</span></div>" : RL.rooms[m] ? '<div class="_joinLive button btnSuccess" data-live-id="' + n + '"><span class="icoFontVideoChat"></span><span>' + L.live_join + "</span></div>" : '<div class="button btnDisable"><span class="icoFontVideoChat"></span><span>' + L.live_join + "</span></div>";
+                    b = b.replace(h[0], l)
                 }
-                /MSIE\s9\.0;/i.test(navigator.userAgent) || (b = b.replace(/<a\shref="gateway\.php\?cmd=download_file\W.+?".*?>.+?<\/a>/g,
-            function(b) {
-                var d = (b.match(/>(.+)\s\(/) || []).pop() || "",
-                    e = d.split(".").pop().toLowerCase();
-                if (!a.filePreview.canPlayTypes(e)) return b;
-                var e = a.filePreview.getPreviewType(e),
-                    f = (b.match(/href="(.+?)"/) || [""]).pop(),
-                    i = "",
-                    h = "";
-                e !== "image" ? (i = "_previewLink", d = d.replace(/\'\"\`/g, ""), h = ' data-url="' + urlencode(f + "&preview=1") + '" data-type="chatworkFilePreview" data-content-id="' + d + '"') : (i = "_filePreview", h = 'data-file-id="' + (f.match(/\Wfile_id=(\d+)/i) || [""]).pop() + '"');
-                return b + (' <a class="' + i + ' timelineLinkAppend" ' +
-                    h + ">" + (e === "video" ? L.preview_video : L.preview) + "</a>")
-            }));
-        if (h = b.match(/<link_title>https?:\/\/[-_.!~*\'()a-zA-Z0-9;?:\@&=+\$,%#\{\}]+[-_.!~*\'\(\)a-zA-Z0-9;\/?:\@&=+\$,%#\{\}]+<\/link_title>/g))
-            for (i = 0; i < h.length; i++) {
-                var g = h[i].match(/(<link_title>(https?:\/\/([^\/]+)[-_.!~*\'\(\)a-zA-Z0-9;\/?:\@&=+\$,%#\{\}]+)<\/link_title>)/),
-                    n = g[1],
-                    m = g[2],
-                    o = g[3],
-                    q = "";
-                m.match(/\.([^\.]+)$/);
-                g = 70;
-                if (m.indexOf("chatwork.com") != -1 || m.indexOf("www.chatwork.com") != -1 || m.indexOf("kcw.kddi.ne.jp") != -1) {
-                    var j = m.match(/(#!rid(\d+)\-?(\d+)?)$/),
-                        o = "chatwork.com";
-                    if (j) m = j[1], q = j[2], q = (j = j[3]) ? '</a> <a class="_messageLink timelineLinkAppend" data-rid="' + q + '" data-mid="' + j + '">' + L.message_link + "</a>" : '</a> <a class="_roomLink timelineLinkAppend" data-rid="' + q + '">' + L.message_open_chat + "</a>";
-                    else if (j = m.match(/\/g\/([-\w]+)$/)) m = j[0], q = '</a> <a class="_groupchatLink timelineLinkAppend" data-linkCode="' + j[1] + '">' + L.message_join_groupchat + "</a>"
+                /MSIE\s9\.0;/i.test(navigator.userAgent) || (b = b.replace(/<a\shref="gateway\.php\?cmd=download_file\W.+?".*?>.+?<\/a>/g, function(b) {
+            var d = (b.match(/>(.+)\s\(/) || []).pop() || "",
+                e = d.split(".").pop().toLowerCase();
+            if (!a.filePreview.canPlayTypes(e)) return b;
+            var e = a.filePreview.getPreviewType(e),
+                f = (b.match(/href="(.+?)"/) || [""]).pop(),
+                g = "",
+                h = "";
+            e !== "image" ? (g = "_previewLink", d = d.replace(/\'\"\`/g, ""), h = ' data-url="' + urlencode(f + "&preview=1") + '" data-type="chatworkFilePreview" data-content-id="' +
+                d + '"') : (g = "_filePreview", h = 'data-file-id="' + (f.match(/\Wfile_id=(\d+)/i) || [""]).pop() + '"');
+            return b + (' <a class="' + g + ' timelineLinkAppend" ' + h + ">" + (e === "video" ? L.preview_video : L.preview) + "</a>")
+        }));
+        if (i = b.match(/<link_title>https?:\/\/[-_.!~*\'()a-zA-Z0-9;?:\@&=+\$,%#\{\}]+[-_.!~*\'\(\)a-zA-Z0-9;\/?:\@&=+\$,%#\{\}]+<\/link_title>/g))
+            for (g = 0; g < i.length; g++) {
+                var h = i[g].match(/(<link_title>(https?:\/\/([^\/]+)[-_.!~*\'\(\)a-zA-Z0-9;\/?:\@&=+\$,%#\{\}]+)<\/link_title>)/),
+                    l = h[1],
+                    n = h[2],
+                    p = h[3],
+                    m = "";
+                n.match(/\.([^\.]+)$/);
+                h = 70;
+                if (n.indexOf("chatwork.com") != -1 || n.indexOf("www.chatwork.com") != -1 || n.indexOf("kcw.kddi.ne.jp") != -1) {
+                    var o = n.match(/(#!rid(\d+)\-?(\d+)?)$/),
+                        p = "chatwork.com";
+                    if (o) n = o[1], m = o[2], m = (o = o[3]) ? '</a> <a class="_messageLink timelineLinkAppend" data-rid="' + m + '" data-mid="' + o + '">' + L.message_link + "</a>" : '</a> <a class="_roomLink timelineLinkAppend" data-rid="' + m + '">' + L.message_open_chat + "</a>";
+                    else if (o = n.match(/\/g\/([-\w]+)$/)) n = o[0], m = '</a> <a class="_groupchatLink timelineLinkAppend" data-linkCode="' +
+                        o[1] + '">' + L.message_join_groupchat + "</a>"
                 }
-                if ((o == "secure.mindjet.com" || o == "www.mindjet.com") && m.indexOf("openlink") != -1) g = 40, q = '</a><a class="timelineLinkAppend" href="mj-link:' +
-                    m + '">' + L.message_open_mindmanager + "</a>";
-                if ((o == "vision.mindjet.com" || o == "connect.mindjet.com") && m.indexOf("/link") != -1) g = 40, q = '</a><a class="timelineLinkAppend" href="mj-connect:' + m + '">' + L.message_open_mindmanager + "</a>";
-                o.indexOf(".sharepoint.com") != -1 && (o = "sharepoint.com");
+                if ((p == "secure.mindjet.com" || p == "www.mindjet.com") && n.indexOf("openlink") != -1) h = 40, m = '</a><a class="timelineLinkAppend" href="mj-link:' + n + '">' + L.message_open_mindmanager + "</a>";
+                if ((p == "vision.mindjet.com" || p == "connect.mindjet.com") && n.indexOf("/link") != -1) h = 40, m = '</a><a class="timelineLinkAppend" href="mj-connect:' + n + '">' + L.message_open_mindmanager + "</a>";
+                p.indexOf(".sharepoint.com") != -1 && (p = "sharepoint.com");
                 if (_has_sandbox) {
-                    var k = j = "",
-                        r = "";
-                    switch (o) {
+                    var j = o = "",
+                        s = "";
+                    switch (p) {
                         case "teachme.jp":
-                            if (o = m.match(/^https?:\/\/teachme\.jp\/contents\/([0-9]+)/)) j = "teachme", r = o[1];
+                            if (p =
+                                n.match(/^https?:\/\/teachme\.jp\/contents\/([0-9]+)/)) o = "teachme", s = p[1];
                             break;
                         case "speakerdeck.com":
-                            if (o = m.match(/^https?:\/\/speakerdeck\.com\/([^\/]+)\/([^\/]+)$/)) j =
-                                "speakerdeck", k = o[1], r = o[2];
+                            if (p = n.match(/^https?:\/\/speakerdeck\.com\/([^\/]+)\/([^\/]+)$/)) o = "speakerdeck", j = p[1], s = p[2];
                             break;
                         case "www.slideshare.net":
-                            if (o = m.match(/^https?:\/\/www\.slideshare\.net\/([^\/]+)\/([^\/]+)$/)) j = "slideshare", k = o[1], r = o[2];
+                            if (p = n.match(/^https?:\/\/www\.slideshare\.net\/([^\/]+)\/([^\/]+)$/)) o = "slideshare", j = p[1], s = p[2];
                             break;
                         case "prezi.com":
-                            if (o = m.match(/^https?:\/\/prezi\.com\/([^\/]+)\//)) j = "prezi", r = o[1];
+                            if (p = n.match(/^https?:\/\/prezi\.com\/([^\/]+)\//)) o = "prezi", s = p[1];
                             break;
                         case "www.youtube.com":
-                            if (o = m.match(/^https?:\/\/www\.youtube\.com\/watch\?v=([^\/&]+)/)) j = "youtube", r = o[1];
+                            if (p = n.match(/^https?:\/\/www\.youtube\.com\/watch\?v=([^\/&]+)/)) o =
+                                "youtube", s = p[1];
                             break;
                         case "youtu.be":
-                            if (o = m.match(/^https?:\/\/youtu\.be\/([^\/&]+)/)) j = "youtube", r = o[1];
+                            if (p = n.match(/^https?:\/\/youtu\.be\/([^\/&]+)/)) o = "youtube", s = p[1];
                             break;
                         case "vimeo.com":
-                            if (o = m.match(/^https?:\/\/vimeo\.com\/(?:channels\/staffpicks\/)?([^\/]+)/)) j =
-                                "vimeo", r = o[1];
+                            if (p = n.match(/^https?:\/\/vimeo\.com\/(?:channels\/staffpicks\/)?([^\/]+)/)) o = "vimeo", s = p[1];
                             break;
                         case "slides.com":
-                            if (o = m.match(/^https?:\/\/slides\.com\/([^\/]+\/[^\/]+)$/)) j = "slid.es", r = o[1];
+                            if (p = n.match(/^https?:\/\/slides\.com\/([^\/]+\/[^\/]+)$/)) o = "slid.es", s = p[1];
                             break;
                         case "slid.es":
-                            if (o = m.match(/^https?:\/\/slid\.es\/([^\/]+\/[^\/]+)$/)) j = "slid.es", r = o[1];
+                            if (p = n.match(/^https?:\/\/slid\.es\/([^\/]+\/[^\/]+)$/)) o = "slid.es", s = p[1];
                             break;
                         case "corabbit.com":
-                            if (o = m.match(/^https:\/\/corabbit\.com\/#\/file\/([^\/]+)$/)) j = "corabbit", r = o[1];
+                            if (p = n.match(/^https:\/\/corabbit\.com\/#\/file\/([^\/]+)$/)) o =
+                                "corabbit", s = p[1];
                             break;
                         case "docs.google.com":
-                            if (o = m.match(/^https:\/\/docs.google\.com\//)) j = "googledocs", r = "-";
+                            if (p = n.match(/^https:\/\/docs.google\.com\//)) o = "googledocs", s = "-";
                             break;
                         case "drive.google.com":
-                            if (o = m.match(/^https:\/\/drive.google\.com\//)) j = "googledocs",
-                                r = "-";
+                            if (p = n.match(/^https:\/\/drive.google\.com\//)) o = "googledocs", s = "-";
                             break;
                         case "cacoo.com":
-                            if (o = m.match(/^https:\/\/cacoo\.com\/diagrams\/([^\/]+)(?:\/edit)?$/)) j = "cacoo", r = o[1];
+                            if (p = n.match(/^https:\/\/cacoo\.com\/diagrams\/([^\/]+)(?:\/edit)?$/)) o = "cacoo", s = p[1];
                             break;
                         case "sharepoint.com":
-                            if (o = m.match(/^https:\/\/([\w\-\.\/]+?)\?.*(sourcedoc=[\{\}\w\-]+?|guestaccesstoken=[\%\w]+&(?:amp;?)docid=\w+)(?:&|$)/)) j = "sharepoint", r = o[1] + "?" + o[2]
+                            if (p = n.match(/^https:\/\/([\w\-\.\/]+?)\?.*(sourcedoc=[\{\}\w\-]+?|guestaccesstoken=[\%\w]+&(?:amp;?)docid=\w+)(?:&|$)/)) o = "sharepoint", s = p[1] + "?" + p[2]
                     }
-                    j && (q = '</a> <a class="_previewLink timelineLinkAppend" data-url="' + urlencode(m) + '" data-type="' + j + '" data-user-id="' + k + '" data-content-id="' + r + '">' + L.preview + "</a>")
+                    o &&
+                        (m = '</a> <a class="_previewLink timelineLinkAppend" data-url="' + urlencode(n) + '" data-type="' + o + '" data-user-id="' + j + '" data-content-id="' + s + '">' + L.preview + "</a>")
                 }
-                e.trimLink && (m = trim_width(m, 0, g));
-                b = b.replace(n,
-                    m + q)
+                e.trimLink && (n = trim_width(n, 0, h));
+                b = b.replace(l, n + m)
             }
-        if (!e.text && f.length) var p = $("<div></div>"),
+        if (!e.text && f.length) var q = $("<div></div>"),
             b = b.replace(/\[code\]\[\/code\]/gi, function() {
-                return '<code class="chatCode">' + p.text(f.shift()).html() + "</code>"
+                return '<code class="chatCode">' + q.text(f.shift()).html() + "</code>"
             });
-        i = document.createElement("span");
-        i.innerHTML = b;
-        return b = i.innerHTML
+        g = document.createElement("span");
+        g.innerHTML = b;
+        return b = g.innerHTML
     };
     a.registerAvatar = function() {};
     var A = {
@@ -4807,12 +4832,12 @@ function ChatWorkView(b) {
     a.getOrgTitle = function(b) {
         return a.getOrgName(b) + " " + a.getDepartment(b)
     };
-    a.getFullName = function(a) {
-        return '<span class="cw_fnm' + a + '">' + escape_html(AC.getFullName(a)) + "</span>"
-    };
+    a.getFullName =
+        function(a) {
+            return '<span class="cw_fnm' + a + '">' + escape_html(AC.getFullName(a)) + "</span>"
+        };
     a.getChatWorkId = function(a) {
-        if (AC.getChatWorkId(a)) return '<span class="cw_cwid' + a + '">' + escape_html(AC.getChatWorkId(a)) +
-            "</span>";
+        if (AC.getChatWorkId(a)) return '<span class="cw_cwid' + a + '">' + escape_html(AC.getChatWorkId(a)) + "</span>";
         return ""
     };
     a.getChatWorkIdLink = function(b) {
@@ -4823,10 +4848,11 @@ function ChatWorkView(b) {
     a.getSkypeLink = function() {};
     a.getTwitterLink = function() {};
     a.getFacebookLink = function() {};
-    a.getContactPanel = function(a, b) {
-        $.log("notice: CW.getContactPanel is deprecated! use AC.view.getContactPanel");
-        return AC.view.getContactPanel(AC.account_dat[a], b)
-    };
+    a.getContactPanel =
+        function(a, b) {
+            $.log("notice: CW.getContactPanel is deprecated! use AC.view.getContactPanel");
+            return AC.view.getContactPanel(AC.account_dat[a], b)
+        };
     a.getFilePanel = function(a, b) {
         return FL.view.getFilePanel(a, b)
     };
@@ -4834,13 +4860,13 @@ function ChatWorkView(b) {
         return TK.view.getTaskPanel(a, b)
     };
     a.showLimitErrorDialog = function(a, b) {
-        h || (h = $("#_limitErrorDialog").cwDialog({
+        g || (g = $("#_limitErrorDialog").cwDialog({
             width: 550,
             open: function(a) {
                 $C("#_upgradeMessage").html(a)
             }
         }));
-        h.setOption({
+        g.setOption({
             title: a
         }).open(b)
     };
@@ -4851,8 +4877,7 @@ function ChatWorkView(b) {
         return a.showLimitErrorDialog(b, d)
     };
     a.showServiceAdmin = function(a) {
-        a == "upgrade" ? window.open(ACCOUNT_SERVER_PATH +
-            "/price.php") : window.open(ACCOUNT_SERVER_PATH + "/service_admin.php")
+        a == "upgrade" ? window.open(ACCOUNT_SERVER_PATH + "/price.php") : window.open(ACCOUNT_SERVER_PATH + "/service_admin.php")
     };
     a.showOptionPlanPrice = function() {
         window.open(ACCOUNT_SERVER_PATH + "/subpackages/option/price.php")
@@ -4861,47 +4886,48 @@ function ChatWorkView(b) {
         window.open(ACCOUNT_SERVER_PATH + "/user_list.php")
     };
     a.prepareStorageLimitDialog = function() {
-        k = $("#_storageLimitDialog").cwDialog({
-            width: 550,
-            buttonLabels: [L.button_close],
-            buttonCancel: 0,
-            open: function(b) {
-                b = $.extend({
-                    send_type: null,
-                    body: L.storage_cancel_send_object,
-                    title: null
-                }, b);
-                a.setLimitDialog(b.body, b.send_type);
-                if (!b.title) b.title = L.storage_cancel_send_cancel.replace(/%%object%%/, L[b.send_type]);
-                this.setOption({
-                    title: b.title
-                })
-            }
-        })
+        j =
+            $("#_storageLimitDialog").cwDialog({
+                width: 550,
+                buttonLabels: [L.button_close],
+                buttonCancel: 0,
+                open: function(b) {
+                    b = $.extend({
+                        send_type: null,
+                        body: L.storage_cancel_send_object,
+                        title: null
+                    }, b);
+                    a.setLimitDialog(b.body, b.send_type);
+                    if (!b.title) b.title = L.storage_cancel_send_cancel.replace(/%%object%%/, L[b.send_type]);
+                    this.setOption({
+                        title: b.title
+                    })
+                }
+            })
     };
     a.showStorageLimitDialog = function(b) {
-        k || a.prepareStorageLimitDialog();
+        j || a.prepareStorageLimitDialog();
         $C("#_storageLimitFooter").hide();
-        k.open({
+        j.open({
             send_type: b
         })
     };
     a.showStorageCautionDialog = function(b) {
-        b = $.extend({
-            title: null,
-            body: null,
-            footer: null
-        }, b);
-        k || a.prepareStorageLimitDialog();
+        b =
+            $.extend({
+                title: null,
+                body: null,
+                footer: null
+            }, b);
+        j || a.prepareStorageLimitDialog();
         var d = $C("#_storageLimitFooter");
         b.footer ? d.html(b.footer).show() : d.hide();
-        k.open({
+        j.open({
             body: b.body,
             title: b.title
         })
     };
-    a.showLoginDialog = function(a,
-        b) {
+    a.showLoginDialog = function(a, b) {
         b()
     };
     a.showOfflineDialog = function(a, b) {
@@ -4911,43 +4937,44 @@ function ChatWorkView(b) {
         b()
     };
     var x = !1,
-        p = [];
+        q = [];
     a.onEndInitLoad = function(a) {
-        x ? a() : p.push(a)
+        x ? a() : q.push(a)
     };
     a.endInitLoad = function() {
         x = !0;
-        for (var a = 0, b = p.length; a < b; a++) p[a]();
-        p = []
+        for (var a = 0, b = q.length; a < b; a++) q[a]();
+        q = []
     };
     a.buildLayout = function() {
-        a.model.is_first_load && ($("#_sideDashboardArea").show(), $("#_chatSendToolbar").show());
+        a.model.is_first_load && ($("#_sideDashboardArea").show(),
+            $("#_chatSendToolbar").show());
         a.resizeLayout()
     };
-    var q = $("#_globalHeader").outerHeight(!0),
+    var p = $("#_globalHeader").outerHeight(!0),
         t = parseInt($("#_content").css("margin-top"), 10),
-        r = $C("#_mainContent").outerHeight(!0) - $C("#_mainContent").innerHeight(),
+        s = $C("#_mainContent").outerHeight(!0) - $C("#_mainContent").innerHeight(),
         B = $C("#_sideContent").outerHeight(!0) - $C("#_sideContent").innerHeight(),
         I = $("#_sideContentTitle").outerHeight(!0),
         z = parseInt($("#_subContentArea").css("padding-top"), 10),
         E = $("#_chatFilterMenu").outerHeight(!0),
         y = $("#_chatRoomDescriptionNav").outerHeight(!0),
-        D = $C("#_chatText").innerWidth() - $C("#_chatText").width(),
-        K = $(window);
+        D = $C("#_chatText").innerWidth() -
+        $C("#_chatText").width(),
+        M = $(window);
     a.resizeLayout = function() {
         if (!x) return !1;
         a.resizeRoomList();
-        var b = K.innerHeight();
+        var b = M.innerHeight();
         $C("#_wrapper").css("height", b);
         var d = $C("#_wrapper").innerWidth();
-        d < 540 ? ($C("#_search").removeClass("inputLong"),
-            $C("#_adminNavi").hide(), $C("#_myStatusButton").addClass("headerNameShort"), $C("#_myStatusName").hide(), $C("#_logo").hide(), $C("#_headerSearch").addClass("headerSearchShort")) : (d < 730 ? ($C("#_search").removeClass("inputLong"), $C("#_adminNavi").hide(), $C("#_myStatusButton").addClass("headerNameShort"), $C("#_myStatusName").hide()) : d < 850 ? ($C("#_search").removeClass("inputLong"), $C("#_adminNavi").show(), $C("#_myStatusButton").addClass("headerNameShort"), $C("#_myStatusName").hide()) : (d < 1E3 ? $C("#_search").removeClass("inputLong") :
-            $C("#_search").addClass("inputLong"), $C("#_adminNavi").show(), $C("#_myStatusButton").removeClass("headerNameShort"), $C("#_myStatusName").show()), $C("#_logo").show(), $C("#_headerSearch").removeClass("headerSearchShort"));
+        d < 540 ? ($C("#_search").removeClass("inputLong"), $C("#_adminNavi").hide(), $C("#_myStatusButton").addClass("headerNameShort"), $C("#_myStatusName").hide(), $C("#_logo").hide(), $C("#_headerSearch").addClass("headerSearchShort")) : (d < 730 ? ($C("#_search").removeClass("inputLong"), $C("#_adminNavi").hide(), $C("#_myStatusButton").addClass("headerNameShort"),
+            $C("#_myStatusName").hide()) : d < 850 ? ($C("#_search").removeClass("inputLong"), $C("#_adminNavi").show(), $C("#_myStatusButton").addClass("headerNameShort"), $C("#_myStatusName").hide()) : (d < 1E3 ? $C("#_search").removeClass("inputLong") : $C("#_search").addClass("inputLong"), $C("#_adminNavi").show(), $C("#_myStatusButton").removeClass("headerNameShort"), $C("#_myStatusName").show()), $C("#_logo").show(), $C("#_headerSearch").removeClass("headerSearchShort"));
         $C("#_searchResult").css("left", $C("#_search").offset().left);
-        d = b - q - t - r;
+        d = b - p - t - s;
         $C("#_mainContent").height(d);
         $.cwFloatWindow.resize();
-        b = b - q - t - B;
+        b = b - p - t - B;
         $C("#_sideContent").height(b);
         b = b - I - E;
         $C("#_roomListArea").height(b);
@@ -4956,8 +4983,7 @@ function ChatWorkView(b) {
             height: d,
             top: I
         });
-        RS.view && (d = d - y - z, $C("#_subContentArea").height(d),
-            RS.view.resizeRoomInfo(d));
+        RS.view && (d = d - y - z, $C("#_subContentArea").height(d), RS.view.resizeRoomInfo(d));
         CS.view && ($C("#_chatText").width($C("#_chatTextArea").width() - D - 18), CS.view.resizeChatArea(!0));
         a.adjustInformationPanelPosition();
         a.resize_delay_timer = null
@@ -4985,44 +5011,44 @@ function ChatWorkView(b) {
                 useFloatBox: !1
             }),
             f = $("#_tutorialMessage"),
-            i = $("#_tutorialNextButton");
-        i.cwButton({
+            g = $("#_tutorialNextButton");
+        g.cwButton({
             type: "primary",
             click: function() {
                 h.shift()()
             }
         });
         var h = [],
-            g = $("#_addButton"),
-            m = $("#_headerSearch"),
+            i = $("#_addButton"),
+            l = $("#_headerSearch"),
             n = $("#_subRoomTaskAddArea"),
-            o = $("#_chatSendToolbar"),
-            q = $("#_chatTextArea");
+            p = $("#_chatSendToolbar"),
+            m = $("#_chatTextArea");
         h.push(function() {
-            g.css("z-index", TM.expose_zindex);
+            i.css("z-index", TM.expose_zindex);
             f.text(L.tutorial_addbutton);
-            e.isOpen() || e.open(g)
+            e.isOpen() || e.open(i)
         });
         h.push(function() {
-            g.css("z-index", "auto");
-            m.css("z-index", TM.expose_zindex);
+            i.css("z-index", "auto");
+            l.css("z-index", TM.expose_zindex);
             f.text(L.tutorial_globalsearch);
-            e.move(m)
+            e.move(l)
         });
         h.push(function() {
             CS.view.expandChatArea(!0);
-            m.css("z-index", "auto");
-            o.css("z-index", TM.expose_zindex);
-            q.css("z-index", TM.expose_zindex);
+            l.css("z-index", "auto");
+            p.css("z-index", TM.expose_zindex);
+            m.css("z-index", TM.expose_zindex);
             f.text(L.tutorial_send_message);
-            e.move(o)
+            e.move(p)
         });
         h.push(function() {
-            o.css("z-index", "auto");
-            q.css("z-index", "auto");
+            p.css("z-index", "auto");
+            m.css("z-index", "auto");
             n.css("z-index", TM.expose_zindex);
             f.text(L.tutorial_add_task);
-            i.cwButton().setOption({
+            g.cwButton().setOption({
                 type: "success",
                 text: L.button_complete
             });
@@ -5044,9 +5070,9 @@ function ChatWorkView(b) {
     a.resizeSubInfo = function() {};
     a.setLimitDialog = function(b, d) {
         var e = "";
-        a.model.plan == "free" ? (b += L.storage_cancel_send_object_suffix_upgrade, e = L.storage_cancel_upgrade_label) : a.model.is_business && !a.model.is_admin ? (b += L.storage_cancel_send_object_suffix_tell_admin, $("#_storageLimitButton").hide()) : (b += L.storage_cancel_send_object_suffix_add_storage, e = L.storage_cancel_add_storage_label);
-        d != void 0 && L[d] != void 0 && (b =
-            b.replace(/%%object%%/g, L[d]));
+        a.model.plan == "free" ? (b += L.storage_cancel_send_object_suffix_upgrade,
+            e = L.storage_cancel_upgrade_label) : a.model.is_business && !a.model.is_admin ? (b += L.storage_cancel_send_object_suffix_tell_admin, $("#_storageLimitButton").hide()) : (b += L.storage_cancel_send_object_suffix_add_storage, e = L.storage_cancel_add_storage_label);
+        d != void 0 && L[d] != void 0 && (b = b.replace(/%%object%%/g, L[d]));
         $("#_storageLimitBody").html(b);
         $("#_storageLimitLink").text(e)
     };
@@ -5056,229 +5082,224 @@ function ChatWorkView(b) {
         G.open(b, d, e, f)
     };
     var H = null;
-    a.preparePreviewLinkDialog = function() {
-        var b = $("#_previewLinkContent");
-        G = $("#_previewLinkDialog").cwDialog({
-            buttonLabels: [L.open_website, L.button_close],
-            buttonCancel: 1,
-            buttonClick: function(a) {
-                switch (a) {
-                    case 0:
-                        window.open(this.data.url)
-                }
-            },
-            open: function(d, e, f, i) {
-                if (d) {
-                    var h = {
-                            buttonLabels: [L.open_website,
-                                L.button_close
-                            ]
-                        },
-                        g = "",
-                        m = TM.dialog_header_height + TM.dialog_footer_height,
-                        n = !0,
-                        o = !1,
-                        q = !1,
-                        j = "auto",
-                        k = function(a, b, d, e) {
-                            typeof a == "function" && (a = a());
-                            var f = "";
-                            n && (f = 'sandbox="allow-scripts allow-same-origin allow-popups allow-forms"');
-                            return "<iframe " + f + ' src="' + a + '" width="' + b + '" height="' + d + '" style="margin:auto" frameborder="0" scrolling="' + e + '" seamless webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>'
-                        };
-                    this.data.url = e;
-                    b.empty();
-                    H !== null && (H.abort(), H = null);
-                    switch (d) {
-                        case "teachme":
-                            o = !0;
-                            g = "//teachme.jp/contents/" + i + "/embed?mb=0";
-                            h.title = "Teachme";
-                            break;
-                        case "speakerdeck":
-                            q = o = !0;
-                            h.title = "Speaker Deck";
-                            H = $.ajax({
-                                type: "GET",
-                                url: "./api_proxy.php?type=speakerdeck&url=" + urlencode(e),
-                                success: function(a) {
-                                    $("#_previewLinkContent").html(k(a, B, s))
-                                },
-                                error: function() {
-                                    $("#_previewLinkContent").html(L.raise_error)
-                                }
-                            });
-                            break;
-                        case "slideshare":
-                            q = o = !0;
-                            g = "//www.slideshare.net/slideshow/embed_code/%%slideshow_id%%";
-                            h.title = "slideshare";
-                            H = $.jsonp({
-                                url: "//www.slideshare.net/api/oembed/2?url=" + urlencode("http://www.slideshare.net/" +
-                                    f + "/" + i) + "&format=jsonp",
-                                data: {
-                                    maxwidth: B,
-                                    maxheight: s,
-                                    format: "json"
-                                },
-                                callbackParameter: "callback",
-                                success: function(a) {
-                                    $("#_previewLinkContent").html(k(g.replace("%%slideshow_id%%", a.slideshow_id), B, s))
-                                },
-                                error: function() {
-                                    $("#_previewLinkContent").html(L.raise_error)
-                                }
-                            });
-                            break;
-                        case "prezi":
-                            o = !0;
-                            n = !1;
-                            g = "//prezi.com/embed/" + i + "/?bgcolor=ffffff&amp;lock_to_path=0&amp;autoplay=0&amp;autohide_ctrls=0&amp;features=undefined&amp;disabled_features=undefined";
-                            h.title = "Prezi";
-                            break;
-                        case "youtube":
-                            o = !0;
-                            n = !1;
-                            g =
-                                "//www.youtube.com/embed/" + i + "";
-                            h.title = "YouTube";
-                            break;
-                        case "vimeo":
-                            o = !0;
-                            n = !1;
-                            g = "//player.vimeo.com/video/" + i + "";
-                            h.title = "vimeo";
-                            break;
-                        case "slid.es":
-                            o = !0;
-                            g = "//slid.es/" + i + "/embed";
-                            h.title = "slid.es";
-                            break;
-                        case "corabbit":
-                            g = "//corabbit.com/embed/" + i;
-                            h.title = "Corabbit";
-                            break;
-                        case "googledocs":
-                            n = !1;
-                            g = e.replace(/(\/file\/.+)\/(edit|view)$/, "$1/preview");
-                            h.title = "Google Drive " + L.preview_needlogin;
-                            break;
-                        case "cacoo":
-                            g = function() {
-                                var a = i.split("#"),
-                                    b = a.shift(),
-                                    a = a.shift();
-                                return "//cacoo.com/diagrams/" +
-                                    b + "/view?w=" + (B - 2) + "&h=" + (s - 30) + (a ? "#" + a : "")
+    a.preparePreviewLinkDialog =
+        function() {
+            var b = $("#_previewLinkContent");
+            G = $("#_previewLinkDialog").cwDialog({
+                buttonLabels: [L.open_website, L.button_close],
+                buttonCancel: 1,
+                buttonClick: function(a) {
+                    switch (a) {
+                        case 0:
+                            window.open(this.data.url)
+                    }
+                },
+                open: function(d, e, f, g) {
+                    if (d) {
+                        var h = {
+                                buttonLabels: [L.open_website, L.button_close]
+                            },
+                            i = "",
+                            l = TM.dialog_header_height + TM.dialog_footer_height,
+                            n = !0,
+                            p = !1,
+                            m = !1,
+                            o = "auto",
+                            j = function(a, b, d, e) {
+                                typeof a == "function" && (a = a());
+                                var f = "";
+                                n && (f = 'sandbox="allow-scripts allow-same-origin allow-popups allow-forms"');
+                                return "<iframe " + f + ' src="' + a + '" width="' + b + '" height="' + d + '" style="margin:auto" frameborder="0" scrolling="' + e + '" seamless webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>'
                             };
-                            j = "no";
-                            h.title = "Cacoo";
-                            break;
-                        case "sharepoint":
-                            g = "https://" + i + "&action=interactivepreview&wdSmallView=1";
-                            h.title = "Office 365";
-                            break;
-                        case "chatworkFilePreview":
-                            n = !1;
-                            h.title = $("<div></div>").text(i).html();
-                            h.buttonLabels = [L.open_window, L.button_close];
-                            var r = a.filePreview.getPreviewType(i.split(".").pop()),
-                                p = function(a, b, d) {
-                                    var e = setTimeout(function() {
-                                        d();
-                                        d = function() {}
-                                    }, 5E3);
-                                    $(window).on("message.previewLinkContent", function(b) {
-                                        if (b.originalEvent.origin ===
-                                            "https://d2cxqj2w0ktore.cloudfront.net") {
-                                            var f = JSON.parse(b.originalEvent.data);
-                                            f.type === "fixWindowSize" && (b = Math.min(f.width + TM.preview_dialog_width_padding, h.width), f = Math.min(f.height + TM.preview_dialog_height_padding + 82, h.height), G.setOption({
-                                                width: b,
-                                                height: f
-                                            }), G.open(), a.attr({
-                                                width: b,
-                                                height: f - 82
-                                            }), d(), clearTimeout(e), $(window).off("message.previewLinkContent"))
-                                        }
-                                    });
-                                    a.get(0).contentWindow.postMessage(b, "*");
-                                    setTimeout(function() {
-                                        a.off("load")
-                                    })
+                        this.data.url = e;
+                        b.empty();
+                        H !== null && (H.abort(), H = null);
+                        switch (d) {
+                            case "teachme":
+                                p = !0;
+                                i = "//teachme.jp/contents/" + g + "/embed?mb=0";
+                                h.title = "Teachme";
+                                break;
+                            case "speakerdeck":
+                                m = p = !0;
+                                h.title = "Speaker Deck";
+                                H = $.ajax({
+                                    type: "GET",
+                                    url: "./api_proxy.php?type=speakerdeck&url=" + urlencode(e),
+                                    success: function(a) {
+                                        $("#_previewLinkContent").html(j(a,
+                                            B, r))
+                                    },
+                                    error: function() {
+                                        $("#_previewLinkContent").html(L.raise_error)
+                                    }
+                                });
+                                break;
+                            case "slideshare":
+                                m = p = !0;
+                                i = "//www.slideshare.net/slideshow/embed_code/%%slideshow_id%%";
+                                h.title = "slideshare";
+                                H = $.jsonp({
+                                    url: "//www.slideshare.net/api/oembed/2?url=" + urlencode("http://www.slideshare.net/" + f + "/" + g) + "&format=jsonp",
+                                    data: {
+                                        maxwidth: B,
+                                        maxheight: r,
+                                        format: "json"
+                                    },
+                                    callbackParameter: "callback",
+                                    success: function(a) {
+                                        $("#_previewLinkContent").html(j(i.replace("%%slideshow_id%%", a.slideshow_id), B, r))
+                                    },
+                                    error: function() {
+                                        $("#_previewLinkContent").html(L.raise_error)
+                                    }
+                                });
+                                break;
+                            case "prezi":
+                                p = !0;
+                                n = !1;
+                                i = "//prezi.com/embed/" + g + "/?bgcolor=ffffff&amp;lock_to_path=0&amp;autoplay=0&amp;autohide_ctrls=0&amp;features=undefined&amp;disabled_features=undefined";
+                                h.title = "Prezi";
+                                break;
+                            case "youtube":
+                                p = !0;
+                                n = !1;
+                                i = "//www.youtube.com/embed/" + g + "";
+                                h.title = "YouTube";
+                                break;
+                            case "vimeo":
+                                p = !0;
+                                n = !1;
+                                i = "//player.vimeo.com/video/" + g + "";
+                                h.title = "vimeo";
+                                break;
+                            case "slid.es":
+                                p = !0;
+                                i = "//slid.es/" + g + "/embed";
+                                h.title = "slid.es";
+                                break;
+                            case "corabbit":
+                                i = "//corabbit.com/embed/" + g;
+                                h.title = "Corabbit";
+                                break;
+                            case "googledocs":
+                                n = !1;
+                                i = e.replace(/(\/file\/.+)\/(edit|view)$/, "$1/preview");
+                                h.title = "Google Drive " + L.preview_needlogin;
+                                break;
+                            case "cacoo":
+                                i = function() {
+                                    var a = g.split("#"),
+                                        b = a.shift(),
+                                        a = a.shift();
+                                    return "//cacoo.com/diagrams/" + b + "/view?w=" + (B - 2) + "&h=" + (r - 30) + (a ? "#" + a : "")
                                 };
-                            if (r === "iframe") g = e;
-                            else if (r === "source") q = !0, H =
-                                $.ajax({
+                                o = "no";
+                                h.title = "Cacoo";
+                                break;
+                            case "sharepoint":
+                                i = "https://" + g + "&action=interactivepreview&wdSmallView=1";
+                                h.title = "Office 365";
+                                break;
+                            case "chatworkFilePreview":
+                                n = !1;
+                                h.title = $("<div></div>").text(g).html();
+                                h.buttonLabels = [L.open_window,
+                                    L.button_close
+                                ];
+                                var s = a.filePreview.getPreviewType(g.split(".").pop()),
+                                    q = function(a, b, d) {
+                                        var e = setTimeout(function() {
+                                            d();
+                                            d = function() {}
+                                        }, 5E3);
+                                        $(window).on("message.previewLinkContent", function(b) {
+                                            if (b.originalEvent.origin === "https://d2cxqj2w0ktore.cloudfront.net") {
+                                                var f = JSON.parse(b.originalEvent.data);
+                                                f.type === "fixWindowSize" && (b = Math.min(f.width + TM.preview_dialog_width_padding, h.width), f = Math.min(f.height + TM.preview_dialog_height_padding + 82, h.height), G.setOption({
+                                                    width: b,
+                                                    height: f
+                                                }), G.open(), a.attr({
+                                                    width: b,
+                                                    height: f - 82
+                                                }), d(), clearTimeout(e), $(window).off("message.previewLinkContent"))
+                                            }
+                                        });
+                                        a.get(0).contentWindow.postMessage(b, "*");
+                                        setTimeout(function() {
+                                            a.off("load")
+                                        })
+                                    };
+                                if (s === "iframe") i = e;
+                                else if (s === "source") m = !0, H = $.ajax({
                                     type: "GET",
                                     url: e,
                                     dataType: "text",
                                     success: function(a) {
                                         n = !1;
-                                        $("#_previewLinkContent").html(k("https://d2cxqj2w0ktore.cloudfront.net/preview/iframe/index.html", B, s, j));
+                                        $("#_previewLinkContent").html(j("https://d2cxqj2w0ktore.cloudfront.net/preview/iframe/index.html", B, r, o));
                                         $("#_previewLinkContent iframe").on("load", function() {
                                             var b = JSON.stringify({
-                                                type: r,
+                                                type: s,
                                                 body: a,
-                                                fileName: i
+                                                fileName: g
                                             });
-                                            p($(this), b, function() {})
+                                            q($(this), b, function() {})
                                         })
                                     },
                                     error: function() {
                                         $("#_previewLinkContent").html(L.raise_error)
                                     }
                                 });
-                            else if (r === "video") g = "https://d2cxqj2w0ktore.cloudfront.net/preview/iframe/index.html", $("#_previewLinkDialog").parent().hide(), setTimeout(function() {
-                                $("#_previewLinkContent iframe").on("load",
-                                    function() {
+                                else if (s === "video") i = "https://d2cxqj2w0ktore.cloudfront.net/preview/iframe/index.html", $("#_previewLinkDialog").parent().hide(), setTimeout(function() {
+                                    $("#_previewLinkContent iframe").on("load", function() {
                                         var a = JSON.stringify({
-                                            type: r,
+                                            type: s,
                                             url: location.protocol + "//" + location.hostname + (location.port ? ":" + location.port : "") + location.pathname + e,
-                                            fileName: i
+                                            fileName: g
                                         });
-                                        p($(this), a, function() {
+                                        q($(this), a, function() {
                                             $("#_previewLinkDialog").parent().show()
                                         })
                                     })
-                            });
-                            else return !1;
-                            break;
-                        default:
-                            return !1
+                                });
+                                else return !1;
+                                break;
+                            default:
+                                return !1
+                        }
+                        var k = $C(window),
+                            f = k.width(),
+                            k = k.height(),
+                            B, r;
+                        if (p) {
+                            this.$el.removeClass("previewFullDialog");
+                            l += TM.preview_dialog_height_padding;
+                            B = 1120;
+                            for (r = 840; B > 160 && (f < B + 40 || k < r + l + 40);) B -= 160, r -= 120;
+                            h.width = B + TM.preview_dialog_width_padding
+                        } else this.$el.addClass("previewFullDialog"), B = f - 40, r = k - l - 40, h.width = B;
+                        h.height = r + l;
+                        d && g && (m ? $("#_previewLinkContent").html('<div style="margin:auto"><img src="./imagenew/all/common/loader/img_loader_gray.gif" />' + L.loading + "</div>") : $("#_previewLinkContent").html(j(i,
+                            B, r, o)));
+                        this.setOption(h)
                     }
-                    var l = $C(window),
-                        f = l.width(),
-                        l = l.height(),
-                        B, s;
-                    if (o) {
-                        this.$el.removeClass("previewFullDialog");
-                        m += TM.preview_dialog_height_padding;
-                        B = 1120;
-                        for (s = 840; B > 160 && (f < B + 40 || l < s + m + 40);) B -= 160, s -= 120;
-                        h.width = B + TM.preview_dialog_width_padding
-                    } else this.$el.addClass("previewFullDialog"),
-                        B = f - 40, s = l - m - 40, h.width = B;
-                    h.height = s + m;
-                    d && i && (q ? $("#_previewLinkContent").html('<div style="margin:auto"><img src="./imagenew/all/common/loader/img_loader_gray.gif" />' + L.loading + "</div>") : $("#_previewLinkContent").html(k(g, B, s, j)));
-                    this.setOption(h)
+                },
+                close: function() {
+                    b.empty();
+                    $(window).off("message.previewLinkContent")
                 }
-            },
-            close: function() {
-                b.empty();
-                $(window).off("message.previewLinkContent")
-            }
-        });
-        $("#_previewLinkReload").click(function() {
-            var a = G.data.previewlink_link;
-            a && G.open(a)
-        })
-    };
+            });
+            $("#_previewLinkReload").click(function() {
+                var a = G.data.previewlink_link;
+                a && G.open(a)
+            })
+        };
     (function() {
         var b = {};
         a.addInformation = function(b) {
             b = b || {};
-            return a.saveInformation(!1,
-                b)
+            return a.saveInformation(!1, b)
         };
         a.saveInformation = function(a, d) {
             d = $.extend(!0, {
@@ -5327,17 +5348,17 @@ function ChatWorkView(b) {
                     var f = '<li class="linkStatus" data-id="' + b + '">' + escape_html(d.linktext) + "</li>",
                         f = $(f);
                     e.append(f);
-                    var i = {
+                    var g = {
                             subject: d.subject,
                             body: d.body,
                             buttonLabels: d.buttonLabels,
                             buttonClick: d.buttonClick
                         },
                         h = d.linkClick || function() {
-                            a.openAnnounceDialog(i)
+                            a.openAnnounceDialog(g)
                         };
                     f.click(function() {
-                        h(i)
+                        h(g)
                     })
                 });
                 d.isVisible() || a.showAnnounce()
@@ -5369,8 +5390,9 @@ function ChatWorkView(b) {
         }
     };
     a.prepareUserGuideDialog = function() {
-        g = $("#_userguideDialog").cwDialog({
-            title: L.userguide_title.replace("%%service_name%%", SERVICE_NAME),
+        i = $("#_userguideDialog").cwDialog({
+            title: L.userguide_title.replace("%%service_name%%",
+                SERVICE_NAME),
             width: 820,
             height: "full",
             autoOpen: !1,
@@ -5379,30 +5401,29 @@ function ChatWorkView(b) {
                 b()
             }
         });
-        var a = g.$el.find("._navlist"),
+        var a = i.$el.find("._navlist"),
             b = function(d) {
                 var e = 0;
                 a.each(function() {
                     if ($(this).hasClass("_select")) return !1;
                     e++
                 });
-                var f =
-                    e;
+                var f = e;
                 if (d) return f += d, f > a.length - 1 && (f = 0), a.eq(f).click(), !1;
                 var d = [],
-                    i = [];
-                f > 0 && (d.push(L.pager_prev), i.push(function() {
+                    g = [];
+                f > 0 && (d.push(L.pager_prev), g.push(function() {
                     b(-1)
                 }));
-                f < a.length - 1 ? (d.push(L.pager_next), i.push(function() {
+                f < a.length - 1 ? (d.push(L.pager_next), g.push(function() {
                     b(1)
-                })) : f == a.length - 1 && (d.push(L.button_close), i.push(function() {
-                    g.close()
+                })) : f == a.length - 1 && (d.push(L.button_close), g.push(function() {
+                    i.close()
                 }));
-                g.setOption({
+                i.setOption({
                     buttonLabels: d,
                     buttonClick: function(a) {
-                        (0, i[a])()
+                        (0, g[a])()
                     }
                 })
             };
@@ -5422,8 +5443,8 @@ function ChatWorkView(b) {
         })
     };
     a.openUserGuideDialog = function() {
-        g || a.prepareUserGuideDialog();
-        g.open()
+        i || a.prepareUserGuideDialog();
+        i.open()
     };
     a.openAnnounceDialog = function(a) {
         a = $.extend(!0, {
@@ -5432,13 +5453,13 @@ function ChatWorkView(b) {
             buttonLabels: null,
             buttonClick: null
         }, a);
-        j || (j = $("#_announceDialog").cwDialog({
+        h || (h = $("#_announceDialog").cwDialog({
             width: 600,
             height: "auto"
         }));
         var b = [L.button_close];
         a.buttonLabels && $.isArray(a.buttonLabels) && (b = $.merge(a.buttonLabels, b));
-        j.setOption({
+        h.setOption({
             title: a.subject,
             buttonLabels: b,
             buttonCancel: b.length - 1,
@@ -5447,16 +5468,16 @@ function ChatWorkView(b) {
             }
         });
         $C("#_announceBody").html(a.body);
-        j.open();
+        h.open();
         $.cwFloatBox.close($C("#_informationBox"))
     };
     a.openFeedbackCompleteDialog = function() {
-        l || (l = $("#_feedbackCompleteDialog").cwDialog({
+        k || (k = $("#_feedbackCompleteDialog").cwDialog({
             width: 500,
             buttonLabels: [L.button_close],
             buttonCancel: 0
         }));
-        l.open()
+        k.open()
     };
     a.showAnnounce = function() {
         $C("#_notificationArea").fadeIn(function() {
@@ -5634,11 +5655,11 @@ function AccountView(b) {
                 var e = $(this).cwButton(),
                     f = e.$el.attr("data-rid");
                 if (f = RL.rooms[f]) {
-                    var i = [],
+                    var g = [],
                         h;
                     for (h in f.member_dat) AC.isContact(h) ||
-                        i.push(h);
-                    i.length > 0 && a.requestContact(i, e)
+                        g.push(h);
+                    g.length > 0 && a.requestContact(g, e)
                 }
             }
         });
@@ -5769,12 +5790,12 @@ function AccountView(b) {
             })
         }
     };
-    var g = "",
-        j = null;
+    var i = "",
+        h = null;
     a.checkCWID =
         function(b) {
             var d = trim(b);
-            if (d != g) g = d, j && (clearTimeout(j), j = null), AC.getChatWorkId(AC.myid) == d ? ($("#_profileCWIDLoading").hide(), $("#_profileCWIDStatus").text(""), a.is_valid_cwid = !0) : d ? d.length > 50 ? ($("#_profileCWIDLoading").hide(), $("#_profileCWIDStatus").text(L.error_maxlength.replace("%%length%%", 50)).css("color", "red"), a.is_valid_cwid = !1) : d.match(/^[-_a-zA-Z0-9]+$/) ? ($("#_profileCWIDLoading").show(), $("#_profileCWIDStatus").text(""), j = setTimeout(function() {
+            if (d != i) i = d, h && (clearTimeout(h), h = null), AC.getChatWorkId(AC.myid) == d ? ($("#_profileCWIDLoading").hide(), $("#_profileCWIDStatus").text(""), a.is_valid_cwid = !0) : d ? d.length > 50 ? ($("#_profileCWIDLoading").hide(), $("#_profileCWIDStatus").text(L.error_maxlength.replace("%%length%%", 50)).css("color", "red"), a.is_valid_cwid = !1) : d.match(/^[-_a-zA-Z0-9]+$/) ? ($("#_profileCWIDLoading").show(), $("#_profileCWIDStatus").text(""), h = setTimeout(function() {
                 $("#_profileCWIDLoading").show();
                 CW.get("gateway.php", {
                     cmd: "check_chatwork_id",
@@ -5841,8 +5862,8 @@ function AccountView(b) {
         RL.rooms[b] ? e[b] = RL.rooms[b] : e = RL.rooms;
         for (var f in e) {
             var b = RL.rooms[f],
-                i;
-            for (i in b.member_dat) a.model.myid != i && !a.model.isContact(i) && !a.model.myrequest_dat[i] && (d[i] = a.model.account_dat[i])
+                g;
+            for (g in b.member_dat) a.model.myid != g && !a.model.isContact(g) && !a.model.myrequest_dat[g] && (d[g] = a.model.account_dat[g])
         }
         return d
     };
@@ -5860,22 +5881,22 @@ function AccountView(b) {
         a.buildContactWindow()
     };
     a.resetSocialContactErrorCount = function() {};
-    var k = null;
+    var j = null;
     a.openProfileTip =
         function(b, d) {
-            k || (k = $("#_profileTip").cwToolTip({
+            j || (j = $("#_profileTip").cwToolTip({
                 open: function() {
                     this.$el.html(a.getContactPanel(this.data.account_id))
                 }
-            }), k.$el.on("click", "._moveButton", function() {
-                k.close()
+            }), j.$el.on("click", "._moveButton", function() {
+                j.close()
             }));
-            k.data.account_id = b;
-            k.open(d)
+            j.data.account_id = b;
+            j.open(d)
         };
-    var l = null;
+    var k = null;
     a.openProfileWindow = function(b) {
-        l === null && (l = $("#_profileContent").cwDialog({
+        k === null && (k = $("#_profileContent").cwDialog({
             width: 815,
             open: function(b) {
                 a.assignDetailInfo(this.$el, b);
@@ -5886,13 +5907,13 @@ function AccountView(b) {
             openCallback: function() {
                 this.$el.scrollTop(0)
             }
-        }), l.$el.on("click", "._moveButton", function() {
-            l.close()
+        }), k.$el.on("click", "._moveButton", function() {
+            k.close()
         }));
-        l.open(b)
+        k.open(b)
     };
     a.closeProfileWindow = function() {
-        l.close()
+        k.close()
     };
     a.openProfileEditWindow = function() {
         a.prepareEditProfile();
@@ -5947,11 +5968,11 @@ function AccountView(b) {
                                         },
                                         e = {},
                                         f = "",
-                                        i;
-                                    for (i in d) b[i] && (e[d[i]] = b[i]), f = i + "_priv", b[f] && (e[d[i] + "_priv"] = b[f]);
+                                        g;
+                                    for (g in d) b[g] && (e[d[g]] = b[g]), f = g + "_priv", b[f] && (e[d[g] + "_priv"] = b[f]);
                                     AC.setAccountDat(AC.myid, e);
-                                    a.assignDetailInfo(l.$el, AC.myid);
-                                    l.setOption({
+                                    a.assignDetailInfo(k.$el, AC.myid);
+                                    k.setOption({
                                         title: AC.getName(AC.myid)
                                     });
                                     b.allow_search != void 0 && (ST.data.allow_search = parseInt(b.allow_search,
@@ -6034,16 +6055,16 @@ function AccountView(b) {
             ucfirst(b)).attr("data-value", b);
         return this
     };
-    var h = null,
-        i = null,
+    var g = null,
+        l = null,
         m = 0,
         n = 0,
         o = TM.contactwindow_pager_view_num,
         u = null,
-        s = {};
+        r = {};
     a.prepareContactWindow = function() {
         $("#_contactWindowTabMyContact");
-        h = $("#_contactWindow").cwFloatWindow({
+        g = $("#_contactWindow").cwFloatWindow({
             title: L.menu_contact_admin,
             open: function() {
                 a.selectDefaultTabInContactWindow()
@@ -6083,9 +6104,9 @@ function AccountView(b) {
             b.addClass("adminDetailSelected");
             a.buildContactDetail(b.attr("data-aid"))
         }).on("cwCheckBox_update", function(a, b, d) {
-            b ? s[d] = b : s[d] && delete s[d];
+            b ? r[d] = b : r[d] && delete r[d];
             a = $C("#_contactWindowList").find("._contactList").length;
-            (b = count(s)) ? (b == a ? i.check() : i.partialCheck(), e.enable()) : (i.unCheck(), e.disable())
+            (b = count(r)) ? (b == a ? l.check() : l.partialCheck(), e.enable()) : (l.unCheck(), e.disable())
         }).on("click", "._inviteContact", function() {
             var b = x.inviteMailList;
             b.length > 0 && (CW.showProgress(L.contact_doing_invite), CW.post("gateway.php", {
@@ -6105,16 +6126,16 @@ function AccountView(b) {
                 CW.alert(a)
             }))
         });
-        i = $C("#_contactWindowCheckAll").cwCheckBox();
+        l = $C("#_contactWindowCheckAll").cwCheckBox();
         contact_window_allcheck_button = $("#_contactWindowCheckAllButton").cwButton({
             click: function() {
-                i.toggle()
+                l.toggle()
             },
             disable: function() {
-                i.disable()
+                l.disable()
             },
             enable: function() {
-                i.enable()
+                l.enable()
             }
         });
         $C("#_contactWindowCheckAll").cwCheckBox({
@@ -6135,7 +6156,7 @@ function AccountView(b) {
             click: function() {
                 var a = [],
                     b;
-                for (b in s) a.push(b);
+                for (b in r) a.push(b);
                 a.length > 0 && (CW.showProgress(L.canceling), CW.post("gateway.php", {
                     cmd: "cancel_contact_request",
                     a: a
@@ -6151,7 +6172,7 @@ function AccountView(b) {
             click: function() {
                 var a = [],
                     b;
-                for (b in s) a.push(b);
+                for (b in r) a.push(b);
                 CW.view.confirmDelete(L.contact_multi_delete_confirm.replace(/%%num%%/,
                     a.length), function() {
                     a.length > 0 && (CW.showProgress(L.deleting), CW.post("gateway.php", {
@@ -6171,7 +6192,7 @@ function AccountView(b) {
             click: function() {
                 var a = [],
                     b;
-                for (b in s) a.push(b);
+                for (b in r) a.push(b);
                 a.length > 0 && (CW.showProgress(L.accepting), CW.post("gateway.php", {
                     cmd: "accept_contact_request",
                     a: a
@@ -6195,7 +6216,7 @@ function AccountView(b) {
             click: function() {
                 var b = [],
                     d;
-                for (d in s) b.push(d);
+                for (d in r) b.push(d);
                 b.length > 0 && a.requestContact(b, this)
             }
         });
@@ -6247,9 +6268,9 @@ function AccountView(b) {
                     d.enable()
                 } else {
                     for (e = 0; e < b.requested_list.length; e++) {
-                        var i = b.requested_list[e];
-                        a.model.myrequest_dat[i] = {
-                            nm: AC.getName(i),
+                        var g = b.requested_list[e];
+                        a.model.myrequest_dat[g] = {
+                            nm: AC.getName(g),
                             mg: f
                         }
                     }
@@ -6265,8 +6286,8 @@ function AccountView(b) {
         b.length > 1 ? CW.view.confirm(L.contact_multi_add_confirm.replace(/%%num%%/, b.length), e) : b.length == 1 && e()
     };
     a.openContactWindow = function() {
-        h || a.prepareContactWindow();
-        h.open();
+        g || a.prepareContactWindow();
+        g.open();
         a.buildContactWindow();
         $C("#_contactWindowSearch").focus()
     };
@@ -6343,20 +6364,20 @@ function AccountView(b) {
                             if (b.error_dat != void 0) {
                                 f = "";
                                 for (d in b.error_dat) {
-                                    var i = b.error_dat[d].length;
+                                    var g = b.error_dat[d].length;
                                     if (d == "noexist")
-                                        for (var h = 0; h < i; h++) x.inviteMailList.push(b.error_dat[d][h]);
+                                        for (var h = 0; h < g; h++) x.inviteMailList.push(b.error_dat[d][h]);
                                     else {
                                         e = e.concat(b.error_dat[d]);
                                         f && (f += "\n\n");
-                                        var g = 0;
-                                        if (i > 3) var m = 3,
-                                            g = i - 3;
-                                        else m = i;
-                                        i = "";
-                                        for (h = 0; h < m; h++) i && (i += ","), i += b.error_dat[d][h];
-                                        f += i;
-                                        g > 0 && (f += L.contact_rest_number.replace(/%%rest_number%%/, g));
+                                        var i = 0;
+                                        if (g > 3) var l = 3,
+                                            i = g - 3;
+                                        else l = g;
+                                        g = "";
+                                        for (h = 0; h < l; h++) g && (g += ","), g += b.error_dat[d][h];
+                                        f += g;
+                                        i > 0 && (f += L.contact_rest_number.replace(/%%rest_number%%/, i));
                                         d == "invalid" ? f += L.contact_error_is_not_mailaddress : d == "limited" ? f += L.contact_error_is_over_contactnum : d == "external" && (f += L.contact_error_is_disable_external)
                                     }
                                 }
@@ -6375,8 +6396,8 @@ function AccountView(b) {
         v && (v.abort(),
             v = null);
         w && clearTimeout(w);
-        i.unCheck(!0);
-        s = {};
+        l.unCheck(!0);
+        r = {};
         x = $.extend({}, A)
     };
     a.selectDefaultTabInContactWindow = function() {
@@ -6390,16 +6411,16 @@ function AccountView(b) {
         }, b).resetPager && (n = 0);
         var d = count(a.model.request_dat);
         d > 0 ? $("#_myAllContactNum").text(d).show() : $("#_myAllContactNum").hide();
-        if (h && h.isOpen()) {
-            s = {};
+        if (g && g.isOpen()) {
+            r = {};
             var e = a.getNoRequestDat(),
                 f = x.accountIdList,
-                g = x.inviteMailList,
+                h = x.inviteMailList,
                 b = "",
-                j = [],
-                k =
+                i = [],
+                j =
                 "",
-                p = function(b, d) {
+                q = function(b, d) {
                     if (b == a.model.myid) return !1;
                     if (d.length > 0 && !a.model.isMatchedWithKeyList(d, b)) return !1;
                     return !0
@@ -6408,23 +6429,23 @@ function AccountView(b) {
             $C("#_contactWindowNavigation ._contactWindowNavigationItem").hide();
             switch (a.tab_type) {
                 case "addcontact":
-                    k = L.contact_search_introduction;
+                    j = L.contact_search_introduction;
                     $C("#_addContactType").show();
                     $C("#_contactWindowAdd").show().cwButton().disable();
                     $C("#_contactWindowSearch").attr("placeholder", L.contact_search_placeholder);
-                    for (var j = [], l = 0, p = f.length; l < p; l++) {
-                        var v = f[l];
-                        !AC.isContact(v) && !AC.request_dat[v] && !AC.myrequest_dat[v] && j.push(v)
+                    for (var i = [], k = 0, q = f.length; k < q; k++) {
+                        var v = f[k];
+                        !AC.isContact(v) && !AC.request_dat[v] && !AC.myrequest_dat[v] && i.push(v)
                     }
-                    f = j;
+                    f = i;
                     break;
                 case "contact":
-                    k = L.contact_search_not_found;
+                    j = L.contact_search_not_found;
                     $C("#_contactWindowSearch").attr("placeholder", L.contact_search);
                     f = $C("#_contactWindowSearch").val().toLowerCase();
                     x.isSearched = !1;
-                    if (f) j = CW.splitWithSpace(f), x.isSearched = !0;
-                    for (var f = [], l = 0, w = a.model.contact_list.length; l < w; l++) v = a.model.contact_list[l], p(v, j) && f.push(v);
+                    if (f) i = CW.splitWithSpace(f), x.isSearched = !0;
+                    for (var f = [], k = 0, w = a.model.contact_list.length; k < w; k++) v = a.model.contact_list[k], q(v, i) && f.push(v);
                     $C("#_contactWindowDelete").show().cwButton().disable();
                     break;
                 case "myrequest":
@@ -6432,33 +6453,33 @@ function AccountView(b) {
                         L.contact_search);
                     f = $C("#_contactWindowSearch").val().toLowerCase();
                     x.isSearched = !1;
-                    if (f) j = CW.splitWithSpace(f), x.isSearched = !0;
+                    if (f) i = CW.splitWithSpace(f), x.isSearched = !0;
                     f = [];
-                    for (v in a.model.myrequest_dat) p(v, j) && f.push(v);
+                    for (v in a.model.myrequest_dat) q(v, i) && f.push(v);
                     $C("#_contactWindowCancel").show().cwButton().disable();
                     break;
                 case "request":
                     $C("#_contactWindowSearch").attr("placeholder", L.contact_search);
                     f = $C("#_contactWindowSearch").val().toLowerCase();
                     x.isSearched = !1;
-                    if (f) j = CW.splitWithSpace(f), x.isSearched = !0;
+                    if (f) i = CW.splitWithSpace(f), x.isSearched = !0;
                     f = [];
-                    for (v in a.model.request_dat) p(v, j) && f.push(v);
+                    for (v in a.model.request_dat) q(v, i) && f.push(v);
                     $C("#_contactWindowAccept").show().cwButton().disable();
                     break;
                 case "norequest":
                     $C("#_contactWindowSearch").attr("placeholder", L.contact_search);
                     f = $C("#_contactWindowSearch").val().toLowerCase();
                     x.isSearched = !1;
-                    if (f) j = CW.splitWithSpace(f), x.isSearched = !0;
+                    if (f) i = CW.splitWithSpace(f), x.isSearched = !0;
                     f = [];
                     e = a.getNoRequestDat();
-                    for (v in e) p(v, j) && f.push(v);
+                    for (v in e) q(v, i) && f.push(v);
                     b += '<div class="contactAddAllHint">' + L.contact_add_all_hint + "</div>";
                     $C("#_contactWindowAdd").show().cwButton().disable()
             }
             x.isLoading ? b += '<div class="contentLoading"><img src="./imagenew/all/common/loader/img_loader_gray.gif" />' + L.loading + "</div>" :
-                f.length == 0 && g.length == 0 && (b += x.isSearched ? '<div class="emptyAdminContent"><img src="./imagenew/common/empty/img_contact_empty.png" alt="" /><p>' + L.contact_error_search_user_not_found + "</p></div>" : '<div class="emptyAdminContent"><img src="./imagenew/common/empty/img_contact_empty.png" alt="" /><p>' + k + "</p></div>");
+                f.length == 0 && h.length == 0 && (b += x.isSearched ? '<div class="emptyAdminContent"><img src="./imagenew/common/empty/img_contact_empty.png" alt="" /><p>' + L.contact_error_search_user_not_found + "</p></div>" : '<div class="emptyAdminContent"><img src="./imagenew/common/empty/img_contact_empty.png" alt="" /><p>' + j + "</p></div>");
             f.sort(function(b, d) {
                 return sort_for_string(a.model.getName(b), a.model.getName(d))
             });
@@ -6482,29 +6503,29 @@ function AccountView(b) {
                 a.selectDefaultTabInContactWindow();
                 return
             }
-            v = g.length;
+            v = h.length;
             if (v > 0) {
                 b += '<li class="inviteMailNotFound subContentShadow"><p class="alert alertWarning">' + L.contact_mail_not_found + "</p><ul>";
-                for (l = 0; l < v; l++) b += "<li>" + escape_html(g[l]) + "</li>";
+                for (k = 0; k < v; k++) b += "<li>" + escape_html(h[k]) + "</li>";
                 b +=
                     '</ul><div class="btnInviteContentArea"><div class="_inviteContact button btnPrimary">' + L.contact_do_invite + "</div></div></li>"
             }
-            g = [];
-            l = f.length;
-            m = parseInt(l / o, 10);
-            l % o !== 0 && m++;
-            if (l >= o) {
+            h = [];
+            k = f.length;
+            m = parseInt(k / o, 10);
+            k % o !== 0 && m++;
+            if (k >= o) {
                 d = n * o;
                 v = d + o;
-                v > l && (v = l);
-                for (l = d; l < v; l++) g.push(f[l])
-            } else g = f;
-            d = g.length;
+                v > k && (v = k);
+                for (k = d; k < v; k++) h.push(f[k])
+            } else h = f;
+            d = h.length;
             d > 0 && contact_window_allcheck_button.enable();
             e = $C("#_contactDetailArea").attr("data-contact-id");
-            k = !1;
+            j = !1;
             d && (all_contact_is_checked = !0);
-            j = {
+            i = {
                 profileLink: !1,
                 shortButton: !1,
                 footerButton: !0,
@@ -6515,9 +6536,9 @@ function AccountView(b) {
                 showCheckBox: !0,
                 isChecked: !1
             };
-            for (l = 0; l < d; l++) v = g[l], b += '<li class="_contactList subContentShadow" data-aid="' + v + '">' + a.getContactPanel(v, j) + "</li>", e == v && (k = !0);
-            k || $C("#_contactDetailClose").click();
-            i.unCheck(!0);
+            for (k = 0; k < d; k++) v = h[k], b += '<li class="_contactList subContentShadow" data-aid="' + v + '">' + a.getContactPanel(v, i) + "</li>", e == v && (j = !0);
+            j || $C("#_contactDetailClose").click();
+            l.unCheck(!0);
             $C("#_contactWindowList").html(b);
             f.length ? $C("#_contactWindowPagerIndex").text((n + 1).toString() + " / " + m) : $C("#_contactWindowPagerIndex").text("");
             u.enableButtonAll();
@@ -6529,16 +6550,16 @@ function AccountView(b) {
         AC.account_dat[b] &&
             ($C("#_contactDetailBlankArea").hide(), $C("#_contactDetailArea").show(), a.assignDetailInfo($C("#_contactDetailArea"), b))
     };
-    var p = 0;
+    var q = 0;
     a.assignDetailInfo = function(b, d) {
-        if (p) return !1;
+        if (q) return !1;
         if (!AC.hasDetailData(d)) {
             b.hide();
             var e = !1;
             d == AC.myid && (e = !0);
-            p = d;
+            q = d;
             AC.refreshAccountDetailData(d, e, function() {
-                p = 0;
+                q = 0;
                 a.assignDetailInfo(b, d)
             });
             return !1
@@ -6566,13 +6587,13 @@ function AccountView(b) {
         b.find("._profileMobileTel").text(AC.getMobileTel(d));
         var e = "",
             f = escape_html(AC.getFacebook(d)),
-            i = escape_html(AC.getTwitter(d)),
+            g = escape_html(AC.getTwitter(d)),
             h = AC.getSkype(d),
-            g = escape_html(h);
+            i = escape_html(h);
         f && (e = '<li><span class="icoFontFacebook"></span><span class="icoTextHide">facebook</span><a href="https://www.facebook.com/' + f + '" target="_blank">' + f + "</a></li>");
-        i && (e += '<li><span class="icoFontTwitter"></span><span class="icoTextHide">twitter</span><a href="http://twitter.com/' + i + '" target="_blank">' + i + "</a></li>");
+        g && (e += '<li><span class="icoFontTwitter"></span><span class="icoTextHide">twitter</span><a href="http://twitter.com/' + g + '" target="_blank">' + g + "</a></li>");
         h && (e += '<li><span class="icoFontSkype"></span><span class="icoTextHide">skype</span><a href="skype:' +
-            g + '?call">' + g + "</a></li>");
+            i + '?call">' + i + "</a></li>");
         b.find("._profileSNS").html(e);
         e = a.getContactButton(d, {
             shortButton: !1,
@@ -6595,35 +6616,36 @@ function AccountView(b) {
                 isChecked: !1
             }, d),
             f = "",
-            i = CW.getChatWorkIdLink(b);
-        i && (f = '<dd id="profileTipChatWorkId">' + L.profile_chatworkidtip +
-            "<span>" + i + "</span></dd>");
-        i = "";
-        AC.getRoomId(b) && e.showLive && b != AC.myid && (i = '<div class="btnGroup"><div class="_joinLive button" data-aid="' + b + '"><span class="icoFontVideoChat icoSizeLarge"></span><span class="icoTextHide">' + L.live_join + "</span></div></div>");
+            g = CW.getChatWorkIdLink(b);
+        g && (f = '<dd id="profileTipChatWorkId">' + L.profile_chatworkidtip +
+            "<span>" + g + "</span></dd>");
+        g = "";
+        AC.getRoomId(b) && e.showLive && (MOBILE === "ipad" ? g = '<div class="btnGroup"><div class="button btnDisable"><span class="icoFontVideoChat icoSizeLarge"></span><span class="icoTextHide">' + L.live_join + "</span></div></div>" : b != AC.myid && (g = '<div class="btnGroup"><div class="_joinLive button" data-aid="' + b + '"><span class="icoFontVideoChat icoSizeLarge"></span><span class="icoTextHide">' + L.live_join + "</span></div></div>"));
         if (e.showButton) {
             e.showLive = !1;
-            var h = a.getContactButton(b, e)
+            var h = a.getContactButton(b,
+                e)
         } else h = "";
         if (e.profileLink && !AC.isUndisclosed(b)) {
             h += '<div class="_profileTipButton _openProfile _moveButton button" data-aid="' + b + '">' + L.menu_profile_setting + "</div>";
-            var g = '<span class="_profileTipButton _openProfile profileTipName anchorText" data-aid="' +
-                b + '">' + CW.getName(b) + "</span>"
-        } else g = e.showCheckBox ? '<span class="_profileTipCheckLabel">' + CW.getName(b) + "</span>" : CW.getName(b);
-        var m = "";
-        e.showCover && (m = CW.getCoverPanel(b));
+            var i = '<span class="_profileTipButton _openProfile profileTipName anchorText" data-aid="' + b + '">' + CW.getName(b) + "</span>"
+        } else i = e.showCheckBox ? '<span class="_profileTipCheckLabel">' + CW.getName(b) + "</span>" : CW.getName(b);
+        var l = "";
+        e.showCover && (l = CW.getCoverPanel(b));
         var n = "",
-            o = "";
-        e.showButton && h && (e.footerButton ? o = '<div class="tooltipFooter"><div class="btnGroup"><div class="_profileTipButton">' + h + "</div></div></div>" : n = '<div class="btnGroup">' + h + "</div>");
+            m = "";
+        e.showButton && h && (e.footerButton ? m = '<div class="tooltipFooter"><div class="btnGroup"><div class="_profileTipButton">' +
+            h + "</div></div></div>" : n = '<div class="btnGroup">' + h + "</div>");
         h = "";
         e.showCheckBox && (h = $.cwCheckBox.create(e.isChecked, "", b, {
             "class": "_contactPanelCheck"
         }));
-        return '<div class="_contactPanel" data-aid="' +
-            b + '"><div class="profileImgToolTip">' + m + '<div class="profileTooltipAvater">' + CW.getAvatarPanel(b, {
+        return '<div class="_contactPanel" data-aid="' + b + '"><div class="profileImgToolTip">' + l + '<div class="profileTooltipAvater">' + CW.getAvatarPanel(b, {
                 hovertip: !1,
                 clicktip: !1,
                 size: "large"
-            }) + '</div></div><div class="speakerProfileTooltipContent clearfix">' + h + "<dl><dt>" + g + '</dt><dd id="_profileTipOrgName">' + CW.getOrgName(b) + "</dd>" + f + i + n + "</dl></div>" + o
+            }) + '</div></div><div class="speakerProfileTooltipContent clearfix">' + h + "<dl><dt>" + i + '</dt><dd id="_profileTipOrgName">' + CW.getOrgName(b) + "</dd>" + f + g + n + "</dl></div>" +
+            m
     };
     a.getContactButton = function(a, b) {
         var d = $.extend({
@@ -6634,16 +6656,15 @@ function AccountView(b) {
             }, b),
             e = "",
             f = AC.getRoomId(a);
-        f ? (d.showLive && a != AC.myid && (e += '<div class="_joinLive button" data-aid="' +
-                a + '"><span class="icoFontVideoChat"></span><span class="icoTextHide">' + L.live_join + "</span></div>"), d.showMoveChat && (e += '<div class="_roomLink _moveButton button" data-rid="' + f + '">' + (a == AC.myid ? L.mychat : L.directchat) + "</div>"), a != AC.myid && d.showDeleteContact && (e += d.shortButton ? '<div class="_deleteContact _actionButton button"><span class="icoFontActionDelete"></span><span class="icoTextHide">' + L.button_delete + "</span></div>" : '<div class="_deleteContact _actionButton button">' + L.contact_delete + "</div>")) :
-            AC.myrequest_dat[a] ? e = d.shortButton ? '<div class="_cancelMyRequest _actionButton button">' + L.button_cancel + "</div>" : '<div class="_cancelMyRequest _actionButton button">' + L.contact_request_cancel + "</div>" : AC.request_dat[a] ? e = d.shortButton ? '<div class="_acceptContactRequest _actionButton button btnPrimary" data-aid="' + a + '">' + L.button_accept + '</div><div class="_rejectContactRequest _actionButton button" data-aid="' + a + '">' + L.button_reject + "</div>" : '<div class="_acceptContactRequest _actionButton button btnPrimary" data-aid="' +
-            a + '">' + L.button_accept_long + '</div><div class="_rejectContactRequest _actionButton button" data-aid="' + a + '">' + L.button_reject_long + "</div>" : !AC.isDeleted(a) && !AC.isUndisclosed(a) && (e = d.shortButton ? '<div class="_requestContact _actionButton button btnPrimary" data-aid="' + a + '">' + L.button_add + "</div>" : '<div class="_requestContact _actionButton button btnPrimary" data-aid="' + a + '">' + L.contactpanel_add_contact + "</div>");
+        f ? (d.showLive && (MOBILE === "ipad" ? e += '<div class="button btnDisable"><span class="icoFontVideoChat"></span><span class="icoTextHide">' + L.live_join + "</span></div>" : a != AC.myid && (e += '<div class="_joinLive button" data-aid="' + a + '"><span class="icoFontVideoChat"></span><span class="icoTextHide">' + L.live_join + "</span></div>")), d.showMoveChat && (e += '<div class="_roomLink _moveButton button" data-rid="' +
+                f + '">' + (a == AC.myid ? L.mychat : L.directchat) + "</div>"), a != AC.myid && d.showDeleteContact && (e += d.shortButton ? '<div class="_deleteContact _actionButton button"><span class="icoFontActionDelete"></span><span class="icoTextHide">' + L.button_delete + "</span></div>" : '<div class="_deleteContact _actionButton button">' + L.contact_delete + "</div>")) : AC.myrequest_dat[a] ? e = d.shortButton ? '<div class="_cancelMyRequest _actionButton button">' + L.button_cancel + "</div>" : '<div class="_cancelMyRequest _actionButton button">' +
+            L.contact_request_cancel + "</div>" : AC.request_dat[a] ? e = d.shortButton ? '<div class="_acceptContactRequest _actionButton button btnPrimary" data-aid="' + a + '">' + L.button_accept + '</div><div class="_rejectContactRequest _actionButton button" data-aid="' + a + '">' + L.button_reject + "</div>" : '<div class="_acceptContactRequest _actionButton button btnPrimary" data-aid="' + a + '">' + L.button_accept_long + '</div><div class="_rejectContactRequest _actionButton button" data-aid="' + a + '">' + L.button_reject_long + "</div>" : !AC.isDeleted(a) &&
+            !AC.isUndisclosed(a) && (e = d.shortButton ? '<div class="_requestContact _actionButton button btnPrimary" data-aid="' + a + '">' + L.button_add + "</div>" : '<div class="_requestContact _actionButton button btnPrimary" data-aid="' + a + '">' + L.contactpanel_add_contact + "</div>");
         return e
     };
     a.reachedContactLimit = function() {
         var b = CW.contact_limit_num;
-        return b && a.model.contact_list.length -
-            1 >= b
+        return b && a.model.contact_list.length - 1 >= b
     }
 }
 
@@ -6896,14 +6917,14 @@ function SettingView(b) {
                 is_multi: !0
             }
         }],
-        d, f, g;
+        d, f, i;
     a.isMultiSound = function(a) {
         var b, d = e.length,
             f = !1;
         for (b = 0; b < d; b++) {
-            var h = e[b];
-            if (h.name === a) {
-                f = h.data.is_multi;
+            var g = e[b];
+            if (g.name === a) {
+                f = g.data.is_multi;
                 break
             }
         }
@@ -6919,21 +6940,20 @@ function SettingView(b) {
                 f = {
                     cmd: "send_setting"
                 },
-                i = {};
+                g = {};
             CW.showProgress(L.saving);
             var h = a.checkbox_dat,
-                g;
-            for (g in h) {
-                var m = h[g],
-                    n = $("#" + g).cwCheckBox();
-                i[m] = n.isChecked() ?
-                    "1" : "0"
+                i;
+            for (i in h) {
+                var l = h[i],
+                    n = $("#" + i).cwCheckBox();
+                g[l] = n.isChecked() ? "1" : "0"
             }
             h = a.selectbox_dat;
-            for (g in h) m = h[g], n = $("#" + g), i[m] = n.cwSelectBox().getVal();
-            typeof i.notify_term !== "undefined" && (i.ai_notify_term = i.notify_term);
-            if (b != LANGUAGE || ST.data.dateformat != e) g = {}, g.lang = b, g.dateformat = e, f.language = g;
-            f.data = i;
+            for (i in h) l = h[i], n = $("#" + i), g[l] = n.cwSelectBox().getVal();
+            typeof g.notify_term !== "undefined" && (g.ai_notify_term = g.notify_term);
+            if (b != LANGUAGE || ST.data.dateformat != e) i = {}, i.lang = b, i.dateformat = e, f.language = i;
+            f.data = g;
             CW.post("gateway.php", f, function(a) {
                 a.setting_data && ST.updateSetting(a.setting_data);
                 if (a.lang) {
@@ -6941,10 +6961,9 @@ function SettingView(b) {
                         e = L.button_cancel;
                     L.button_ok = L["lang_" + a.lang + "_button_ok"];
                     L.button_cancel = L["lang_" + a.lang + "_button_cancel"];
-                    CW.confirm(L["lang_" + a.lang + "_change_confirm"],
-                        function() {
-                            document.location.href = "./"
-                        });
+                    CW.confirm(L["lang_" + a.lang + "_change_confirm"], function() {
+                        document.location.href = "./"
+                    });
                     L.button_ok = b;
                     L.button_cancel = e
                 }
@@ -6963,15 +6982,15 @@ function SettingView(b) {
                 var b = a.checkbox_dat,
                     f;
                 for (f in b) {
-                    var i = b[f],
+                    var g = b[f],
                         h = $("#" + f);
-                    a.model.data[i] == 1 ? h.cwCheckBox().check() : h.cwCheckBox().unCheck()
+                    a.model.data[g] == 1 ? h.cwCheckBox().check() : h.cwCheckBox().unCheck()
                 }
                 b = a.selectbox_dat;
-                for (f in b) i = b[f], h = $("#" + f).cwSelectBox({
-                    parentFloatBox: d
-                }), i !== null && typeof a.model.data[i] !== "undefined" && (i = a.model.data[i],
-                    h.findItemByValue(i) && h.select(i));
+                for (f in b) g = b[f], h = $("#" + f).cwSelectBox({
+                        parentFloatBox: d
+                    }), g !== null && typeof a.model.data[g] !==
+                    "undefined" && (g = a.model.data[g], h.findItemByValue(g) && h.select(g));
                 $("#_langType").cwSelectBox().select(LANGUAGE);
                 $("#_langDateformat").cwSelectBox().select(ST.data.dateformat);
                 $("#_soundVolume").cwSelectBox().select(ST.data.sound_volume);
@@ -6981,18 +7000,17 @@ function SettingView(b) {
             buttonSubmit: 0,
             buttonCancel: 1,
             buttonClick: function(a) {
-                a ===
-                    0 && f()
+                a === 0 && f()
             }
         });
-        var h = d.$el.find("._cwSettingContents");
+        var g = d.$el.find("._cwSettingContents");
         e.click(function() {
-            g && g.isActive() && g.close();
+            i && i.isActive() && i.close();
             var a = e.index(this),
-                a = h.eq(a);
+                a = g.eq(a);
             e.removeClass("floatTabSelect");
             $(this).addClass("floatTabSelect");
-            h.hide();
+            g.hide();
             a.show()
         });
         $("#_langType").cwSelectBox().setOption({
@@ -7006,9 +7024,9 @@ function SettingView(b) {
                     e = (e[d] || []).concat(e["default"]),
                     f = [];
                 d = 0;
-                for (var i = e.length; d < i; d++) f.push({
-                    label: CW.getDate((new Date((new Date).getFullYear(),
-                        11, 31)).getTime() / 1E3, e[d]),
+                for (var g =
+                        e.length; d < g; d++) f.push({
+                    label: CW.getDate((new Date((new Date).getFullYear(), 11, 31)).getTime() / 1E3, e[d]),
                     value: e[d]
                 });
                 b.cwSelectBox().setList(f).select(f[0].value)
@@ -7031,8 +7049,7 @@ function SettingView(b) {
         b.$el.click(function(d) {
             d.preventDefault();
             a.requestNotificationPermission(function(a) {
-                a &&
-                    b.toggle()
+                a && b.toggle()
             });
             return !1
         });
@@ -7050,10 +7067,10 @@ function SettingView(b) {
             e.find(".icoSystem").removeClass("icoFontTriangleDown")
         });
         CW.view.onEndInitLoad(function() {
-            CW.plan == "free" ? $("#_upgradePlan").show().click(function() {
+            CW.plan ==
+                "free" ? $("#_upgradePlan").show().click(function() {
                     CW.view.showServiceAdmin("upgrade")
-                }) :
-                $("#_upgradePlan").hide();
+                }) : $("#_upgradePlan").hide();
             CW.is_admin ? $("#_openAdminMenu").show() : ($("#_openAdminMenu").hide(), CW.is_admin_user && $C("#_userAdminMenu").show())
         });
         e.click(function() {
@@ -7066,13 +7083,14 @@ function SettingView(b) {
                 d.width(b);
                 b = d.outerWidth();
                 d.css("left", a - b - 10 + "px");
-                d.slideDown("fast", function() {
-                    $.cwFloatBox.open(d, function() {
-                        d.slideUp("fast", function() {
-                            e.removeClass("myStatusButtonSelected")
+                d.slideDown("fast",
+                    function() {
+                        $.cwFloatBox.open(d, function() {
+                            d.slideUp("fast", function() {
+                                e.removeClass("myStatusButtonSelected")
+                            })
                         })
                     })
-                })
             }
         }).mousedown(function() {
             return !1
@@ -7086,27 +7104,28 @@ function SettingView(b) {
                 d = $("#_settingApi"),
                 e = $("#_settingApiAfter"),
                 f = $("#_regenerateTokenBtn"),
-                i, h = $("#_copyTokenBtn"),
-                m = {
+                g, h = $("#_copyTokenBtn"),
+                l = {
                     getApiToken: function(a) {
                         CW.post("gateway.php", {
                             cmd: "get_api_token",
                             password: a.password,
                             regenerate: a.regenerate ? 1 : 0
                         }, function(a) {
-                            a.api_token && m.displayTokenPanel(a.api_token)
+                            a.api_token &&
+                                l.displayTokenPanel(a.api_token)
                         }, function(a) {
                             if (a && a[0]) return CW.alert(a[0]);
                             return CW.alert(L._chatwork_apitoken_invalid_password)
                         })
                     },
                     displayPasswordPanel: function() {
-                        m.clear();
+                        l.clear();
                         e.hide();
                         d.show()
                     },
                     displayTokenPanel: function(a) {
-                        m.clear();
+                        l.clear();
                         b.val(a);
                         h.attr("data-clipboard-text", a);
                         d.hide();
@@ -7117,21 +7136,22 @@ function SettingView(b) {
                         b.val("")
                     }
                 };
-            g = {
+            i = {
                 init: function() {
                     d.find("._displayApiToken").click(function() {
-                        i = a.val();
-                        i.length === 0 ? CW.alert(L._chatwork_apitoken_empty_password) : m.getApiToken({
-                            password: i
+                        g = a.val();
+                        g.length === 0 ? CW.alert(L._chatwork_apitoken_empty_password) : l.getApiToken({
+                            password: g
                         })
                     });
                     f.click(function() {
-                        CW.confirm(L._chatwork_apitoken_confirm_regenerate, function() {
-                            m.getApiToken({
-                                password: i,
-                                regenerate: !0
+                        CW.confirm(L._chatwork_apitoken_confirm_regenerate,
+                            function() {
+                                l.getApiToken({
+                                    password: g,
+                                    regenerate: !0
+                                })
                             })
-                        })
                     });
                     var b = new ZeroClipboard(h[0]);
                     b.on("mouseover", function() {
@@ -7151,57 +7171,56 @@ function SettingView(b) {
                     return d.is(":visible") || e.is(":visible")
                 },
                 close: function() {
-                    m.displayPasswordPanel()
+                    l.displayPasswordPanel()
                 }
             }
         })();
-        g.init()
+        i.init()
     };
-    var j = !1,
-        k = !0,
-        l = function() {
+    var h = !1,
+        j = !0,
+        k = function() {
             if (f) return !1;
-            if (!j && !a.model.data.userguide_welcome) j = !0, setTimeout(function() {
+            if (!h && !a.model.data.userguide_welcome) h = !0, setTimeout(function() {
                 a.openWelcomeDialog()
             }, 500);
             else if (CW.switch_biwa) CW.switch_biwa = !1, CW.view.startTutorial()
         };
-    a.openWelcomeDialog =
-        function() {
-            f || (f = $("#_userguideWelcomeDialog").cwDialog({
-                title: L.welcome_title.replace("%%service_name%%", SERVICE_NAME),
-                width: 820,
-                close: function() {
-                    CW.view.startTutorial();
-                    CW.post("gateway.php", {
-                        cmd: "send_chat_setting",
-                        data: {
-                            userguide_welcome: "1"
-                        }
-                    })
-                }
-            }), $("#_userguideWelcomeOpen").click(function() {
-                f.close()
-            }));
-            f.open()
-        };
-    a.refreshSoundStatus = function() {};
-    a.updateSetting = function() {
-        a.refreshNotificationStatus();
-        $.cwDatePicker.setDefaultOption({
-            dateFormat: ST.data.dateformat
-        });
-        k && ($("._datePicker").cwDatePicker(),
-            RS.view.prepareTask());
-        k = !1;
-        ST.data.enter_action == "send" ? $C("#_sendEnterAction").cwCheckBox().check() : $C("#_sendEnterAction").cwCheckBox().unCheck();
-        if (canPlayOgg || canPlayMp3) {
-            var b = a.model.data.sound_type;
-            $("#_audio_" + b).length || CW.view.embedAudio(b)
-        }
-        l()
+    a.openWelcomeDialog = function() {
+        f || (f = $("#_userguideWelcomeDialog").cwDialog({
+            title: L.welcome_title.replace("%%service_name%%", SERVICE_NAME),
+            width: 820,
+            close: function() {
+                CW.view.startTutorial();
+                CW.post("gateway.php", {
+                    cmd: "send_chat_setting",
+                    data: {
+                        userguide_welcome: "1"
+                    }
+                })
+            }
+        }), $("#_userguideWelcomeOpen").click(function() {
+            f.close()
+        }));
+        f.open()
     };
-    var h;
+    a.refreshSoundStatus = function() {};
+    a.updateSetting =
+        function() {
+            a.refreshNotificationStatus();
+            $.cwDatePicker.setDefaultOption({
+                dateFormat: ST.data.dateformat
+            });
+            j && ($("._datePicker").cwDatePicker(), RS.view.prepareTask());
+            j = !1;
+            ST.data.enter_action == "send" ? $C("#_sendEnterAction").cwCheckBox().check() : $C("#_sendEnterAction").cwCheckBox().unCheck();
+            if (canPlayOgg || canPlayMp3) {
+                var b = a.model.data.sound_type;
+                $("#_audio_" + b).length || CW.view.embedAudio(b)
+            }
+            k()
+        };
+    var g;
     a.updateAnnounce = function() {
         $C("#_notificationArea");
         $C("#_notificationItemList");
@@ -7213,7 +7232,7 @@ function SettingView(b) {
                 d = parseInt(d.to, 10);
             if (e < b && b < d) {
                 d = ST.announce_dat;
-                h = CW.view.saveInformation(h, {
+                g = CW.view.saveInformation(g, {
                     linktext: d.linktext,
                     subject: d.subject,
                     body: d.body,
@@ -7221,7 +7240,7 @@ function SettingView(b) {
                     buttonClick: function(b) {
                         if (b === 0) {
                             var d = this;
-                            a.deleteAnnounce(h, function() {
+                            a.deleteAnnounce(g, function() {
                                 a.model.closeAnnounce();
                                 d.close()
                             })
@@ -7232,21 +7251,21 @@ function SettingView(b) {
                 return
             }
         }
-        h && a.deleteAnnounce(h)
+        g && a.deleteAnnounce(g)
     };
     a.deleteAnnounce = function(a, b) {
-        a && (CW.view.deleteInformation(a, b), h = void 0)
+        a && (CW.view.deleteInformation(a, b), g = void 0)
     };
     a.toggleNotification = function(b) {
-        NotificationAPI ? NotificationAPI.checkPermission() == 0 ? (ST.data.desktop_alert = a.model.data.desktop_alert ==
-            "0" ? "1" : "0", a.refreshNotificationStatus(!0)) : (b.preventDefault(), NotificationAPI.requestPermission(function(b) {
+        NotificationAPI ? NotificationAPI.checkPermission() == 0 ? (ST.data.desktop_alert = a.model.data.desktop_alert == "0" ? "1" : "0", a.refreshNotificationStatus(!0)) : (b.preventDefault(), NotificationAPI.requestPermission(function(b) {
             ST.data.desktop_alert = b == 0 ? "1" : "0";
             a.refreshNotificationStatus(!0)
         })) : CW.alert(L.desktopalert_no_support)
     };
     a.requestNotificationPermission = function(a) {
         NotificationAPI ? NotificationAPI.requestPermission(function() {
-            NotificationAPI.checkPermission() == 0 ? a(!0) : a(!1)
+            NotificationAPI.checkPermission() == 0 ? a(!0) :
+                a(!1)
         }) : CW.alert(L.desktopalert_no_support)
     };
     a.refreshNotificationStatus = function(b) {
@@ -7258,8 +7277,8 @@ function SettingView(b) {
             }
         });
         a.model.data.desktop_alert == "1" && NotificationAPI && NotificationAPI.checkPermission() == 0 && (d = !0);
-        d ? ($("#cw_notification_icon").removeClass("ui_sp_icon_footer_notification_off").addClass("ui_sp_icon_footer_notification_on").css("visibility", "visible"), $("#cw_notification").prop("title", L.menu_desktopalert + "(" + L.menu_current + "ON)"), CW.enable_popup = !0) : ($("#cw_notification_icon").removeClass("ui_sp_icon_footer_notification_on").addClass("ui_sp_icon_footer_notification_off").css("visibility",
-            "visible"), $("#cw_notification").prop("title", L.menu_desktopalert + "(" + L.menu_current + "OFF)"), CW.enable_popup = !1)
+        d ? ($("#cw_notification_icon").removeClass("ui_sp_icon_footer_notification_off").addClass("ui_sp_icon_footer_notification_on").css("visibility", "visible"), $("#cw_notification").prop("title", L.menu_desktopalert + "(" +
+            L.menu_current + "ON)"), CW.enable_popup = !0) : ($("#cw_notification_icon").removeClass("ui_sp_icon_footer_notification_on").addClass("ui_sp_icon_footer_notification_off").css("visibility", "visible"), $("#cw_notification").prop("title", L.menu_desktopalert + "(" + L.menu_current + "OFF)"), CW.enable_popup = !1)
     };
     a.toggleSound = function() {
         audioObjSupport ? ST.data.popup_sound = a.model.data.popup_sound == "0" ? "1" : "0" : CW.alert(L.sound_no_support)
@@ -7382,11 +7401,11 @@ function FileView(b) {
                     FL.sortFileList(a);
                     for (var e = 0; e < d; e++) {
                         var f = a[e],
-                            i = FL.file_id2file_dat[f];
-                        i != void 0 && i.st != "deleted" && b.push({
-                            keys: [i.fn],
+                            g = FL.file_id2file_dat[f];
+                        g != void 0 && g.st != "deleted" && b.push({
+                            keys: [g.fn],
                             value: f,
-                            label: FL.view.getFilePanel(i, {
+                            label: FL.view.getFilePanel(g, {
                                 type: "filelist"
                             })
                         })
@@ -7440,26 +7459,26 @@ function FileView(b) {
         if (b = FL.file_id2file_dat[b]) $C("#_fileDetailBlankArea").hide(), $C("#_fileDetailArea").show(), a.assignDetailInfo($C("#_fileDetailArea"), b)
     };
     var f = null,
-        g = {};
+        i = {};
     a.assignDetailInfo = function(b, d) {
         var e = SERVER_PATH + "/gateway.php?cmd=download_file&bin=1&file_id=" + d.id,
-            i = get_file_extension(d.fn);
-        FL.view.isImage(i) ? (e += "&preview=1",
-            b.find("._fileDetailPreview").html('<a href="' + e + '" target="_blank"><img src="' + e + '"/></a>')) : FL.view.isText(i) ? (f && f.abort(), g[d.id] ? (b.find("._fileDetailPreview").html('<div class="_codePreview codePreview">' + g[d.id].data + "</div>").scrollTop(0), a.startPreviewCacheTimer(d.id)) : (f = $.ajax({
+            g = get_file_extension(d.fn);
+        FL.view.isImage(g) ? (e += "&preview=1",
+            b.find("._fileDetailPreview").html('<a href="' + e + '" target="_blank"><img src="' + e + '"/></a>')) : FL.view.isText(g) ? (f && f.abort(), i[d.id] ? (b.find("._fileDetailPreview").html('<div class="_codePreview codePreview">' + i[d.id].data + "</div>").scrollTop(0), a.startPreviewCacheTimer(d.id)) : (f = $.ajax({
             type: "GET",
             url: e + "&preview=1",
             success: function(e) {
-                g[d.id] = {
+                i[d.id] = {
                     data: escape_html(e)
                 };
                 a.startPreviewCacheTimer(d.id);
-                b.find("._fileDetailPreview").html('<div class="_codePreview codePreview">' + g[d.id].data + "</div>").scrollTop(0);
+                b.find("._fileDetailPreview").html('<div class="_codePreview codePreview">' + i[d.id].data + "</div>").scrollTop(0);
                 f = null
             },
             error: function() {
                 b.find("._fileDetailPreview").html(L.file_preview_image_cant_read)
             }
-        }), b.find("._fileDetailPreview").html('<div class="contentLoading"><img src="./imagenew/all/common/loader/img_loader_gray.gif" />' + L.file_loading + "</div>"))) : b.find("._fileDetailPreview").html(a.getFileTypeIcon(i));
+        }), b.find("._fileDetailPreview").html('<div class="contentLoading"><img src="./imagenew/all/common/loader/img_loader_gray.gif" />' + L.file_loading + "</div>"))) : b.find("._fileDetailPreview").html(a.getFileTypeIcon(g));
         b.scrollTop(0);
         b.attr("data-file-id", d.id);
         b.find("._fileDetailName").text(d.fn).attr("data-file-id", d.id);
@@ -7473,19 +7492,19 @@ function FileView(b) {
             "data-mid": d.cid
         })
     };
-    var j = {};
+    var h = {};
     a.startPreviewCacheTimer = function(a) {
-        j[a] && clearTimeout(j[a]);
-        j[a] = setTimeout(function() {
-            g[a] && delete g[a];
-            delete j[a]
+        h[a] && clearTimeout(h[a]);
+        h[a] = setTimeout(function() {
+            i[a] && delete i[a];
+            delete h[a]
         }, 3E5)
     };
-    var k = null,
-        l = null;
+    var j = null,
+        k = null;
     a.prepareFileType = function() {
+        j = {};
         k = {};
-        l = {};
         var a = {
                 spreadsheet: {
                     key: 1,
@@ -7613,18 +7632,18 @@ function FileView(b) {
             var d = a[b],
                 e = d.key,
                 d = d.list;
-            l[e] = b;
-            for (var f = d.length; f--;) k[d[f]] = e
+            k[e] = b;
+            for (var f = d.length; f--;) j[d[f]] = e
         }
     };
     a.openFileList = function(b) {
         d || a.prepareFileList();
         d.open($C("#_chatFileAll"), b)
     };
-    var h = null;
+    var g = null;
     a.openPreviewDialog = function(b) {
         if (!a.model.file_id2file_dat[b]) return CW.alert(L.file_not_found), !1;
-        h || (h = $("#_filePreviewDialog").cwDialog({
+        g || (g = $("#_filePreviewDialog").cwDialog({
             autoOpen: !1,
             width: 700,
             height: 500,
@@ -7649,13 +7668,13 @@ function FileView(b) {
                     var a = d.width(),
                         e = d.height(),
                         f = a,
-                        i = !1;
-                    a > 1200 && (e *= 1200 / f, f = 1200, i = !0);
-                    e > 600 && (f *= 600 / e, e = 600, i = !0);
+                        g = !1;
+                    a > 1200 && (e *= 1200 / f, f = 1200, g = !0);
+                    e > 600 && (f *= 600 / e, e = 600, g = !0);
                     a = {
                         visibility: "visible"
                     };
-                    if (i) a.width = round(f), a.height =
+                    if (g) a.width = round(f), a.height =
                         round(e);
                     d.css(a);
                     d.click(function() {
@@ -7667,25 +7686,25 @@ function FileView(b) {
                 })
             }
         }));
-        h.setOption({
+        g.setOption({
             title: a.model.file_id2file_dat[b].fn
         });
-        h.open(b)
+        g.open(b)
     };
     a.buildByFileId = function(b) {
         file_id_list = typeof b != "object" ? [b] : b;
         var e = b = !1,
             f;
         for (f in file_id_list) {
-            var i = FL.file_id2file_dat[file_id_list[f]];
-            RM && RM.id == i.rid && (b = !0);
-            i.aid == AC.myid && (e = !0)
+            var g = FL.file_id2file_dat[file_id_list[f]];
+            RM && RM.id == g.rid && (b = !0);
+            g.aid == AC.myid && (e = !0)
         }
         b && RM.filelist.build();
         e && (a.buildFileWindow(), d && d.isOpen() && d.build())
     };
     a.buildFileWindow = function(b) {
-        if (i && i.isOpen()) {
+        if (l && l.isOpen()) {
             $.extend({
                     resetPager: !0
                 },
@@ -7695,37 +7714,37 @@ function FileView(b) {
             var b = a.model.getMyFileList(),
                 d = [];
             if (m)
-                for (var e = m.toLowerCase(), f = 0, h = b.length; f < h; f++) {
-                    var g = b[f],
-                        j = FL.file_id2file_dat[g];
-                    j.fn && j.fn.toLowerCase().indexOf(e) != -1 && d.push(g)
+                for (var e = m.toLowerCase(), f = 0, g = b.length; f < g; f++) {
+                    var h = b[f],
+                        i = FL.file_id2file_dat[h];
+                    i.fn && i.fn.toLowerCase().indexOf(e) != -1 && d.push(h)
                 } else d = b;
             FL.sortFileList(d);
             b = [];
-            j = d.length;
-            o = parseInt(j / s, 10);
-            j % s !==
+            i = d.length;
+            o = parseInt(i / r, 10);
+            i % r !==
                 0 && o++;
-            if (j >= s) {
-                e = u * s;
-                f = e + s;
-                f > j && (f = j);
-                for (j = e; j < f; j++) b.push(d[j])
+            if (i >= r) {
+                e = u * r;
+                f = e + r;
+                f > i && (f = i);
+                for (i = e; i < f; i++) b.push(d[i])
             } else b = d;
             b.length > 0 && n.enable();
             d = $C("#_fileWindowCheckAll").cwCheckBox();
             f = $C("#_fileWindowDeleteButton").cwButton();
-            (j = count(w)) ? (j == b.length ? d.check() : d.partialCheck(), f.enable()) : (d.unCheck(), f.disable());
-            h = $C("#_fileDetailArea").attr("data-file-id");
+            (i = count(w)) ? (i == b.length ? d.check() : d.partialCheck(), f.enable()) : (d.unCheck(), f.disable());
+            g = $C("#_fileDetailArea").attr("data-file-id");
             d = !1;
-            g = "";
+            h = "";
             f = 0;
-            for (e = b.length; f < e; f++) j = FL.file_id2file_dat[b[f]], h == j.id && (d = !0), g += a.getFilePanel(j, {
+            for (e = b.length; f < e; f++) i = FL.file_id2file_dat[b[f]], g == i.id && (d = !0), h += a.getFilePanel(i, {
                 type: "filewindow"
             });
-            g || (b = "", b = m ? L.file_search_not_found : L.file_nothing, g = '<li class="emptyAdminContent"><img src="./imagenew/common/empty/img_file_empty.png" alt="" /><p>' +
+            h || (b = "", b = m ? L.file_search_not_found : L.file_nothing, h = '<li class="emptyAdminContent"><img src="./imagenew/common/empty/img_file_empty.png" alt="" /><p>' +
                 b + "</p></li>");
-            $C("#_fileWindowList").html(g);
+            $C("#_fileWindowList").html(h);
             d || $C("#_fileDetailClose").click();
             e == 0 ? ($C("#_emptyFileContent").show(), $C("#_fileWindowPagerIndex").text("")) : ($C("#_emptyFileContent").hide(), $C("#_fileWindowPagerIndex").text((u + 1).toString() + " / " + o));
             v.enableButtonAll();
@@ -7786,16 +7805,16 @@ function FileView(b) {
         }
         return !1
     };
-    var i = null,
+    var l = null,
         m = "",
         n = null,
         o = 0,
         u = 0,
-        s = TM.taskwindow_pager_view_num,
+        r = TM.taskwindow_pager_view_num,
         v = null,
         w = {};
     a.prepareFileWindow = function() {
-        i = $("#_fileWindow").cwFloatWindow({
+        l = $("#_fileWindow").cwFloatWindow({
             title: L.menu_file
         });
         $("#_fileWindowSearch").cwSearchBox({
@@ -7921,14 +7940,14 @@ function FileView(b) {
             }
         });
         $("#_storageAddButton").click(function() {
-            i.close();
+            l.close();
             CW.view.showOptionPlanPrice();
             return !1
         })
     };
     a.openFileWindow = function() {
-        i || a.prepareFileWindow();
-        i.open();
+        l || a.prepareFileWindow();
+        l.open();
         a.buildFileWindow()
     };
     a.getFilePanel = function(b, d) {
@@ -7948,8 +7967,8 @@ function FileView(b) {
         return html
     };
     a.getFileTypeIcon = function(b) {
-        k == null && a.prepareFileType();
-        return '<div class="fileIconArea ' + (k[b] != void 0 ? "ico35" + ucfirst(l[k[b]]) : "ico35UnknownFile") + '"></div>'
+        j == null && a.prepareFileType();
+        return '<div class="fileIconArea ' + (j[b] != void 0 ? "ico35" + ucfirst(k[j[b]]) : "ico35UnknownFile") + '"></div>'
     };
     a.enableFileArea = function() {
         $C("#_file").show();
@@ -7961,10 +7980,10 @@ function FileView(b) {
     var A = {},
         x;
     a.last_storage = A;
-    a.updateStorageInfo = function(b, d, f, h) {
-        var g = Math.floor(b.total / d * 100);
-        if (g >= 100) {
-            if (h != void 0) var m = {
+    a.updateStorageInfo = function(b, d, f, g) {
+        var h = Math.floor(b.total / d * 100);
+        if (h >= 100) {
+            if (g != void 0) var i = {
                 linktext: L.storage_limit_warning_message,
                 subject: L.storage_limit_warning_title,
                 body: L.storage_limit_warning_body,
@@ -7977,7 +7996,7 @@ function FileView(b) {
             };
             else var n = L.storage_limit_notice_footer,
                 n = n.replace(/%%date%%/, CW.getDate(f, ST.data.dateformat)),
-                m = {
+                i = {
                     linktext: L.storage_limit_notice_message,
                     subject: L.storage_limit_notice_title,
                     body: L.storage_limit_notice_body,
@@ -7989,11 +8008,11 @@ function FileView(b) {
                         })
                     }
                 };
-            x = CW.view.saveInformation(x, m)
-        } else g < 100 && e && (CW.view.deleteInformation(e), e = void 0);
-        g >= 90 ? ($C("#_myFileNotice").show(), $C("#_storageTotalUsageRatioText").addClass("noticeStorage")) : ($C("#_myFileNotice").hide(), $C("#_storageTotalUsageRatioText").removeClass("noticeStorage"));
+            x = CW.view.saveInformation(x, i)
+        } else h < 100 && e && (CW.view.deleteInformation(e), e = void 0);
+        h >= 90 ? ($C("#_myFileNotice").show(), $C("#_storageTotalUsageRatioText").addClass("noticeStorage")) : ($C("#_myFileNotice").hide(), $C("#_storageTotalUsageRatioText").removeClass("noticeStorage"));
         if (d != void 0) A.storage = b, A.storage_limit = d, A.limit_time =
-            f, A.is_limit = h, i && i.isOpen() && a.buildStorageInfo()
+            f, A.is_limit = g, l && l.isOpen() && a.buildStorageInfo()
     };
     a.buildStorageInfo = function() {
         var a = A.storage,
@@ -8011,18 +8030,18 @@ function FileView(b) {
         a.file != void 0 && (e = Math.round(a.file / b * 100), d += e, f = bytename(a.file));
         $("#_storageUsageFileSize").text(f);
         f = 0;
-        var i = "";
+        var g = "";
         a.chat != void 0 && (f = Math.round(a.chat /
-            b * 100), d += f, i = bytename(a.chat));
-        $("#_storageUsageMessageSize").text(i);
-        var i = 0,
+            b * 100), d += f, g = bytename(a.chat));
+        $("#_storageUsageMessageSize").text(g);
+        var g = 0,
             h = "";
-        a.other != void 0 && (i = Math.round(a.other / b * 100), d += i, h = bytename(a.other));
+        a.other != void 0 && (g = Math.round(a.other / b * 100), d += g, h = bytename(a.other));
         $("#_storageUsageOtherSize").text(h);
-        d > 100 && (f = Math.round(f / d * 100), e = Math.round(e / d * 100), i = Math.round(i / d * 100), d = f + e + i);
+        d > 100 && (f = Math.round(f / d * 100), e = Math.round(e / d * 100), g = Math.round(g / d * 100), d = f + e + g);
         h = parseInt(a.file, 10) + parseInt(a.chat, 10) + parseInt(a.other, 10);
         h = Math.floor(h / parseInt(b, 10) * 100);
-        if (h >= 100 && d != 100 && h > d) switch (d = [f, e, i], ["chat", "file", "other"][d.indexOf(Math.max.apply(null, d))]) {
+        if (h >= 100 && d != 100 && h > d) switch (d = [f, e, g], ["chat", "file", "other"][d.indexOf(Math.max.apply(null, d))]) {
             case "chat":
                 f++;
                 break;
@@ -8030,11 +8049,11 @@ function FileView(b) {
                 e++;
                 break;
             case "other":
-                i++
+                g++
         }
         $("#_storageUsageMessage").css("width", f + "%");
         $("#_storageUsageFile").css("width", e + "%");
-        $("#_storageUsageOther").css("width", i + "%");
+        $("#_storageUsageOther").css("width", g + "%");
         e = "";
         a.total != void 0 && b != void 0 && (e = Math.floor(a.total / b * 100));
         $("#_storageTotalUsageRatio").text(e);
@@ -8076,10 +8095,10 @@ function TaskView(b) {
             var e = $(this).closest("._taskList").attr("data-task-id");
             $("#_taskEditIncharge");
             var f = $("#_taskEditContent"),
-                h = $("#_taskEditLimit").cwDatePicker(),
-                g = a.model.task_id2task_dat[e];
-            if (g == void 0) return CW.alert(L.task_not_found), !1;
-            b == null && (h.setOption({
+                g = $("#_taskEditLimit").cwDatePicker(),
+                h = a.model.task_id2task_dat[e];
+            if (h == void 0) return CW.alert(L.task_not_found), !1;
+            b == null && (g.setOption({
                     dateLabel: $("#_taskEditLimitLabel")
                 }),
                 b = $C("#_taskEditList").cwListTip({
@@ -8113,7 +8132,7 @@ function TaskView(b) {
                                     CW.alert(d.join("\n"));
                                     break
                                 }
-                                d = h.getVal();
+                                d = g.getVal();
                                 CS.editTask(this.data.task_id, b.getVal(), a, d);
                                 this.close()
                         }
@@ -8123,10 +8142,10 @@ function TaskView(b) {
                     }
                 }));
             b.setOption({
-                list: RS.view.getTaskMemberList(g.rid)
-            }).select(g.aid);
-            f.val(g.tn);
-            h.setVal(g.lt ? CW.getDate(g.lt, ST.data.dateformat) : "");
+                list: RS.view.getTaskMemberList(h.rid)
+            }).select(h.aid);
+            f.val(h.tn);
+            g.setVal(h.lt ? CW.getDate(h.lt, ST.data.dateformat) : "");
             d.open(e)
         }).on("mouseenter",
             "._deleteTask",
@@ -8170,8 +8189,8 @@ function TaskView(b) {
     var e = null,
         d = 0,
         f = 0,
-        g = TM.taskwindow_pager_view_num,
-        j = null;
+        i = TM.taskwindow_pager_view_num,
+        h = null;
     a.prepareTaskWindow = function() {
         $("#_taskWindowTabOpen").click(function() {
             if (a.alltask_status != "open") $("#_taskWindowTabDone").removeClass("floatTabSelect"),
@@ -8208,18 +8227,18 @@ function TaskView(b) {
                     a + "]");
             $C("#_taskWindowBox").scrollTo(a, 600)
         });
-        var h = ["all", "limitover", "today", "inweek", "nolimit"];
+        var g = ["all", "limitover", "today", "inweek", "nolimit"];
         $("#_taskWindowFilter").cwTabbedBar({
             update: function(b) {
-                a.alltask_filter = h[b];
+                a.alltask_filter = g[b];
                 f = d = 0;
                 a.buildTaskWindow()
             }
         });
-        var g = ["first", "prev", "next", "last"];
-        j = $("#_taskWindowPager").cwButtonBar({
+        var i = ["first", "prev", "next", "last"];
+        h = $("#_taskWindowPager").cwButtonBar({
             update: function(b) {
-                switch (g[b]) {
+                switch (i[b]) {
                     case "first":
                         f = 0;
                         break;
@@ -8258,16 +8277,16 @@ function TaskView(b) {
         d == void 0 && (d = !1);
         var e = !1,
             f = !1,
-            h = {},
-            g;
-        for (g in task_id_list) {
-            var j = TK.task_id2task_dat[task_id_list[g]];
-            h[j.rid] = !0;
-            RM && RM.id == j.rid && (e = !0);
-            if (j.aid == AC.myid || j.bid == AC.myid) f = !0
+            g = {},
+            h;
+        for (h in task_id_list) {
+            var i = TK.task_id2task_dat[task_id_list[h]];
+            g[i.rid] = !0;
+            RM && RM.id == i.rid && (e = !0);
+            if (i.aid == AC.myid || i.bid == AC.myid) f = !0
         }
         if (d) {
-            for (var k in h) RL.rooms[k].refreshTaskNum();
+            for (var j in g) RL.rooms[j].refreshTaskNum();
             RL.build()
         }
         e &&
@@ -8280,12 +8299,12 @@ function TaskView(b) {
                 resetPager: !0
             }, b).resetPager && (f = 0);
             var b = a.alltask_status,
-                h = a.alltask_type,
-                n = b + h;
+                g = a.alltask_type,
+                n = b + g;
             $C("#_emptyTaskContent").hide();
             if (!a.model.mytask_load_flag.loaded[n]) return $C("#_taskWindowList").html('<li class="contentLoading"><img src="./imagenew/all/common/loader/img_loader_gray.gif" />' + L.task_loading + "</li>"), a.model.mytask_load_flag.loading[n] || (a.model.mytask_load_flag.loading[n] = !0, CW.get("gateway.php", {
                 cmd: "load_my_task",
-                type: h,
+                type: g,
                 status: b
             }, function(b) {
                 if (b.task_dat) {
@@ -8295,58 +8314,58 @@ function TaskView(b) {
                     a.buildTaskWindow()
                 }
             })), !1;
-            var o = a.model.getMyTaskList(b, h);
+            var j = a.model.getMyTaskList(b, g);
             if (b == "open") {
                 $C("#_taskWindowFilter").show();
-                for (var k = [], l = time(), v = strtotime(CW.getDate(l, "Y-m-d 00:00:00")), w = v + 86400, A = v + 604800, x = o.length, p = 0, q = 0, t = 0, r = 0, b = x; b--;) {
-                    var B = o[b],
-                        h = TK.task_id2task_dat[o[b]];
-                    h.lt != 0 && h.lt <= l && (p++, a.alltask_filter ==
+                for (var k = [], r = time(), v = strtotime(CW.getDate(r, "Y-m-d 00:00:00")), w = v + 86400, A = v + 604800, x = j.length, q = 0, p = 0, t = 0, s = 0, b = x; b--;) {
+                    var B = j[b],
+                        g = TK.task_id2task_dat[j[b]];
+                    g.lt != 0 && g.lt <= r && (q++, a.alltask_filter ==
                         "limitover" && k.push(B));
-                    v < h.lt && w > h.lt && (q++, a.alltask_filter == "today" && k.push(B));
-                    v < h.lt && A > h.lt && (t++, a.alltask_filter == "inweek" && k.push(B));
-                    h.lt == 0 && (r++, a.alltask_filter == "nolimit" && k.push(B));
+                    v < g.lt && w > g.lt && (p++, a.alltask_filter == "today" && k.push(B));
+                    v < g.lt && A > g.lt && (t++, a.alltask_filter == "inweek" && k.push(B));
+                    g.lt == 0 && (s++, a.alltask_filter == "nolimit" && k.push(B));
                     a.alltask_filter == "all" && k.push(B)
                 }
                 RL.mytask_total > 0 ? $C("#_taskWindowNumAll").text(x).show() : $C("#_taskWindowNumAll").hide();
-                p > 0 ? $C("#_taskWindowNumLimitOver").text(p).show() : $C("#_taskWindowNumLimitOver").hide();
-                q > 0 ? $C("#_taskWindowNumLimitToday").text(q).show() : $C("#_taskWindowNumLimitToday").hide();
+                q > 0 ? $C("#_taskWindowNumLimitOver").text(q).show() : $C("#_taskWindowNumLimitOver").hide();
+                p > 0 ? $C("#_taskWindowNumLimitToday").text(p).show() : $C("#_taskWindowNumLimitToday").hide();
                 t >
                     0 ? $C("#_taskWindowNumLimitWeek").text(t).show() : $C("#_taskWindowNumLimitWeek").hide();
-                r > 0 ? $C("#_taskWindowNumLimitNone").text(r).show() : $C("#_taskWindowNumLimitNone").hide()
-            } else $C("#_taskWindowFilter").hide(), k = o;
+                s > 0 ? $C("#_taskWindowNumLimitNone").text(s).show() : $C("#_taskWindowNumLimitNone").hide()
+            } else $C("#_taskWindowFilter").hide(), k = j;
             TK.sortTaskList(k);
-            o = [];
-            h = k.length;
-            d = parseInt(h / g, 10);
-            h % g !== 0 && d++;
-            if (h >= g) {
-                l = f * g;
-                b = l + g;
-                b > h && (b = h);
-                for (h = l; h < b; h++) o.push(k[h])
-            } else o = k;
+            j = [];
+            g = k.length;
+            d = parseInt(g / i, 10);
+            g % i !== 0 && d++;
+            if (g >= i) {
+                r = f * i;
+                b = r + i;
+                b > g && (b = g);
+                for (g = r; g < b; g++) j.push(k[g])
+            } else j = k;
             k = $C("#_taskDetailArea").attr("data-task-id");
-            l = !1;
+            r = !1;
             v = "";
-            w = o.length;
-            for (b = 0; b < w; b++) h = TK.task_id2task_dat[o[b]], (A = RL.rooms[h.rid]) || (A = {
+            w = j.length;
+            for (b = 0; b < w; b++) g = TK.task_id2task_dat[j[b]], (A = RL.rooms[g.rid]) || (A = {
                 getIcon: function() {
                     return ""
                 },
                 getName: function() {
                     return L.chatroom_error_not_found
                 }
-            }), k == h.id && (l = !0), v += a.getTaskPanel(h, {
+            }), k == g.id && (r = !0), v += a.getTaskPanel(g, {
                 type: "taskwindow"
             });
             $C("#_taskWindowList").html(v);
-            l || $C("#_taskDetailClose").click();
+            r || $C("#_taskDetailClose").click();
             w == 0 && $C("#_emptyTaskContent").show();
             w ? $C("#_taskWindowPagerIndex").text((f + 1).toString() + " / " + d) : $C("#_taskWindowPagerIndex").text("");
-            j.enableButtonAll();
-            f == 0 && j.disableButton(0).disableButton(1);
-            d - f <= 1 && j.disableButton(2).disableButton(3);
+            h.enableButtonAll();
+            f == 0 && h.disableButton(0).disableButton(1);
+            d - f <= 1 && h.disableButton(2).disableButton(3);
             e.resize()
         }
     };
@@ -8377,56 +8396,56 @@ function TaskView(b) {
             $C("#_taskDetailBlankArea").hide();
             var f = e.rid,
                 e = e.cid,
-                h = !1,
-                g = "";
+                g = !1,
+                h = "";
             if (RL.rooms[f]) {
-                var j = RL.rooms[f],
-                    k = !1,
-                    l = !1;
+                var i = RL.rooms[f],
+                    j = !1,
+                    k = !1;
                 if (!d)
-                    if (j.timeline)
-                        if (j.timeline.chat_id2chat_dat[e]) {
-                            for (var x = 0, f = j.timeline.chat_list.length; x < f; x++) {
-                                var p = j.timeline.chat_list[x];
-                                if (p.id == e) break
+                    if (i.timeline)
+                        if (i.timeline.chat_id2chat_dat[e]) {
+                            for (var x = 0, f = i.timeline.chat_list.length; x < f; x++) {
+                                var q = i.timeline.chat_list[x];
+                                if (q.id == e) break
                             }
-                            30 > x && j.timeline.has_old && (l = k = !0)
-                        } else k = !0;
-                else k = !0;
-                if (k) d ? g = "<div>" + L.jump_to_addpoint_not_found + "</div>" : (g = '<div class="timeLineLoading"><img src="./imagenew/all/common/loader/img_loader_white.gif" />' + L.chat_loading +
-                    "</div>", l ? j.timeline.loadOld(function() {
+                            30 > x && i.timeline.has_old && (k = j = !0)
+                        } else j = !0;
+                else j = !0;
+                if (j) d ? h = "<div>" + L.jump_to_addpoint_not_found + "</div>" : (h = '<div class="timeLineLoading"><img src="./imagenew/all/common/loader/img_loader_white.gif" />' + L.chat_loading +
+                    "</div>", k ? i.timeline.loadOld(function() {
                         a.buildTaskDetail(b, !0)
-                    }) : j.load({
+                    }) : i.load({
                         jumpTo: e
                     }, function() {
-                        j.timeline.loadOld(function() {
+                        i.timeline.loadOld(function() {
                             a.buildTaskDetail(b, !0)
                         })
                     }));
                 else {
-                    x = k = 0;
-                    for (f = j.timeline.chat_list.length; x < f; x++)
-                        if (p = j.timeline.chat_list[x], p.id == e) {
-                            k = x;
+                    x = j = 0;
+                    for (f = i.timeline.chat_list.length; x < f; x++)
+                        if (q = i.timeline.chat_list[x], q.id == e) {
+                            j = x;
                             break
                         }
-                    if (k) {
+                    if (j) {
                         x = 0;
-                        k > 30 && (x = k - 30);
-                        h = k + 30;
-                        for (g = []; x <= h && x < f; x++) g.push(j.timeline.chat_list[x]);
-                        g = j.timeline.view.getTimeLine(g, {
+                        j > 30 && (x = j - 30);
+                        g = j + 30;
+                        for (h = []; x <= g && x < f; x++) h.push(i.timeline.chat_list[x]);
+                        h = i.timeline.view.getTimeLine(h, {
                             idPrefix: "taskWindow",
                             selectId: e
                         });
-                        h = !0
+                        g = !0
                     }
                 }
-            } else g = "<div>" + L.jump_to_addpoint_not_found + "</div>";
-            j.timeline.view.renderTimeLine($C("#_taskDetailTimeLine"),
-                g);
+            } else h = "<div>" + L.jump_to_addpoint_not_found + "</div>";
+            i.timeline.view.renderTimeLine($C("#_taskDetailTimeLine"),
+                h);
             $C("#_taskDetailArea").attr("data-task-id", b).show();
-            h && (e = $("#taskWindow_messageId" + e), e.length > 0 && $C("#_taskDetailTimeLine").scrollTo(e, 0))
+            g && (e = $("#taskWindow_messageId" + e), e.length > 0 && $C("#_taskDetailTimeLine").scrollTo(e, 0))
         }
     };
     a.getTaskListRows = function() {};
@@ -8434,25 +8453,25 @@ function TaskView(b) {
         var e = "";
         if (b.st != "deleted") {
             var f = "_task",
-                h = "";
+                g = "";
             a.isMyTask(b) && (f += " taskMine");
             b.st == "done" && (f += " taskComplete");
             if (d.type == "tasklist") {
-                h = '<div class="_moveTask button"><span class="icoFontActionMove"></span><span class="icoTextHide">' + L.jump_to_addpoint + "</span></div>";
+                g = '<div class="_moveTask button"><span class="icoFontActionMove"></span><span class="icoTextHide">' + L.jump_to_addpoint + "</span></div>";
                 if (b.aid == AC.myid || b.bid ==
-                    AC.myid) h += '<div class="_editTask button"><span class="icoFontActionEdit"></span><span class="icoTextHide">' + L.task_edit_hint + '</span></div><div class="_deleteTask button"><span class="icoFontActionDelete"></span><span class="icoTextHide">' + L.task_delete_hint + "</span></div>";
+                    AC.myid) g += '<div class="_editTask button"><span class="icoFontActionEdit"></span><span class="icoTextHide">' + L.task_edit_hint + '</span></div><div class="_deleteTask button"><span class="icoFontActionDelete"></span><span class="icoTextHide">' + L.task_delete_hint + "</span></div>";
                 e = '<li class="_taskList subContentSection subContentShadow ' + f + '" data-task-id="' + b.id + '" data-type="list"><div id="_taskContent" class="subContentAreaInner"><div class="clearfix"><div class="completeCheckboxArea">' + a.getTaskButton(b) +
-                    "</div>" + a.getTaskName(b) + '</div><div class="taskMetaArea">' + a.getTaskAssign(b) + a.getTaskLimit(b) + '</div></div><div class="btnGroup">' + h + "</div></li>"
+                    "</div>" + a.getTaskName(b) + '</div><div class="taskMetaArea">' + a.getTaskAssign(b) + a.getTaskLimit(b) + '</div></div><div class="btnGroup">' + g + "</div></li>"
             } else if (d.type == "preview") e = '<div class="deleteTask ' + f + '">' + a.getTaskName(b) + '<div class="deleteTaskMeta">' + a.getTaskAssign(b) + a.getTaskLimit(b) + "</div></div>";
             else if (d.type == "taskwindow") {
-                h = '<div class="_moveTask button"><span class="icoFontActionMove"></span><span class="icoTextHide">' + L.jump_to_addpoint + "</span></div>";
+                g = '<div class="_moveTask button"><span class="icoFontActionMove"></span><span class="icoTextHide">' + L.jump_to_addpoint + "</span></div>";
                 if (b.aid == AC.myid || b.bid ==
-                    AC.myid) h += '<div class="_editTask button"><span class="icoFontActionEdit"></span><span class="icoTextHide">' + L.task_edit_hint + '</span></div><div class="_deleteTask button"><span class="icoFontActionDelete"></span><span class="icoTextHide">' + L.task_delete_hint + "</span></div>";
+                    AC.myid) g += '<div class="_editTask button"><span class="icoFontActionEdit"></span><span class="icoTextHide">' + L.task_edit_hint + '</span></div><div class="_deleteTask button"><span class="icoFontActionDelete"></span><span class="icoTextHide">' + L.task_delete_hint + "</span></div>";
                 e = '<li class="_taskList subContentSection subContentShadow" data-task-id="' + b.id + '"><div class="subContentAreaInner"><div class="clearfix"><div class="completeCheckboxArea">' + a.getTaskButton(b) + "</div>" + a.getTaskName(b) + '</div><div class="taskMetaArea">' +
-                    a.getTaskAssign(b) + a.getTaskLimit(b) + '</div></div><div class="btnGroup">' + h + "</div></li>"
-            } else d.type == "timeline" && (b.lt && (h = "<span>" + a.getTaskLimit(b, {
+                    a.getTaskAssign(b) + a.getTaskLimit(b) + '</div></div><div class="btnGroup">' + g + "</div></li>"
+            } else d.type == "timeline" && (b.lt && (g = "<span>" + a.getTaskLimit(b, {
                 icon: !0
-            }) + "</span>"), e = "", b.st == "done" && !RM.timeline.view.task_showmore_flag[d.mid] && (f += " _taskCompleteHide", e += " _taskBody taskBodyHide"), e = '<div class="chatInfoTaskArea ' + f + '"><div class="chatInfoTaskMetaArea ' + f + '"><div>' + a.getTaskAssign(b) + h + '</div></div><div class="chatInfoTaskContentArea' + e + '">')
+            }) + "</span>"), e = "", b.st == "done" && !RM.timeline.view.task_showmore_flag[d.mid] && (f += " _taskCompleteHide", e += " _taskBody taskBodyHide"), e = '<div class="chatInfoTaskArea ' + f + '"><div class="chatInfoTaskMetaArea ' + f + '"><div>' + a.getTaskAssign(b) + g + '</div></div><div class="chatInfoTaskContentArea' + e + '">')
         } else e = '<div class="_delete chatInfoTaskArea">' +
             L.task_deleted + "</div>";
         return e
@@ -8467,30 +8486,30 @@ function TaskView(b) {
     a.getTaskName = function(a) {
         return '<pre class="_taskName taskName"><div class="_taskNameContent">' + CW.renderMessage(a.tn) + "</div></pre>"
     };
-    var k = {
+    var j = {
         withIcon: !1
     };
     a.getTaskChatName = function(a, b) {
-        b == void 0 && (b = k);
+        b == void 0 && (b = j);
         var d = "";
         b.withIcon && (d = RL.rooms[a.rid].getIcon());
         return d + CW.getRoomName(a.rid)
     };
-    var l = {
+    var k = {
             withName: !1
         },
-        h = TM.timeline_assign_member_show_max;
+        g = TM.timeline_assign_member_show_max;
     a.getTaskAssign = function(a, b) {
-        b == void 0 && (b = l);
+        b == void 0 && (b = k);
         var d = "",
             e = [];
         if ($.isArray(a.aid)) {
             RM.sortMember(a.aid);
-            for (var f = 0, g = a.aid.length; f < g; f++) {
-                var j = a.aid[f];
-                f < h ? d += CW.getAvatarPanel(j, {
+            for (var f = 0, h = a.aid.length; f < h; f++) {
+                var i = a.aid[f];
+                f < g ? d += CW.getAvatarPanel(i, {
                     size: "tiny"
-                }) : e.push(j)
+                }) : e.push(i)
             }
         } else d += CW.getAvatarPanel(a.aid, {
             size: "tiny"
@@ -8501,7 +8520,7 @@ function TaskView(b) {
         return d
     };
     a.getTaskAssignBy = function(a, b) {
-        b == void 0 && (b = l);
+        b == void 0 && (b = k);
         var d = "";
         if (typeof a.bid == "object")
             for (var e in a.bid) d += CW.getAvatarPanel(a.bid[e], {
@@ -8519,14 +8538,14 @@ function TaskView(b) {
         var d = time(),
             e = !1,
             f = "",
-            h = "",
+            g = "",
             b = $.extend(!0, {
                 withLabel: !0
             }, b),
             f = '<div class="taskDateLimit">';
-        if (a.lt && (b.withLabel && (f += L.task_limittip), h = CW.getDate(a.lt, ST.data.dateformat), a.st ==
-                "open" && (a.lt <= d || h == CW.getDate(d, ST.data.dateformat)))) e = !0;
-        return e ? f + '<time class="limitedOver">' + h + "</time></div>" : f + "<time>" + h + "</time></div>"
+        if (a.lt && (b.withLabel && (f += L.task_limittip), g = CW.getDate(a.lt, ST.data.dateformat), a.st ==
+                "open" && (a.lt <= d || g == CW.getDate(d, ST.data.dateformat)))) e = !0;
+        return e ? f + '<time class="limitedOver">' + g + "</time></div>" : f + "<time>" + g + "</time></div>"
     };
     a.getTaskButton = function(a) {
         if (a.aid == AC.myid || a.bid == AC.myid) return a.st == "done" ? '<div class="_taskCheck button" data-task-id="' + a.id + '" data-task-status="open"><span class="_checkTaskLabel completeText">' + L.button_incomplete + "</span></div>" : '<div class="_taskCheck button btnPrimary" data-task-id="' + a.id + '" data-task-status="done"><span class="_checkTaskLabel completeText">' +
@@ -8547,14 +8566,14 @@ function RoomListView(b) {
     a.prepare = function() {
         var b = $.cookie("ui_chatlist_width");
         b !== void 0 && a.resizeWidth(b);
-        var g = 0;
+        var h = 0;
         $.cwResize.setHandle($("#_subContentHandle"), {
             type: "col",
             start: function() {
-                g = $C("#_sideContent").width()
+                h = $C("#_sideContent").width()
             },
             move: function(b) {
-                a.resizeWidth(g + b)
+                a.resizeWidth(h + b)
             }
         });
         $C("#_roomTitle").on("click", "._roomTitleText", function() {
@@ -8606,7 +8625,7 @@ function RoomListView(b) {
         });
         $("#_sideContentTitleText").click(function() {
             RL.selectCategory("all");
-            h.deselectAll();
+            g.deselectAll();
             RL.build()
         });
         $("#_sideChatMoveMyChat").click(function() {
@@ -8615,7 +8634,7 @@ function RoomListView(b) {
             message: L.menu_mychat_hint,
             delay: TM.messagetip_delay
         });
-        var h = $("#_chatFilterList").cwTabbedBar({
+        var g = $("#_chatFilterList").cwTabbedBar({
             toggleMode: !0,
             update: function(a, b) {
                 if (b) switch (a) {
@@ -8644,7 +8663,7 @@ function RoomListView(b) {
                 RL.build()
             }
         });
-        h.$el.show();
+        g.$el.show();
         e = $("#_chatUnreadStatus");
         d = $("#_chatToUnreadStatus");
         f = $("#_chatTaskStatus");
@@ -8674,7 +8693,7 @@ function RoomListView(b) {
         });
         a.prepareCategory();
         $.cookie("ui_fold_roomlist") === "1" && a.toggleFold();
-        $.cookie("ui_roomfilter") != void 0 && h.select($.cookie("ui_roomfilter"));
+        $.cookie("ui_roomfilter") != void 0 && g.select($.cookie("ui_roomfilter"));
         CW.view.onPostLoad(function() {
             $.cookie("ui_category") != void 0 && a.model.selectCategory($.cookie("ui_category"))
         });
@@ -8719,11 +8738,11 @@ function RoomListView(b) {
             d = {},
             e = [],
             f = $("#_newcatRoomlist"),
-            g = $("#_chatCategoryList").cwToolTip({
+            h = $("#_chatCategoryList").cwToolTip({
                 fixHeight: !0
             });
         $("#_chatCategory").click(function() {
-            g.open($(this))
+            h.open($(this))
         }).cwMessageTip({
             message: L.chat_category_select,
             delay: TM.messagetip_delay
@@ -8731,7 +8750,7 @@ function RoomListView(b) {
         $("#_chatCategoryList").on("click", "li._chatCategoryItem", function() {
             var b = $(this).attr("data-cat-id");
             a.model.selectCategory(b);
-            g.close()
+            h.close()
         }).on("mouseover", ".chatCategoryList li", function() {
             $(this).find("._categoryAction").show()
         }).on("mouseout", ".chatCategoryList li", function() {
@@ -8740,38 +8759,39 @@ function RoomListView(b) {
         $("#_categoryDisplayCancel").click(function() {
             a.model.selectCategory("all")
         });
-        var j = $("#_newcatRoomfilter").cwSearchBox({
+        var i = $("#_newcatRoomfilter").cwSearchBox({
                 placeholder: L.chat_search,
                 update: function() {
                     var a =
                         RL.getSortedRoomList("name"),
-                        g = 0,
-                        j = "";
+                        h = 0,
+                        i = "",
+                        n = TASK_MAX_RESULTS;
                     b = this.getVal().toLowerCase();
                     e = [];
-                    for (var n = 0, m = a.length; n < m; n++) {
-                        var o = RL.rooms[a[n]],
-                            u = o.getName();
-                        if (!(b && u.toLowerCase().indexOf(b) === -1)) {
-                            e.push(o.id);
-                            if (e.length >= 200) break;
-                            u = $.cwCheckBox.create(!!d[o.id], "", o.id, {
-                                id: "_newcatCheck" + o.id,
+                    for (var m = 0, o = a.length; m < o; m++) {
+                        var u = RL.rooms[a[m]],
+                            t = u.getName();
+                        if (!(b && t.toLowerCase().indexOf(b) === -1)) {
+                            e.push(u.id);
+                            if (e.length >= n) break;
+                            t = $.cwCheckBox.create(!!d[u.id], "", u.id, {
+                                id: "_newcatCheck" + u.id,
                                 "class": "_newcatCheck"
                             });
-                            j += '<tr class="_newcatRoom _cwSelectableRow"><td class="check">' + u + '</td><td class="_newcatRoom_name"><span class="ui_room_icon">' + o.getIcon() + "</span></td><td>" + CW.getRoomName(o.id) + "</td></tr>"
+                            i += '<tr class="_newcatRoom _cwSelectableRow"><td class="check">' + t + '</td><td class="_newcatRoom_name"><span class="ui_room_icon">' + u.getIcon() + "</span></td><td>" + CW.getRoomName(u.id) +
+                                "</td></tr>"
                         }
                     }
-                    j[g++] =
-                        "";
-                    f.html(j)
+                    i[h++] = "";
+                    f.html(i)
                 }
             }),
             o = $("#_chatCategoryAddContent").cwDialog({
                 width: 650,
                 open: function(b) {
                     if (this.data.cat_id = b) {
-                        for (var e = a.model.category_dat[b], b = e.name, e = e.list, f = 0, h = e.length; f < h; f++) d[e[f]] = !0;
+                        for (var e = a.model.category_dat[b], b = e.name, e = e.list, f = 0, g = e.length; f < g; f++) d[e[f]] = !0;
                         this.setOption({
                             title: L.chat_category_edit + ": " + escape_html(b),
                             buttonLabels: [L.button_save_long, L.button_cancel]
@@ -8782,7 +8802,7 @@ function RoomListView(b) {
                     });
                     $("#_categoryName").val("");
                     $("#_newcatSelectNum").empty();
-                    j.setVal("")
+                    i.setVal("")
                 },
                 close: function() {
                     b = [];
@@ -8798,23 +8818,23 @@ function RoomListView(b) {
                             e = $("#_categoryName").val();
                         e || b.push(L.chat_category_error_no_name);
                         var f = [],
-                            h;
-                        for (h in d) d[h] && f.push(h);
+                            g;
+                        for (g in d) d[g] && f.push(g);
                         f.length || b.push(L.chat_category_error_no_chats);
                         if (b.length) CW.alert(b.join("\n"));
                         else {
-                            h = {
+                            g = {
                                 name: e,
                                 r: f
                             };
-                            this.data.cat_id ? (h.cmd = "edit_category", h.cat_id = this.data.cat_id) : h.cmd = "add_category";
-                            var i = this;
-                            CW.postSync("gateway.php", h, function(b) {
+                            this.data.cat_id ? (g.cmd = "edit_category", g.cat_id = this.data.cat_id) : g.cmd = "add_category";
+                            var h = this;
+                            CW.postSync("gateway.php", g, function(b) {
                                 for (var d in b.cat_dat) a.model.category_dat[d] =
                                     b.cat_dat[d];
                                 a.model.buildCategory();
                                 a.model.selectCategory(d);
-                                i.close()
+                                h.close()
                             })
                         }
                     }
@@ -8822,16 +8842,16 @@ function RoomListView(b) {
             });
         $("#_chatCategoryAdd").click(function() {
             o.open();
-            g.close()
+            h.close()
         });
         var u = function(a, b) {
             var e;
             e = $.isArray(a) ? a : [a];
-            for (var f = 0, h = e.length; f < h; f++) {
-                var i = e[f],
-                    g = $("#_newcatCheck" + i);
-                g.length && (g = g.cwCheckBox(), b ? g.check() : g.unCheck());
-                d[i] = !!b
+            for (var f = 0, g = e.length; f < g; f++) {
+                var h = e[f],
+                    i = $("#_newcatCheck" + h);
+                i.length && (i = i.cwCheckBox(), b ? i.check() : i.unCheck());
+                d[h] = !!b
             }
             e = 0;
             for (f in d) d[f] && e++;
@@ -8871,14 +8891,14 @@ function RoomListView(b) {
     a.isFolded = function() {
         return a.is_folded
     };
-    var g = !1;
+    var i = !1;
     a.toggleFold = function() {
-        if (!g) {
+        if (!i) {
             var b = $("#_mainContent"),
                 d = b.css("left"),
                 e = $("#_mainContentExpandLeft");
             b.addClass("foldAnimLeft");
-            g = !0;
+            i = !0;
             if (d == "0px") {
                 a.is_folded = !1;
                 b.css("left", $("#_sideContent").outerWidth() + "px");
@@ -8900,7 +8920,7 @@ function RoomListView(b) {
                 CW.view.resizeLayout()
             }, 300);
             setTimeout(function() {
-                g = !1
+                i = !1
             }, 200)
         }
     };
@@ -8925,10 +8945,10 @@ function RoomListView(b) {
             e = d.find("[data-rid=" + a + "]");
         if (e.length > 0) {
             var f = parseInt(d.offset().top, 10),
-                g = f + d.height(),
-                j = parseInt(e.offset().top, 10),
-                u = j + e.height();
-            (j < f || u > g) && d.scrollTo(e, b)
+                h = f + d.height(),
+                i = parseInt(e.offset().top, 10),
+                u = i + e.height();
+            (i < f || u > h) && d.scrollTo(e, b)
         }
     };
     a.focusRoom = function(b) {
@@ -8975,8 +8995,8 @@ function RoomListView(b) {
         if (e) {
             $C("#_chatListEmptyArea").hide();
             if (e > a.room_show_limit) f = a.room_show_limit;
-            for (var g = 0; g < f; g++) b[g] !=
-                void 0 && (d += a.getRoomItemPanel(b[g]));
+            for (var h = 0; h < f; h++) b[h] !=
+                void 0 && (d += a.getRoomItemPanel(b[h]));
             e > f && (d += '<div class="roomLimitOver"><div>' + L.chat_rest_roomtip + (e - a.room_show_limit) + '</div><div id="_roomMore" class="button">' + L.chat_show_more + "</div></div>");
             $C("#_roomListItems").html(d);
             b = RL.getFocusedRoomId();
@@ -8984,7 +9004,7 @@ function RoomListView(b) {
         } else $C("#_roomListItems").quickEmpty(), $C("#_chatListEmptyArea ._chatListEmpty").hide(), a.model.filter_readonly ? $C("#_chatListUnreadEmpty").show() : a.model.filter_toonly ? $C("#_chatListToEmpty").show() : a.model.filter_taskonly &&
             $C("#_chatListTaskEmpty").show(), $C("#_chatListEmptyArea").show()
     };
-    var j = {
+    var h = {
         showOrg: !1,
         showPin: !0,
         showSelected: !0,
@@ -8994,46 +9014,46 @@ function RoomListView(b) {
     a.getRoomItemPanel = function(b, d) {
         var e = a.model.rooms[b],
             f;
-        if (d == void 0) f = j;
+        if (d == void 0) f = h;
         else {
             f = {};
-            for (var g in j) f[g] = j[g];
-            for (g in d) f[g] = d[g]
+            for (var i in h) f[i] = h[i];
+            for (i in d) f[i] = d[i]
         }
         var n = e.getUnreadNum(),
             o = 0;
         n > 0 && (o = e.getMentionNum());
-        g = "_room";
+        i = "_room";
         var u = "",
-            s = "",
+            r = "",
             v = "";
-        f.showSelected && RM && RM.id == b && (g += " _roomSelected menuListTitleSelected");
-        n > 0 && (g += " roomUnread", u = '<li role="listitem" class="_unreadBadge unread"><span class="icoFontActionUnread"></span>' +
-            n + "</li>", o && (s = '<li class="_mentionLabel _unreadBadge mention"><span class="icoFontSideTo"></span>' + o + "</li>", g += " roomMentionUnread"));
-        e.mytask_num > 0 && (v = '<li><span class="icoFontActionTask"></span>' + e.mytask_num + "</li>");
+        f.showSelected && RM && RM.id == b && (i += " _roomSelected menuListTitleSelected");
+        n > 0 && (i += " roomUnread", u = '<li role="listitem" class="_unreadBadge unread"><span class="icoFontActionUnread"></span>' +
+            n + "</li>", o && (r = '<li class="_mentionLabel _unreadBadge mention"><span class="icoFontSideTo"></span>' + o + "</li>", i += " roomMentionUnread"));
+        e.mytask_num > 0 && (v = '<li><span class="icoFontActionTask"></span>' + Math.min(e.mytask_num, TASK_MAX_RESULTS) + "</li>");
         n = "";
         f.showPin && (n = e.sticky ? '<div class="chatListPin"><span class="_pin _pinRid' + e.id + ' ico19PinOn"></span></div>' : '<div class="chatListPin chatListPinOff"><span class="_pin _pinRid' + e.id + ' ico19PinOff"></span></div>');
         o = "";
-        f.showRequest && e["public"] && e.member_request.length > 0 &&
-            (o = '<div class="alert alertWarning alertSmall"><span class="icoFontInfo marginRight"></span>' + L.chatroom_member_requests_notice.replace(/%%request_num%%/, e.member_request.length) + "</div>");
+        f.showRequest && e["public"] &&
+            e.member_request.length > 0 && (o = '<div class="alert alertWarning alertSmall"><span class="icoFontInfo marginRight"></span>' + L.chatroom_member_requests_notice.replace(/%%request_num%%/, e.member_request.length) + "</div>");
         var w = "";
         if (f.showOrg && e.type == "contact") {
             var A = e.getAccountId();
             (A = CW.getOrgTitle(A)) && (w = '<p class="chatListOrgName">' + A + "</p>")
         }
         var x = A = "";
-        u || s || v ? (f.noTrim || (A = " autotrim"), x = '<ul class="incomplete">' + u + s + v + "</ul>") : f.noTrim || (A = " chatListTitleNoLabel");
+        u || r || v ? (f.noTrim || (A = " autotrim"), x = '<ul class="incomplete">' + u + r + v + "</ul>") : f.noTrim || (A = " chatListTitleNoLabel");
         f = "";
-        CW.is_business && ST.data.show_external && (e.isInternal() ||
-            (f = '<div class="_externalMark roomOthers ico19Others"></div>'));
-        return '<li role="listitem" aria-label="' + escape_html(e.getName()) + '" class="_roomLink ' + g + '" data-rid="' + e.id + '"><div class="roomIcon">' + e.getIcon("html", "medium") + '</div><div class="chatListMeta"><p class="chatListTitleArea' + A + '">' + CW.getRoomName(e.id) + "</p>" + w + x + "</div>" + f + n + o + "</li>"
+        CW.is_business && ST.data.show_external &&
+            (e.isInternal() || (f = '<div class="_externalMark roomOthers ico19Others"></div>'));
+        return '<li role="listitem" aria-label="' + escape_html(e.getName()) + '" class="_roomLink ' + i + '" data-rid="' + e.id + '"><div class="roomIcon">' + e.getIcon("html", "medium") + '</div><div class="chatListMeta"><p class="chatListTitleArea' + A + '">' + CW.getRoomName(e.id) + "</p>" + w + x + "</div>" + f + n + o + "</li>"
     };
     a.updateRoomData = function() {};
     a.updateTitle = function(b) {
         if (MOBILE == "") {
             var d = "";
-            if (a.model.unread_room_sum > 0) d = a.model.unread_room_sum, a.model.mention_room_sum >
-                0 && (d += "(" + a.model.mention_room_sum + ")"), d = "[" + d + "]";
+            if (a.model.unread_room_sum > 0) d = a.model.unread_room_sum,
+                a.model.mention_room_sum > 0 && (d += "(" + a.model.mention_room_sum + ")"), d = "[" + d + "]";
             d += SERVICE_NAME;
             b && (d += " - " + RL.rooms[b].getName());
             document.title = d;
@@ -9041,10 +9061,10 @@ function RoomListView(b) {
         }
     };
     a.updateSumNumbers = function() {
-        var b = a.model.mytask_total + ":" + a.model.unread_room_sum +
-            ":" + a.model.mention_room_sum + ":" + a.model.mytask_room_sum;
-        if (a.last_sumnum_key != b) a.last_sumnum_key = b, a.model.mytask_total > 0 ? $C("#_myAllTaskNum").text(a.model.mytask_total).show() : $C("#_myAllTaskNum").hide(), a.model.unread_room_sum > 0 ? (b = a.model.unread_room_sum, b > 1E3 && (b = "999+"), e.html(b).show(), a.model.mention_room_sum > 0 ? (b = a.model.mention_room_sum, b > 1E3 && (b = "999+"), d.text(b).show()) : d.fadeOut()) : (e.fadeOut(), d.fadeOut()), a.model.mytask_room_sum > 0 ? f.text(a.model.mytask_room_sum).show() : f.fadeOut(),
-            RM && a.updateTitle(RM.id)
+        var b = a.model.mytask_total +
+            ":" + a.model.unread_room_sum + ":" + a.model.mention_room_sum + ":" + a.model.mytask_room_sum;
+        if (a.last_sumnum_key != b) a.last_sumnum_key = b, a.model.mytask_total > 0 ? $C("#_myAllTaskNum").text(a.model.mytask_total).show() : $C("#_myAllTaskNum").hide(), a.model.unread_room_sum > 0 ? (b = a.model.unread_room_sum, b > 1E3 && (b = "999+"), e.html(b).show(), a.model.mention_room_sum > 0 ? (b = a.model.mention_room_sum, b > 1E3 && (b = "999+"), d.text(b).show()) : d.fadeOut()) : (e.fadeOut(), d.fadeOut()), a.model.mytask_room_sum > 0 ? f.text(a.model.mytask_room_sum).show() :
+            f.fadeOut(), RM && a.updateTitle(RM.id)
     };
     a.buildCategory = function() {
         var b = "",
@@ -9108,18 +9128,18 @@ function RoomView(b) {
         getIcon: function(a, b) {
             var f = this.model.getAccountId();
             a == void 0 && (a = "html");
-            var g = this.model.icon_preset ? S3_PATH + "/icon/ico_" + this.model.icon + ".png" : S3_PATH + "/icon/" + this.model.icon;
+            var i = this.model.icon_preset ? S3_PATH + "/icon/ico_" + this.model.icon + ".png" : S3_PATH + "/icon/" + this.model.icon;
             switch (a) {
                 case "html":
                     return f > 0 ? CW.getAvatarPanel(f, {
                         clicktip: !1,
                         hovertip: !1,
                         size: b
-                    }) : '<img class="avatarGroup ' + CW.view.getAvatarClass(b) + '" src="' + g + '"/>';
+                    }) : '<img class="avatarGroup ' + CW.view.getAvatarClass(b) + '" src="' + i + '"/>';
                 case "src":
                     return f > 0 ? CW.getAvatarPanel(f, {
                         src: !0
-                    }) : g
+                    }) : i
             }
         },
         getViewStat: function() {
@@ -9128,8 +9148,8 @@ function RoomView(b) {
             a.last_read_id = 0;
             a.noview_num = 0;
             for (var f = this.model.timeline.chat_list.length - 1; f >= 0; f--) {
-                var g = $("#_messageId" + this.model.timeline.chat_list[f].id);
-                if (g.length > 0 && b > g.position().top) {
+                var i = $("#_messageId" + this.model.timeline.chat_list[f].id);
+                if (i.length > 0 && b > i.position().top) {
                     a.last_read_id = this.model.timeline.chat_list[f].id;
                     break
                 }
@@ -9153,18 +9173,18 @@ function RoomView(b) {
                 f = this.model;
             if (!RM || !b) RM = f, b = RM.id, CS.initChatText(), this.bindBeforeUnload();
             RM.id != f.id && (CW.read(0), RM.reading && $C("#_roomListItems").find("[data-rid=" + RM.id + "]").find("._unreadBadge").css("opacity", "0.5"), d = $C("#_chatText").val(), d == "" ? CS.deleteChatDraft(RM.id) : (CS.setChatDraft(RM.id, d, CS.chatedit_id), CS.view.setChatText("")), CS.clearChatEdit(), (d = $C("#_taskNameInput").val()) ? CS.setTaskDraft(RM.id, d, RS.view.getTaskAssignList(), $C("#_limitButton").cwDatePicker().getVal()) : CS.deleteTaskDraft(RM.id), RM = f, CS.initChatText(), $C("#_subRoomDescriptionWrapper").scrollTop(0), d = !0);
-            var g = "!rid" + RM.id;
-            a.messageHashUpdate && a.jumpTo && (g += "-" + a.jumpTo);
+            var i = "!rid" + RM.id;
+            a.messageHashUpdate && a.jumpTo && (i += "-" + a.jumpTo);
             $(window).unbind("hashchange", $.hashchangeHandler);
-            document.location.hash = g;
+            document.location.hash = i;
             setTimeout(function() {
                 $(window).bind("hashchange", $.hashchangeHandler)
             });
-            var g = "",
-                g = RL.rooms[RM.id].sticky ? '<span class="_pin _pinRid' + RM.id + ' ico19PinOn"></span>' : '<span class="_pin _pinRid' + RM.id + ' ico19PinOff"></span>',
-                j = CW.getRoomName(f.id);
-            $C("#_roomTitle").html('<span class="_roomTitleText autotrim">' + j + "</span>" + g);
-            $C("#_subRoomName").html(j);
+            var i = "",
+                i = RL.rooms[RM.id].sticky ? '<span class="_pin _pinRid' + RM.id + ' ico19PinOn"></span>' : '<span class="_pin _pinRid' + RM.id + ' ico19PinOff"></span>',
+                h = CW.getRoomName(f.id);
+            $C("#_roomTitle").html('<span class="_roomTitleText autotrim">' + h + "</span>" + i);
+            $C("#_subRoomName").html(h);
             $C("#_subRoomIcon").prop("src",
                 this.model.getIcon("src"));
             this.model.type === "group" ? $C("#_subRoomIcon").addClass("avatarGroup") : $C("#_subRoomIcon").removeClass("avatarGroup");
@@ -9172,12 +9192,12 @@ function RoomView(b) {
                 "</pre>");
             RS.view.resizeRoomInfo();
             f.member_dat[AC.myid] ? this.buildMemberList() : this.model.refreshMember();
-            g = null;
-            if (a.jumpTo) g = a.jumpTo;
-            else if (a.scrollTo) g = a.scrollTo;
-            !g && d && (d = f.getUnreadNum(), g = f.timeline.chat_list[f.timeline.chat_list.length - d], g = d && g ? g.id : "End");
+            i = null;
+            if (a.jumpTo) i = a.jumpTo;
+            else if (a.scrollTo) i = a.scrollTo;
+            !i && d && (d = f.getUnreadNum(), i = f.timeline.chat_list[f.timeline.chat_list.length - d], i = d && i ? i.id : "End");
             this.disabled_send || (this.restoreChatDrat(CS.getChatDraft(RM.id)), this.restoreTaskDraft(CS.getTaskDraft(RM.id)));
-            a.scrollTo = g;
+            a.scrollTo = i;
             f.timeline.build(a);
             f.rswitch = !1;
             CW.is_business && ST.data.show_external && (f.isInternal() ? ($C("#_chatTextArea").removeClass("chatSendTextareaOther").data("external", !1), $C("#_externalInfo").hide()) : ($C("#_chatTextArea").addClass("chatSendTextareaOther").data("external", !0), $C("#_externalInfo").show()));
@@ -9203,6 +9223,12 @@ function RoomView(b) {
             $C("#_chatSendTabTask").hide();
             $C("#_file").hide();
             RS.view.hideSetting();
+            var a = function(a, b) {
+                if (MOBILE !== "ipad") {
+                    var d = $C("#_" + a).show();
+                    return a === "groupCall" ? d : d.attr("data-aid", b)
+                }
+            };
             switch (this.model.type) {
                 case "group":
                     RS.view.showSetting();
@@ -9217,22 +9243,19 @@ function RoomView(b) {
                             $C("#_subEditRoomInfo").show();
                             $C("#_subRoomMemberArea").show();
                             $C("#_subEditMember").show();
-                            $C("#_groupCall").show();
-                            if (this.model["public"]) {
-                                var a = this.model.member_request.length;
-                                a > 0 && $C("#_roomRequestArea").html('<span class="icoFontInfo marginRight"></span>' + L.chatroom_member_requests_notice.replace("%%request_num%%", a)).show()
-                            }
+                            a("groupCall");
+                            if (this.model["public"]) a = this.model.member_request.length, a > 0 && $C("#_roomRequestArea").html('<span class="icoFontInfo marginRight"></span>' + L.chatroom_member_requests_notice.replace("%%request_num%%", a)).show();
                             break;
                         case "member":
-                            this.model.allow_see_member && ($C("#_subRoomMemberArea").show(), $C("#_groupCall").show());
-                            this.model.allow_send_message ? (CS.view.enableChatArea(),
-                                this.disabled_send = !1, this.model.allow_upload_file ? FL.view.enableFileArea() : FL.view.disableFileArea(), this.model.allow_add_task ? TK.view.enableTaskArea() : TK.view.disableTaskArea()) : (CS.view.disableChatArea(), this.disabled_send = !0);
+                            this.model.allow_see_member &&
+                                ($C("#_subRoomMemberArea").show(), a("groupCall"));
+                            this.model.allow_send_message ? (CS.view.enableChatArea(), this.disabled_send = !1, this.model.allow_upload_file ? FL.view.enableFileArea() : FL.view.disableFileArea(), this.model.allow_add_task ? TK.view.enableTaskArea() : TK.view.disableTaskArea()) : (CS.view.disableChatArea(), this.disabled_send = !0);
                             break;
                         case "readonly":
-                            this.model.allow_see_member && ($C("#_subRoomMemberArea").show(), $C("#_groupCall").show()), TK.view.disableTaskArea(), CS.view.disableChatArea(), FL.view.disableFileArea(), this.disabled_send = !0
+                            this.model.allow_see_member && ($C("#_subRoomMemberArea").show(), a("groupCall")), TK.view.disableTaskArea(), CS.view.disableChatArea(), FL.view.disableFileArea(),
+                                this.disabled_send = !0
                     }
-                    if (a = this.model.getJoinLink()) $C("#_subRoomJoinLink").attr("href",
-                        a), $C("#_subRoomJoinLinkArea").show();
+                    if (a = this.model.getJoinLink()) $C("#_subRoomJoinLink").attr("href", a), $C("#_subRoomJoinLinkArea").show();
                     break;
                 case "contact":
                     RS.view.showSetting();
@@ -9242,15 +9265,15 @@ function RoomView(b) {
                     TK.view.enableTaskArea();
                     FL.view.enableFileArea();
                     this.disabled_send = !1;
-                    var a = 0,
-                        b;
-                    for (b in this.model.member_dat) AC.myid != b && (a = b);
-                    a && $C("#_subRoomProfileLink").attr("data-aid", a);
-                    $C("#_directCall").show().attr("data-aid", a);
+                    var b = 0,
+                        f;
+                    for (f in this.model.member_dat) AC.myid != f && (b = f);
+                    b && $C("#_subRoomProfileLink").attr("data-aid", b);
+                    a("directCall", b);
                     break;
                 case "my":
-                    $C("#_subEditRoomInfo").show(), CS.view.enableChatArea(), TK.view.enableTaskArea(), FL.view.enableFileArea(),
-                        this.disabled_send = !1
+                    $C("#_subEditRoomInfo").show(),
+                        CS.view.enableChatArea(), TK.view.enableTaskArea(), FL.view.enableFileArea(), this.disabled_send = !1
             }
             RS.view.buildMember(this.model.id)
         },
@@ -9267,16 +9290,15 @@ function RoomView(b) {
                     this.data.room_id = a;
                     a = RL.rooms[a].member_request;
                     if (a.length > 0) {
-                        for (var j = 0, k = a.length; j < k; j++) {
-                            var l = a[j],
-                                h = CW.getAvatarPanel(l.aid, {
+                        for (var h = 0, j = a.length; h < j; h++) {
+                            var k = a[h],
+                                g = CW.getAvatarPanel(k.aid, {
                                     hovertip: !1,
                                     clicktip: !1,
                                     size: "medium"
                                 }),
-                                i = escape_html(l.nm);
-                            d += '<tr class="_roomRequestRow"><td>' +
-                                h + ' </td><td class="name"><span class="autotrim">' + i + '</span></td><td><div class="_roomRequestAccept button btnPrimary">' + L.button_accept_long + "</div> ( " + L.role + ":" + $.cwSelectBox.create([{
+                                l = escape_html(k.nm);
+                            d += '<tr class="_roomRequestRow"><td>' + g + ' </td><td class="name"><span class="autotrim">' + l + '</span></td><td><div class="_roomRequestAccept button btnPrimary">' + L.button_accept_long + "</div> ( " + L.role + ":" + $.cwSelectBox.create([{
                                     value: "admin",
                                     label: L.admin
                                 }, {
@@ -9287,7 +9309,8 @@ function RoomView(b) {
                                     label: L.readonly
                                 }], "", "member", {
                                     "class": "_roomRoleSelect"
-                                }) + ' )</td><td><div class="_roomRequestReject button buttonGray">' + L.button_reject_long + '</div></td><td style="display:none;"><input type="hidden" value="' + l.aid + '" class="_roomRequestAid" /></td></tr>'
+                                }) + ' )</td><td><div class="_roomRequestReject button buttonGray">' + L.button_reject_long + '</div></td><td style="display:none;"><input type="hidden" value="' +
+                                k.aid + '" class="_roomRequestAid" /></td></tr>'
                         }
                         b.html(d)
                     }
@@ -9296,49 +9319,48 @@ function RoomView(b) {
                     if (!this.dialog_resized) {
                         this.dialog_resized = !0;
                         var d = b.find("._roomRequestRow:last .selectboxContent"),
-                            g = d.height();
-                        g += parseInt(d.css("padding-top"), 10);
-                        g += parseInt(d.css("padding-bottom"), 10);
-                        g += parseInt(d.css("border-top-width"), 10);
-                        g += parseInt(d.css("border-bottom-width"), 10);
-                        var j = a.getMaxHeight(),
+                            i = d.height();
+                        i += parseInt(d.css("padding-top"), 10);
+                        i += parseInt(d.css("padding-bottom"), 10);
+                        i += parseInt(d.css("border-top-width"), 10);
+                        i += parseInt(d.css("border-bottom-width"), 10);
+                        var h = a.getMaxHeight(),
                             d = b.parents("#_roomRequestDialog"),
-                            k = d.parent(".dialogContent"),
-                            l = k.height();
-                        l += parseInt(k.css("border-top-width"), 10);
-                        l += parseInt(k.css("border-bottom-width"), 10);
-                        j -= l;
-                        j > g && (j =
-                            g);
-                        var h = d.children(".roomRequest"),
-                            i = h.height(),
-                            i = parseInt(h.css("max-height"), 10) - i;
-                        j > i && (j = i);
-                        console.log(j);
-                        k.height(l + j);
-                        l = parseInt(k.css("margin-top"), 10);
-                        k.css("margin-top", l - j / 2 + "px");
-                        d.height(d.height() + j);
-                        h.height(h.height() + j);
-                        h.children("._overflow").css("padding-bottom", g + "px")
+                            j = d.parent(".dialogContent"),
+                            k = j.height();
+                        k += parseInt(j.css("border-top-width"), 10);
+                        k += parseInt(j.css("border-bottom-width"), 10);
+                        h -= k;
+                        h > i && (h = i);
+                        var g = d.children(".roomRequest"),
+                            l = g.height(),
+                            l = parseInt(g.css("max-height"), 10) - l;
+                        h > l && (h = l);
+                        console.log(h);
+                        j.height(k + h);
+                        k = parseInt(j.css("margin-top"), 10);
+                        j.css("margin-top", k - h / 2 + "px");
+                        d.height(d.height() + h);
+                        g.height(g.height() + h);
+                        g.children("._overflow").css("padding-bottom", i + "px")
                     }
                 }
             });
-            var d = function(d, g) {
-                var j = b.find("tr").eq(d),
-                    k = j.find("._roomRoleSelect");
-                j.find("button").button("disable");
-                k.prop("disabled", !0);
-                var l = j.find("._roomRequestAid").val(),
-                    h = k.cwSelectBox().getVal(),
-                    l = {
+            var d = function(d, i) {
+                var h = b.find("tr").eq(d),
+                    j = h.find("._roomRoleSelect");
+                h.find("button").button("disable");
+                j.prop("disabled", !0);
+                var k = h.find("._roomRequestAid").val(),
+                    g = j.cwSelectBox().getVal(),
+                    k = {
                         rid: a.data.room_id,
-                        aid: l,
-                        role: h
+                        aid: k,
+                        role: g
                     };
-                l.cmd = g ? "accept_join_room" : "reject_join_room";
-                CW.post("gateway.php", l, function(d) {
-                    d.error ? (d.message != void 0 && CW.alert(d.message), j.find("button").button("enable"), k.prop("disabled", !1)) : (j.fadeOut(function() {
+                k.cmd = i ? "accept_join_room" : "reject_join_room";
+                CW.post("gateway.php", k, function(d) {
+                    d.error ? (d.message != void 0 && CW.alert(d.message), h.find("button").button("enable"), j.prop("disabled", !1)) : (h.fadeOut(function() {
                         b.find("tr:visible").length || a.close()
                     }), CW.watch())
                 })
@@ -9352,8 +9374,7 @@ function RoomView(b) {
             })
         },
         showRequestDialog: function() {
-            a ||
-                this.prepareRequestDialog();
+            a || this.prepareRequestDialog();
             a.open(this.model.id)
         },
         bindBeforeUnload: function() {
@@ -9387,13 +9408,13 @@ function TimeLineView(b) {
                 $(this).remove()
             });
             else
-                for (var e = this.model.chat_list.length - 1 - b, j = e; j > e - (a - b); j--) this.model.chat_list[j] != void 0 && $("#_messageId" + this.model.chat_list[j].id + " ._unreadMark").fadeOut("slow", function() {
+                for (var e = this.model.chat_list.length - 1 - b, h = e; h > e - (a - b); h--) this.model.chat_list[h] != void 0 && $("#_messageId" + this.model.chat_list[h].id + " ._unreadMark").fadeOut("slow", function() {
                     $(this).remove()
                 })
         },
         build: function(d) {
             var e = $C("#_timeLine"),
-                g = $.extend({
+                i = $.extend({
                     smoothScroll: !1,
                     scrollTo: null,
                     everScroll: !1,
@@ -9401,88 +9422,88 @@ function TimeLineView(b) {
                     jumpToCallback: function() {},
                     sendingId: null
                 }, d),
-                d = g.scrollTo,
-                j = $("#_messageIdEnd"),
+                d = i.scrollTo,
+                h = $("#_messageIdEnd"),
+                j = 0;
+            if (h.length > 0) j = h.offset().top;
+            var h = "",
                 k = 0;
-            if (j.length > 0) k = j.offset().top;
-            var j = "",
-                l = 0;
-            l++;
-            this.model.chat_list.length < this.model.room.chat_num ? (l++, j += '<div class="timeLineLoading"><img src="./imagenew/all/common/loader/img_loader_white.gif" />' + L.chat_loading + "</div>", this.model.has_old = this.model.room.buildtime ? !0 : !1) : this.model.has_old = !1;
-            var l = this.model,
-                h = [],
-                i = null,
+            k++;
+            this.model.chat_list.length < this.model.room.chat_num ? (k++, h += '<div class="timeLineLoading"><img src="./imagenew/all/common/loader/img_loader_white.gif" />' + L.chat_loading + "</div>", this.model.has_old = this.model.room.buildtime ? !0 : !1) : this.model.has_old = !1;
+            var k = this.model,
+                g = [],
+                l = null,
                 m = 0,
-                n = l.chat_list.length;
-            if (a != l.room.id) this.start_index = 0;
+                n = k.chat_list.length;
+            if (a != k.room.id) this.start_index = 0;
             if (d && d != "End")
                 for (var o =
                         0; o < n; o++)
-                    if (m = l.chat_list[o], d == m.id) {
-                        i = o;
-                        this.start_index = i - 100;
+                    if (m = k.chat_list[o], d == m.id) {
+                        l = o;
+                        this.start_index = l - 100;
                         break
                     }
-            if (a == l.room.id)
-                if (g.everScroll) {
+            if (a == k.room.id)
+                if (i.everScroll) {
                     var u = $C("#_timeLine").offset().top;
-                    if (!i)
+                    if (!l)
                         for (o = 0; o < n; o++) {
-                            var m = l.chat_list[o],
-                                s = $("#_messageId" + m.id);
-                            if (s.length > 0 && u < s.offset().top) {
-                                if (!l.has_new_message && !d) {
-                                    if (!l.has_old && o == 0) return !1;
+                            var m = k.chat_list[o],
+                                r = $("#_messageId" + m.id);
+                            if (r.length > 0 && u < r.offset().top) {
+                                if (!k.has_new_message && !d) {
+                                    if (!k.has_old && o == 0) return !1;
                                     d = m.id
                                 }
-                                i = o;
+                                l = o;
                                 break
                             }
                         }
-                    m = i - 100
+                    m = l - 100
                 } else m = this.start_index;
-            else m = i !== null ? i - 100 : n - 200;
+            else m = l !== null ? l - 100 : n - 200;
             m < 0 && (m = 0);
-            i = 0;
+            l = 0;
             for (o = m; o < n; o++)
-                if (l.chat_list[o] && (h.push(l.chat_list[o]), i++), i >= 200) break;
+                if (k.chat_list[o] && (g.push(k.chat_list[o]), l++), l >= 200) break;
             this.start_index = m;
-            h.length > 100 &&
-                h[h.length - 1].id != l.chat_list[n - 1].id ? (d == "End" && (d = !1), this.has_new = !0) : this.has_new = !1;
-            n = l.sending_chat_list;
+            g.length > 100 &&
+                g[g.length - 1].id != k.chat_list[n - 1].id ? (d == "End" && (d = !1), this.has_new = !0) : this.has_new = !1;
+            n = k.sending_chat_list;
             if (n.length)
-                for (o = 0; o < n.length; o++)(m = n[o]) && h.push(m);
-            j += this.getTimeLine(h, {
+                for (o = 0; o < n.length; o++)(m = n[o]) && g.push(m);
+            h += this.getTimeLine(g, {
                 unreadFrom: this.model.chat_list.length - this.model.room.getUnreadNum(),
-                readLock: l.room.read_lock,
+                readLock: k.room.read_lock,
                 editId: CS.chatedit_id,
                 selectId: b
             });
-            j += '<div id="_messageIdEnd" class="actionBarSpacer"></div>';
+            h += '<div id="_messageIdEnd" class="actionBarSpacer"></div>';
             var v = 0;
-            g.smoothScroll && (v = g.sendingId ? 70 : 200);
-            h = !1;
-            o = j;
+            i.smoothScroll && (v = i.sendingId ? 70 : 200);
+            g = !1;
+            o = h;
             if (CW.last_timeline_buildkey != o) {
-                this.renderTimeLine(e, j);
-                if (a != l.room.id) a =
-                    l.room.id, b = 0;
-                l.has_new_message = !1;
-                g.sendingId && $C("#_timeLine").find("._sendingMessage img:last").hide().fadeIn(3E3);
+                this.renderTimeLine(e, h);
+                if (a != k.room.id) a =
+                    k.room.id, b = 0;
+                k.has_new_message = !1;
+                i.sendingId && $C("#_timeLine").find("._sendingMessage img:last").hide().fadeIn(3E3);
                 CW.last_timeline_buildkey = o;
-                d || k < $C("#_chatSendArea").offset().top + 50 && (d = "End");
+                d || j < $C("#_chatSendArea").offset().top + 50 && (d = "End");
                 if ((this.model.room.rswitch || d) && d) {
                     var w = this,
                         A = $("#_messageId" + d);
-                    A.length && (g.highlight && (b = d), h = !0, function() {
+                    A.length && (i.highlight && (b = d), g = !0, function() {
                         var a = !1,
                             b = function() {
                                 a = !0
                             },
                             d = $C("#_timeLine");
                         d.one("scroll", b).scrollTo(A, v, function() {
-                            g.highlight && w.highlight(A);
-                            g.jumpToCallback()
+                            i.highlight && w.highlight(A);
+                            i.jumpToCallback()
                         });
                         setTimeout(function() {
                                 a || (d.unbind("scroll", b), d.trigger("scroll"))
@@ -9493,41 +9514,41 @@ function TimeLineView(b) {
                 AC.hasUnknown() && AC.getUnknown(function(a) {
                     for (var b in a) $("._nameAid" + b).text(a[b].name)
                 })
-            } else d && (w = this, A = $("#_messageId" + d), A.length && (h = !0, $C("#_timeLine").scrollTo(A, v, function() {
-                g.highlight && w.highlight(A);
-                g.jumpToCallback()
+            } else d && (w = this, A = $("#_messageId" + d), A.length && (g = !0, $C("#_timeLine").scrollTo(A, v, function() {
+                i.highlight && w.highlight(A);
+                i.jumpToCallback()
             })));
-            l.has_old && !h && setTimeout(function() {
+            k.has_old && !g && setTimeout(function() {
                 $C("#_timeLine").trigger("scroll")
             }, 100)
         },
         getTimeLine: function(a, f) {
-            for (var g = $.extend({
+            for (var i = $.extend({
                     unreadFrom: !1,
                     readLock: !1,
                     editId: !1,
                     selectId: !1,
                     idPrefix: ""
-                }, f), j = "", k = "", l = 0, h = a.length; l < h; l++) {
-                var i = {
-                        idPrefix: g.idPrefix
+                }, f), h = "", j = "", k = 0, g = a.length; k < g; k++) {
+                var l = {
+                        idPrefix: i.idPrefix
                     },
-                    m = a[l];
-                if (ST.data.show_delmessage == 0 && m.msg == "[deleted]") j += '<div id="_messageId' + m.id + '"></div>';
+                    m = a[k];
+                if (ST.data.show_delmessage == 0 && m.msg == "[deleted]") h += '<div id="_messageId' + m.id + '"></div>';
                 else {
                     var n = CW.getDate(m.tm, ST.data.dateformat);
-                    if (k != n) k = n, e = 0, i.topView = !0, j += '<div class="dateHead"><div class="dateContent"><span class="icoFontClock"></span><span class="dateText">' + n + "</span></div></div>";
-                    e == m.aid ? i.showSender = !1 : e = m.aid;
-                    if (g.unreadFrom !== !1 && l >= g.unreadFrom) i.showUnreadMark = !0;
-                    if (g.readLock) i.readLock = !0;
-                    if (g.editId && g.editId == m.id) i.editView = !0;
-                    if (!g.selectId) g.selectId = b;
-                    if (g.selectId &&
-                        g.selectId == m.id) i.selectView = !0;
-                    j += this.getMessagePanel(m, i)
+                    if (j != n) j = n, e = 0, l.topView = !0, h += '<div class="dateHead"><div class="dateContent"><span class="icoFontClock"></span><span class="dateText">' + n + "</span></div></div>";
+                    e == m.aid ? l.showSender = !1 : e = m.aid;
+                    if (i.unreadFrom !== !1 && k >= i.unreadFrom) l.showUnreadMark = !0;
+                    if (i.readLock) l.readLock = !0;
+                    if (i.editId && i.editId == m.id) l.editView = !0;
+                    if (!i.selectId) i.selectId = b;
+                    if (i.selectId &&
+                        i.selectId == m.id) l.selectView = !0;
+                    h += this.getMessagePanel(m, l)
                 }
             }
-            return j
+            return h
         },
         renderTimeLine: function(a, b) {
             a.html(b).find("._taskCompleteHide").each(function() {
@@ -9537,7 +9558,7 @@ function TimeLineView(b) {
         },
         getMessagePanel: function(a, b) {
             var e = this.model,
-                j = $.extend({
+                h = $.extend({
                     showSender: !0,
                     topView: !1,
                     showUnreadMark: !1,
@@ -9546,36 +9567,36 @@ function TimeLineView(b) {
                     selectView: !1,
                     idPrefix: ""
                 }, b),
+                j = "",
                 k = "",
-                l = "",
-                h = "",
-                i = "_message chatTimeLineMessage chatTimeLineMessageAnim clearfix",
+                g = "",
+                l = "_message chatTimeLineMessage chatTimeLineMessageAnim clearfix",
                 m = "";
-            j.showSender && (k = '<div class="_speaker avatarSpeaker">' + CW.getAvatarPanel(a.aid, {
+            h.showSender && (j = '<div class="_speaker avatarSpeaker">' + CW.getAvatarPanel(a.aid, {
                 size: "medium"
-            }) + "</div>", l = CW.getName(a.aid), h = '<p class="chatNameOrgname">' + CW.getOrgName(a.aid) + "</p>", j.topView || (i += " chatTimeLineBorder"));
+            }) + "</div>", k = CW.getName(a.aid), g = '<p class="chatNameOrgname">' + CW.getOrgName(a.aid) + "</p>", h.topView || (l += " chatTimeLineBorder"));
             var n = "";
-            j.showUnreadMark && (n = a.sid ? '<span class="_sendingMessage"><img src="./imagenew/all/common/loader/img_loader_white.gif" ald="Loading"/></span>' : j.readLock ? '<span class="_unreadMark unreadTimeLine unreadTimeLineLock"></span>' : '<span class="_unreadMark unreadTimeLine"></span>');
+            h.showUnreadMark && (n = a.sid ? '<span class="_sendingMessage"><img src="./imagenew/all/common/loader/img_loader_white.gif" ald="Loading"/></span>' : h.readLock ? '<span class="_unreadMark unreadTimeLine unreadTimeLineLock"></span>' : '<span class="_unreadMark unreadTimeLine"></span>');
             var o = "",
                 u = L.chat_edited_log;
-            a.aid == AC.myid && (i += " chatTimeLineMessageMine");
-            var s = 0;
-            a.msg == "[deleted]" ? (s = 1, o = '<div class="_delete messegeDelete">' + L.chat_deleted + "</div>") : a.msg == "[deleted_by_admin]" ? (s = 1, o = '<div class="_delete messegeDelete">' + L.chat_deleted_by_admin + "</div>") : o = CW.renderMessage(a.msg, {
+            a.aid == AC.myid && (l += " chatTimeLineMessageMine");
+            var r = 0;
+            a.msg == "[deleted]" ? (r = 1, o = '<div class="_delete messegeDelete">' + L.chat_deleted + "</div>") : a.msg == "[deleted_by_admin]" ? (r = 1, o = '<div class="_delete messegeDelete">' + L.chat_deleted_by_admin + "</div>") : o = CW.renderMessage(a.msg, {
                 mid: a.id
             });
-            s && (m += ' data-deleted="1"');
-            var v = j.showSender ? CW.getDate(a.tm, ST.data.dateformat_short + " H:i") : CW.getDate(a.tm, "H:i");
+            r && (m += ' data-deleted="1"');
+            var v = h.showSender ? CW.getDate(a.tm, ST.data.dateformat_short + " H:i") : CW.getDate(a.tm, "H:i");
             a.utm > 0 && (v += ' <span class="icoFontActionEdit icoSizeSmall"></span>');
-            a.mn && (i += " chatTimeLineMessageMention");
+            a.mn && (l += " chatTimeLineMessageMention");
             u = "";
-            j.editView && (i += " chatTimeLineMessageEdit", u = '<div class="chatTimeLineMessageEditText">' + L.chat_editing_label_on_message + '<span class="_editCancel closeAction icoFontCancel massageEditCancel"></span></div>');
+            h.editView && (l += " chatTimeLineMessageEdit", u = '<div class="chatTimeLineMessageEditText">' + L.chat_editing_label_on_message + '<span class="_editCancel closeAction icoFontCancel massageEditCancel"></span></div>');
             var w = "";
-            j.selectView && (i += " _messageSelected chatTimeLineMessageMove", w = '<span class="icoFontMessegeMoveArrow icoSizeLarge"></span><span class="icoTextHide">\u79fb\u52d5\u3057\u305f\u30c1\u30e3\u30c3\u30c8</span>');
+            h.selectView && (l += " _messageSelected chatTimeLineMessageMove", w = '<span class="icoFontMessegeMoveArrow icoSizeLarge"></span><span class="icoTextHide">\u79fb\u52d5\u3057\u305f\u30c1\u30e3\u30c3\u30c8</span>');
             e = a.rid ? a.rid : e.room.id;
-            s = ' data-deleted="' +
-                s + '" data-tm="' + a.tm + '"';
-            a.utm && (s += ' data-utm="' + a.utm + '"');
-            return '<div id="' + j.idPrefix + "_messageId" + a.id + '" data-rid="' + e + '" data-mid="' + a.id + '" class="' + i + '"' + m + '><div class="_chatTimeLineMessageBox chatTimeLineMessageInner">' + k + '<div class="chatTimeLineMessageArea clearfix"><div class="chatTimeLineItemHeader autotrim"><p class="_speakerName chatName">' + l + "</p>" + h + "</div><pre>" + o + '</pre></div><div class="_timeStamp timeStamp"' + s + ">" + n + v + "</div>" + u + '</div><div class="_moveArrow chatTimeLineMoveArrow selected">' +
+            r = ' data-deleted="' +
+                r + '" data-tm="' + a.tm + '"';
+            a.utm && (r += ' data-utm="' + a.utm + '"');
+            return '<div id="' + h.idPrefix + "_messageId" + a.id + '" data-rid="' + e + '" data-mid="' + a.id + '" class="' + l + '"' + m + '><div class="_chatTimeLineMessageBox chatTimeLineMessageInner">' + j + '<div class="chatTimeLineMessageArea clearfix"><div class="chatTimeLineItemHeader autotrim"><p class="_speakerName chatName">' + k + "</p>" + g + "</div><pre>" + o + '</pre></div><div class="_timeStamp timeStamp"' + r + ">" + n + v + "</div>" + u + '</div><div class="_moveArrow chatTimeLineMoveArrow selected">' +
                 w + "</div></div>"
         },
         highlight: function(a) {
@@ -9606,7 +9627,7 @@ FileListView.prototype = {
 function TaskListView(b) {
     this.model = b;
     this.task_num = 0;
-    this.view_limit = 200
+    this.view_limit = TASK_MAX_RESULTS
 }
 (function() {
     var b = null;
@@ -9622,23 +9643,21 @@ function TaskListView(b) {
             var a = b.isChecked(),
                 e = "",
                 d, f = this.model.getTaskList("open"),
-                g = f.length;
+                i = f.length;
             this.task_num = 0;
-            if (g > 0) {
+            if (i > 0) {
                 TK.sortTaskList(f);
-                d = !1;
-                for (var j = 0; j < g; j++) {
-                    var k = TK.task_id2task_dat[f[j]];
-                    if (!a || k.aid == AC.myid) this.task_num++, this.task_num <= this.view_limit ? e += TK.view.getTaskPanel(k, {
+                for (d = 0; d < i; d++) {
+                    var h = TK.task_id2task_dat[f[d]];
+                    if (!a || h.aid == AC.myid) this.task_num++, this.task_num <= this.view_limit && (e += TK.view.getTaskPanel(h, {
                         type: "tasklist"
-                    }) : d = !0
+                    }))
                 }
-                d && (e += '<div class="taskOverFlow">' + L.list_overflow.replace("%%num%%", number_format(this.task_num - this.view_limit)) + "</div>");
                 d = e
             }
             e == "" && !RS.show_promotion && (e = '<div class="emptyAdminContent"><img src="./imagenew/common/empty/img_task_empty.png"><p>' + L.task_nothing + "</p></div>", d = "empty");
             if (d != CW.last_tasklist_buildkey) CW.last_tasklist_buildkey = d, $C("#_subRoomTaskList").html(e);
-            this.task_num > 0 ? ($C("#_roomTaskNum").show().text(" (" + number_format(this.task_num) + ")"), $C("#_roomTaskAll").show(),
+            this.task_num > 0 ? (this.view_limit <= this.task_num ? $C("#_roomTaskNum").show().text(L.task_num.replace("%%num%%", number_format(this.view_limit))) : $C("#_roomTaskNum").show().text(" (" + number_format(this.task_num) + ")"), $C("#_roomTaskAll").show(),
                 RS.hidePromotion()) : ($C("#_roomTaskNum").hide(), $C("#_roomTaskAll").hide(), RS.showPromotion())
         }
     }
@@ -9692,11 +9711,11 @@ function RoomDialogView(b) {
                 this.last_checked_link_name = e;
                 if (this.type_timer) clearTimeout(this.type_timer), this.type_timer = null;
                 var f = d.find(".js_invitationLinkBtnCopy"),
-                    h = d.find(".js_invitationLinkBtnEdited"),
-                    g = d.find(".js_invitationLinkDisplayInput"),
+                    g = d.find(".js_invitationLinkBtnEdited"),
+                    h = d.find(".js_invitationLinkDisplayInput"),
                     i = d.find(".js_invitationLinkCodeLoading"),
                     j = d.find(".js_invitationLinkCodeUsed");
-                h.removeClass("btnPrimary").addClass("btnDisable");
+                g.removeClass("btnPrimary").addClass("btnDisable");
                 e ? e.length > 50 ? (i.hide(), j.text(L.error_maxlength.replace("%%length%%", 50)).css("color",
                     "red"), a.is_valid_link_name = !1) : e.match(/^[-_a-zA-Z0-9]+$/) ? (i.show(), j.text(""), this.type_timer = setTimeout(function() {
                     i.show();
@@ -9706,7 +9725,7 @@ function RoomDialogView(b) {
                         rid: RM.id
                     }, function(d) {
                         i.hide();
-                        d.used ? (j.text(L.error_already_used).css("color", "red"), a.is_valid_link_name = !1) : (j.text(L.available).css("color", "green"), a.is_valid_link_name = !0, d = CHATWORK_MYPAGE_PATH + "/g/" + b.val(), f.attr("data-clipboard-text", d), g.val(d), h.removeClass("btnDisable").addClass("btnPrimary"))
+                        d.used ? (j.text(L.error_already_used).css("color", "red"), a.is_valid_link_name = !1) : (j.text(L.available).css("color", "green"), a.is_valid_link_name = !0, d = CHATWORK_MYPAGE_PATH + "/g/" + b.val(), f.attr("data-clipboard-text", d), h.val(d), g.removeClass("btnDisable").addClass("btnPrimary"))
                     });
                     this.type_timer =
                         void 0
@@ -9719,15 +9738,15 @@ function RoomDialogView(b) {
             d = a.find(".js_invitationLinkBtnEdited"),
             e = a.find(".js_invitationLinkDisplay"),
             f = a.find(".js_invitationLinkDisplayInput"),
-            h = a.find(".js_invitationLinkEditor"),
-            g = a.find(".js_invitationLinkEditorInput"),
+            g = a.find(".js_invitationLinkEditor"),
+            h = a.find(".js_invitationLinkEditorInput"),
             i = a.find(".js_invitationLinkCodeLoading"),
             j = a.find(".js_invitationLinkCodeUsed");
         return {
             open: function() {
                 var a = b.attr("data-clipboard-text");
                 e.hide();
-                h.show();
+                g.show();
                 i.hide();
                 j.text("");
                 b.attr("data-current", a)
@@ -9737,7 +9756,7 @@ function RoomDialogView(b) {
                     e = d.replace(/(^https.+\/g\/)(.+$)/, "$2");
                 b.attr("data-clipboard-text", d).removeAttr("data-current");
                 f.val(d);
-                g.val(e);
+                h.val(e);
                 this.reset(a)
             },
             edit: function() {
@@ -9746,7 +9765,7 @@ function RoomDialogView(b) {
             },
             reset: function() {
                 e.show();
-                h.hide();
+                g.hide();
                 i.hide();
                 j.text("");
                 b.text(L.invitation_link_code_copy);
@@ -9765,7 +9784,7 @@ function RoomDialogView(b) {
             a.addRoomMember(RM.id)
         });
         $("#_memberEditMemberAdd").click(function() {
-            i.close();
+            l.close();
             a.addRoomMember(RM.id)
         });
         $("#_memberAdditionMemberEdit").click(function() {
@@ -9793,10 +9812,10 @@ function RoomDialogView(b) {
                 return CW.alert(d)
             })
     };
-    var g = !1;
+    var i = !1;
     a.prepareRoomInfo = function() {
-        if (!g) {
-            g = !0;
+        if (!i) {
+            i = !0;
             CW.view.onIframeReady(function() {
                 $("#_roomInfoFrame").bind("load",
                     function() {
@@ -9921,16 +9940,16 @@ function RoomDialogView(b) {
                     var e = CHATWORK_MYPAGE_PATH + "/g/",
                         f;
                     f = d.link_name ? d.link_name : d.id;
-                    var h = e + f,
-                        g = $("#_invitationLinkActive"),
-                        i = g.find(".js_invitationLinkBtnCopy"),
-                        j = g.find(".js_invitationLinkURL"),
-                        m = g.find(".js_invitationLinkDisplayInput"),
-                        g = g.find(".js_invitationLinkEditorInput");
+                    var g = e + f,
+                        h = $("#_invitationLinkActive"),
+                        i = h.find(".js_invitationLinkBtnCopy"),
+                        j = h.find(".js_invitationLinkURL"),
+                        m = h.find(".js_invitationLinkDisplayInput"),
+                        h = h.find(".js_invitationLinkEditorInput");
                     j.text(e);
-                    m.val(h);
-                    g.val(f);
-                    i.attr("data-clipboard-text", h).text(L.invitation_link_code_copy);
+                    m.val(g);
+                    h.val(f);
+                    i.attr("data-clipboard-text", g).text(L.invitation_link_code_copy);
                     e = new ZeroClipboard(i[0]);
                     e.on("mouseover", function() {
                         i.addClass("buttonHover")
@@ -10012,15 +10031,15 @@ function RoomDialogView(b) {
         });
         for (var d in b) d !== myid && AC.isContact(d) && (a.adding_member_list[d] = b[d], a.checked_flag[d] = !0)
     };
-    var j = null;
+    var h = null;
     a.deleteMember = function(b) {
         $("#_memberRowAid" + b).remove();
         a.contact_flag[b] = !0;
         delete a.checked_flag[b];
         delete a.member_flag[b];
-        j || (j = setTimeout(function() {
+        h || (h = setTimeout(function() {
             a.buildMember(["member", "contact"], $("#_memberEditMemberBox"));
-            j = null
+            h = null
         }, 100))
     };
     a.updateCheckBoxAll = function(a) {
@@ -10048,8 +10067,8 @@ function RoomDialogView(b) {
         var e = b.getVal();
         a.checked_flag[e] = !a.checked_flag[e];
         var f = d.find(".roleSelect [data-aid=" + e + "]"),
-            h = f.cwSelectBox().getVal();
-        a.checked_flag[e] ? ($(f).removeClass("isHide"), a.adding_member_list[e] = h) : ($(f).addClass("isHide"), delete a.adding_member_list[e])
+            g = f.cwSelectBox().getVal();
+        a.checked_flag[e] ? ($(f).removeClass("isHide"), a.adding_member_list[e] = g) : ($(f).addClass("isHide"), delete a.adding_member_list[e])
     };
     a.checkAllContact = function(b,
         d, e) {
@@ -10065,7 +10084,7 @@ function RoomDialogView(b) {
         var e = !1;
         d.find('.organizationFilter input[type="radio"]:checked').val() === "organized" && (e = !0);
         var f = AC.getGroupId(AC.myid),
-            h = {
+            g = {
                 admin: {
                     name: L.admin,
                     tooltip: L.chatroom_member_role_admin_desc
@@ -10079,53 +10098,53 @@ function RoomDialogView(b) {
                     tooltip: L.chatroom_member_role_readonly_desc
                 }
             },
-            g = 0,
+            h = 0,
             i = 0,
             j = {
                 member: a.member_flag,
                 contact: a.contact_flag
             },
             m = [],
-            k = d.find("._searchBox").cwSearchBox().getVal();
-        k && (m = CW.splitWithSpace(k), m = m.map(function(a) {
+            l = d.find("._searchBox").cwSearchBox().getVal();
+        l && (m = CW.splitWithSpace(l), m = m.map(function(a) {
             return a.toLowerCase()
         }));
-        for (k = 0; k < b.length; k++) {
-            var l = b[k],
-                r = [];
-            if (Object.keys) r = Object.keys(j[l]);
+        for (l = 0; l < b.length; l++) {
+            var k = b[l],
+                s = [];
+            if (Object.keys) s = Object.keys(j[k]);
             else
-                for (var B in j[l]) r.push(B);
-            Room.prototype.sortMember(r);
-            var I = d.find("._memberTable" + ucfirst(l));
+                for (var B in j[k]) s.push(B);
+            Room.prototype.sortMember(s);
+            var I = d.find("._memberTable" + ucfirst(k));
             I.quickEmpty();
             var z = "",
                 E =
-                r.length;
-            200 < E && $("#_roomInfoShowLimitNum" + ucfirst(l)).text(L.chatroom_show_limit_member_num.replace("%%num%%", 200));
+                s.length;
+            200 < E && $("#_roomInfoShowLimitNum" + ucfirst(k)).text(L.chatroom_show_limit_member_num.replace("%%num%%", 200));
             for (var y = 0; y < E; y++) {
-                var D = r[y];
-                if (l == "member") {
+                var D = s[y];
+                if (k == "member") {
                     if (!(m.length > 0) || AC.isMatchedWithKeyList(m, D)) {
-                        g++;
-                        if (g > 200) break;
+                        h++;
+                        if (h > 200) break;
                         z += '<tr id="_memberRowAid' + D + '" class="selectableRow"><td>' + CW.getAvatarPanel(D, {
                             size: "small",
                             hovertip: !1,
                             clicktip: !1
                         }) + '</td><td><p class="roomInfoContactListName autotrim">' + CW.getName(D) + '</p><p class="roomInfoContactListOrgName autotrim">' + CW.getOrgTitle(D) + "</p></td><td>";
                         z += $.cwSelectBox.create([{
-                            label: h.admin.name,
+                            label: g.admin.name,
                             value: "admin",
-                            tooltip: h.admin.tooltip
+                            tooltip: g.admin.tooltip
                         }, {
-                            label: h.member.name,
+                            label: g.member.name,
                             value: "member",
-                            tooltip: h.member.tooltip
+                            tooltip: g.member.tooltip
                         }, {
-                            label: h.readonly.name,
+                            label: g.readonly.name,
                             value: "readonly",
-                            tooltip: h.readonly.tooltip
+                            tooltip: g.readonly.tooltip
                         }], "", a.member_flag[D], {
                             "class": "_memberEditRole",
                             "data-aid": D
@@ -10136,12 +10155,12 @@ function RoomDialogView(b) {
                         D))) {
                     i++;
                     if (i > 200) break;
-                    var K = !!a.checked_flag[D],
+                    var M = !!a.checked_flag[D],
                         G;
-                    G = K ? "_memberTableIndividualRole" : "_memberTableIndividualRole isHide";
+                    G = M ? "_memberTableIndividualRole" : "_memberTableIndividualRole isHide";
                     var H = a.common_role;
                     a.adding_member_list[D] && (H = a.adding_member_list[D]);
-                    z += '<tr class="_cwTextUnselectable _selectableContactRow selectableRow"><td>' + $.cwCheckBox.create(K, !1, D) + "</td>";
+                    z += '<tr class="_cwTextUnselectable _selectableContactRow selectableRow"><td>' + $.cwCheckBox.create(M, !1, D) + "</td>";
                     z += "<td>" + CW.getAvatarPanel(D, {
                         size: "small",
                         hovertip: !1,
@@ -10150,17 +10169,17 @@ function RoomDialogView(b) {
                     z += '<td><p class="roomInfoContactListName autotrim">' + CW.getName(D) + '</p><p class="roomInfoContactListOrgName autotrim">' +
                         CW.getOrgTitle(D) + '</p></td><td class="roleSelect" data-aid="' + D + '">';
                     z += $.cwSelectBox.create([{
-                        label: h.admin.name,
+                        label: g.admin.name,
                         value: "admin",
-                        tooltip: h.admin.tooltip
+                        tooltip: g.admin.tooltip
                     }, {
-                        label: h.member.name,
+                        label: g.member.name,
                         value: "member",
-                        tooltip: h.member.tooltip
+                        tooltip: g.member.tooltip
                     }, {
-                        label: h.readonly.name,
+                        label: g.readonly.name,
                         value: "readonly",
-                        tooltip: h.readonly.tooltip
+                        tooltip: g.readonly.tooltip
                     }], "", H, {
                         "class": G,
                         "data-aid": D
@@ -10169,7 +10188,7 @@ function RoomDialogView(b) {
                 }
             }
             /\sMSIE\s*([89]|10)\./i.test(navigator.userAgent) ? I.html(z) : I.get(0).innerHTML = z;
-            l === "contact" && a.updateCheckBoxAll(d)
+            k === "contact" && a.updateCheckBoxAll(d)
         }
         $("._selectableContactRow").on("click", function() {
             var b =
@@ -10319,29 +10338,29 @@ function RoomDialogView(b) {
             $("#_roomInfoIconFileUpload").find("p").text(a.split("\\").pop())
         }))
     };
-    var k = null;
+    var j = null;
     a.openAddRoomDialog = function() {
         function b(a) {
             function d(a, b) {
-                var h = e(f);
+                var g = e(f);
                 a-- ? CW.get("gateway.php", {
                     cmd: "check_chat_link_name",
-                    link_name: h,
+                    link_name: g,
                     rid: RM.id
                 }, function(e) {
-                    e.used ? d(a, b) : b(h)
-                }): b(h)
+                    e.used ? d(a, b) : b(g)
+                }): b(g)
             }
 
             function e(a) {
-                for (var b = "", d = h, f = 0; f < a; f++) b += d.charAt(Math.random() * d.length | 0);
+                for (var b = "", d = g, f = 0; f < a; f++) b += d.charAt(Math.random() * d.length | 0);
                 return b
             }
             var f = 14,
-                h = "abcdefghijklmnopqrstuvwxyz0123456789";
+                g = "abcdefghijklmnopqrstuvwxyz0123456789";
             d(3, a)
         }
-        k || (a.prepareRoomIconTooltip(), k = $("#_addRoom").cwDialog({
+        j || (a.prepareRoomIconTooltip(), j = $("#_addRoom").cwDialog({
             parentFloatBox: f.$el,
             title: L.chatroom_create_title,
             width: 750,
@@ -10372,12 +10391,12 @@ function RoomDialogView(b) {
                             e = b.find(".js_invitationLinkDisplayInput"),
                             f = b.find(".js_invitationLinkEditorInput"),
                             b = b.find(".js_invitationLinkURL"),
-                            h = CHATWORK_MYPAGE_PATH + "/g/",
-                            g = h + a;
-                        e.val(g);
+                            g = CHATWORK_MYPAGE_PATH + "/g/",
+                            h = g + a;
+                        e.val(h);
                         f.val(a);
-                        b.text(h);
-                        d.attr("data-clipboard-text", g).text(L.invitation_link_code_copy);
+                        b.text(g);
+                        d.attr("data-clipboard-text", h).text(L.invitation_link_code_copy);
                         a = new ZeroClipboard(d[0]);
                         a.on("mouseover", function() {
                             d.addClass("buttonHover")
@@ -10421,7 +10440,7 @@ function RoomDialogView(b) {
                         a.embedMemberHidden();
                         $("#_roomInfoForm").submit();
                         CW.showProgress(L.adding);
-                        k.close()
+                        j.close()
                 }
             }
         }));
@@ -10430,14 +10449,14 @@ function RoomDialogView(b) {
         a.prepareRoomDat();
         if (CW.group_limit_num) {
             var e = 0,
-                h;
-            for (h in RL.rooms) RL.rooms[h].type === "group" && e++;
+                g;
+            for (g in RL.rooms) RL.rooms[g].type === "group" && e++;
             if (e >= CW.group_limit_num) {
                 e = L.chatroom_error_cant_add;
-                h = L.chatroom_error_planlimit;
-                h = h.replace(/%%plan_name%%/, PLAN_NAME);
-                h = h.replace(/%%limit_num%%/, CW.group_limit_num);
-                CW.view.showLimitErrorDialog(e, h);
+                g = L.chatroom_error_planlimit;
+                g = g.replace(/%%plan_name%%/, PLAN_NAME);
+                g = g.replace(/%%limit_num%%/, CW.group_limit_num);
+                CW.view.showLimitErrorDialog(e, g);
                 return
             }
         }
@@ -10446,28 +10465,28 @@ function RoomDialogView(b) {
                 var a = this.isChecked() ? !0 : !1;
                 d.reset();
                 a ? ($("#_addRoomInvitationLinkActive").show(), $("#_addRoomInvitationLinkDisabled").hide(), $("#_addRoomInvitationLinkSettingStatus").cwCheckBox().check(), $("#_roomInfoPublic").val("1")) : ($("#_addRoomInvitationLinkActive").hide(), $("#_addRoomInvitationLinkDisabled").show(), $("#_addRoomInvitationLinkSettingStatus").cwCheckBox().unCheck(), $("#_roomInfoPublic").val("0"));
-                k.open("resize")
+                j.open("resize")
             }
         });
         $("#_addRoomInvitationLinkActive").on("click", ".js_invitationLinkOpenEditor", function() {
             d.open();
-            k.open("resize")
+            j.open("resize")
         }).on("click", ".js_invitationLinkCloseEditor", function() {
             d.cancel();
-            k.open("resize")
+            j.open("resize")
         }).on("click", ".js_invitationLinkBtnEdited", function() {
-            a.is_valid_link_name && (d.edit(), k.open("resize"))
+            a.is_valid_link_name && (d.edit(), j.open("resize"))
         }).on("keyup blur", ".js_invitationLinkEditorInput", function() {
             var b = $(this);
             a.link_code_checker.validate(b, $("#_addRoomInvitationLinkActive"))
         });
-        k.open()
+        j.open()
     };
-    var l = null;
+    var k = null;
     a.editRoomDescription =
         function(b) {
             a.prepareRoomDat(b);
-            l || (l = $("#_roomDescEditDialog").cwDialog({
+            k || (k = $("#_roomDescEditDialog").cwDialog({
                 title: L.chatroom_edit_desc_title,
                 width: 500,
                 height: "auto",
@@ -10501,11 +10520,11 @@ function RoomDialogView(b) {
                     $("#_roomDescEditContent").focus()
                 }
             }));
-            l.open(b)
+            k.open(b)
         };
-    var h = null;
+    var g = null;
     a.editRoomInfo = function(b) {
-        h || (a.prepareRoomIconTooltip(), h = $("#_roomInfoEditDialog").cwDialog({
+        g || (a.prepareRoomIconTooltip(), g = $("#_roomInfoEditDialog").cwDialog({
             parentFloatBox: f.$el,
             title: L.chatroom_info_edit,
             width: 750,
@@ -10530,11 +10549,11 @@ function RoomDialogView(b) {
                 $("#_roomInfoName").focus()
             }
         }));
-        h.open(b)
+        g.open(b)
     };
-    var i = null;
+    var l = null;
     a.editRoomMember = function(b) {
-        i || (i = $("#_roomMemberEditDialog").cwDialog({
+        l || (l = $("#_roomMemberEditDialog").cwDialog({
             title: L.member_edit_dialog_title,
             width: 750,
             height: "auto",
@@ -10568,7 +10587,7 @@ function RoomDialogView(b) {
                 a.buildMember(["member"], $("#_memberEditMemberBox"))
             }
         }));
-        i.open(b)
+        l.open(b)
     };
     var m =
         null;
@@ -10586,36 +10605,34 @@ function RoomDialogView(b) {
             buttonSubmit: 0,
             buttonCancel: 1,
             buttonClick: function(b) {
+                var d = this.data.room_id;
                 switch (b) {
                     case 0:
                         var b = {},
-                            d = [],
-                            e;
-                        for (e in a.adding_member_list) a.member_flag[e] = a.adding_member_list[e];
+                            e = [],
+                            f;
+                        for (f in a.adding_member_list) a.member_flag[f] = a.adding_member_list[f];
+                        var g = RL.rooms[d];
+                        Object.keys(g.member_dat).map(function(b) {
+                            b in a.member_flag || (a.member_flag[b] = g.member_dat[b])
+                        });
                         b.member_dat = a.member_flag;
-                        d = a.validateRoomInfo(b);
-                        a.is_valid_link_name || d.push(L.invitation_link_setting_error_invalid_link_name);
-                        if (d.length > 0) return CW.alert(d.join("\n")), !1;
-                        else {
-                            var f = this.data.room_id;
-                            e = $("#_memberAdditionPublic").val();
-                            b = $("#_memberAdditionInvitationLinkActive").find(".js_invitationLinkEditorInput").val();
-                            d = $("#_memberAdditionInvitationLinkJoinNeedAccept").cwCheckBox().isChecked() ? 1 : 0;
-                            CW.showProgress(L.saving);
-                            CW.post("gateway.php", {
+                        e = a.validateRoomInfo(b);
+                        a.is_valid_link_name || e.push(L.invitation_link_setting_error_invalid_link_name);
+                        if (e.length >
+                            0) return CW.alert(e.join("\n")), !1;
+                        else f = $("#_memberAdditionPublic").val(), b = $("#_memberAdditionInvitationLinkActive").find(".js_invitationLinkEditorInput").val(), e = $("#_memberAdditionInvitationLinkJoinNeedAccept").cwCheckBox().isChecked() ? 1 : 0, CW.showProgress(L.saving), CW.post("gateway.php", {
                                 cmd: "update_room",
-                                room_id: f,
-                                "public": e,
+                                room_id: d,
+                                "public": f,
                                 link_code: b,
-                                join_need_accept: d,
+                                join_need_accept: e,
                                 role: a.member_flag,
                                 update_room_version: "2"
                             }, function(b) {
-                                b.message ? CW.alert(b.message) : (RL.rooms[f].member_dat = a.member_flag, CW.watch())
-                            });
-                            CW.hideProgress();
-                            this.close()
-                        }
+                                b.message ? CW.alert(b.message) : (RL.rooms[d].member_dat = a.member_flag, CW.watch())
+                            }),
+                            CW.hideProgress(), this.close()
                 }
             },
             open: function(b) {
@@ -10650,34 +10667,33 @@ function RoomDialogView(b) {
                     a.is_business_plan || $("#_memberAdditionOrganizationFilter").hide();
                     a.prepareRoomDat(b);
                     var f = $("#_memberAdditionInvitationLinkActive"),
-                        h = f.find(".js_invitationLinkBtnCopy"),
+                        g = f.find(".js_invitationLinkBtnCopy"),
                         b = f.find(".js_invitationLinkURL"),
-                        g = f.find(".js_invitationLinkDisplayInput"),
+                        h = f.find(".js_invitationLinkDisplayInput"),
                         f = f.find(".js_invitationLinkEditorInput"),
                         i = CHATWORK_MYPAGE_PATH + "/g/",
                         j;
                     j = e.link_name ? e.link_name : e.id;
                     var m = i + j;
                     b.text(i);
-                    g.val(m);
+                    h.val(m);
                     f.val(j);
-                    h.attr("data-clipboard-text", m).text(L.invitation_link_code_copy);
-                    b = new ZeroClipboard(h[0]);
+                    g.attr("data-clipboard-text", m).text(L.invitation_link_code_copy);
+                    b = new ZeroClipboard(g[0]);
                     b.on("mouseover", function() {
-                        h.addClass("buttonHover")
+                        g.addClass("buttonHover")
                     });
                     b.on("mouseout", function() {
-                        h.removeClass("buttonHover")
+                        g.removeClass("buttonHover")
                     });
                     b.on("mousedown", function() {
-                        h.addClass("buttonActive").text(L.text_copied)
+                        g.addClass("buttonActive").text(L.text_copied)
                     });
                     b.on("mouseup", function() {
-                        h.removeClass("buttonActive")
+                        g.removeClass("buttonActive")
                     });
                     d(e["public"]);
-                    e.join_need_accept ? $("#_memberAdditionInvitationLinkJoinNeedAccept").cwCheckBox().check() :
-                        $("#_memberAdditionInvitationLinkJoinNeedAccept").cwCheckBox().unCheck();
+                    e.join_need_accept ? $("#_memberAdditionInvitationLinkJoinNeedAccept").cwCheckBox().check() : $("#_memberAdditionInvitationLinkJoinNeedAccept").cwCheckBox().unCheck();
                     a.room_dat["public"] ? ($("#_memberAdditionInvitationLinkSettingStatus").cwCheckBox().check(), $("#_memberAdditionInvitationLinkActive").show()) : ($("#_memberAdditionInvitationLinkSettingStatus").cwCheckBox().unCheck(), $("#_memberAdditionInvitationLinkActive").hide());
                     a.buildMember(["contact"], $("#_memberAdditionMemberBox"))
                 }
@@ -10687,8 +10703,7 @@ function RoomDialogView(b) {
         e.reset();
         $("#_memberAdditionInvitationLinkSettingStatus").cwCheckBox({
             update: function() {
-                var a =
-                    this.isChecked() ? !0 : !1;
+                var a = this.isChecked() ? !0 : !1;
                 d(a)
             }
         });
@@ -10699,7 +10714,8 @@ function RoomDialogView(b) {
             e.cancel();
             m.open()
         }).on("click", ".js_invitationLinkBtnEdited", function() {
-            a.is_valid_link_name && (e.edit(), m.open())
+            a.is_valid_link_name &&
+                (e.edit(), m.open())
         }).on("keyup blur", ".js_invitationLinkEditorInput", function() {
             var b = $(this);
             a.link_code_checker.validate(b, $("#_memberAdditionInvitationLinkActive"))
@@ -10793,8 +10809,8 @@ function RoomSubView(b) {
         }).$el.cwDropDown({
             list: function() {
                 for (var a = [], b = {}, d = 0, e = f.length; d < e; d++) {
-                    var h = f[d];
-                    b[h] = !1
+                    var g = f[d];
+                    b[g] = !1
                 }
                 switch (RM.type) {
                     case "group":
@@ -10809,7 +10825,7 @@ function RoomSubView(b) {
                 }
                 d = 0;
                 for (e = f.length; d < e; d++)
-                    if (h = f[d], b[h]) switch (h) {
+                    if (g = f[d], b[g]) switch (g) {
                         case "invitation_link_setting":
                             a.push({
                                 value: "invitation_link_setting",
@@ -10976,7 +10992,7 @@ function RoomSubView(b) {
             update: function() {
                 b === null && (b = setTimeout(function() {
                     for (var a = d.getVal(),
-                            e = "", g = a.length, i = 0; i < g; i++) {
+                            e = "", h = a.length, i = 0; i < h; i++) {
                         var j = a[i];
                         e += '<div class="assignContent assignMember"><span class="_taskAssignMemberLabel assignContentText" data-aid="' + j + '">' + CW.getName(j) + '</span><span class="_taskAssignCancel assignContentCancel" data-aid="' + j + '"><span class="icoFontCancel"></span><span class="icoTextHide">' + L.button_delete + "</span></span></div>"
                     }
@@ -11009,7 +11025,7 @@ function RoomSubView(b) {
         $C("#_inchargeEmpty").click(function() {
             $C("#_assignButton").click()
         });
-        var g = $("#_taskAssignQuickList").cwToolTip({
+        var h = $("#_taskAssignQuickList").cwToolTip({
             offsetTop: 7,
             open: function() {
                 for (var a = RM.getSortedMemberList(), b = a.length, d = "", e = 0; e < b; e++)
@@ -11024,22 +11040,22 @@ function RoomSubView(b) {
             },
             close: function() {}
         });
-        g.$el.on("click", "._avatar", function() {
+        h.$el.on("click", "._avatar", function() {
             var a = $(this).attr("data-aid");
             d.select(a)
         }).on("click", "._taskAssignMore", function() {
-            g.close();
+            h.close();
             $C("#_assignButton").click()
         });
         $("#_taskQuickWrapper").on("mouseenter", function() {
-            !g.isOpen() &&
-                !d.isOpen() && g.open($C("#_taskAssignAddArea"))
+            !h.isOpen() &&
+                !d.isOpen() && h.open($C("#_taskAssignAddArea"))
         });
         $("#_taskLimitAddArea").on("mouseenter", function() {
-            g.isOpen() && g.close()
+            h.isOpen() && h.close()
         });
         $("#_chatContent,#_subRoomMemberArea,#_assignButton").on("mouseenter", function() {
-            g.close()
+            h.close()
         });
         $C("#_limitButton").cwDatePicker({
             dateLabel: $("#_limit"),
@@ -11058,9 +11074,9 @@ function RoomSubView(b) {
                     if (b.length != 0) {
                         room_id = RM.id;
                         var d = $C("#_limitButton").cwDatePicker(),
-                            h = d.getVal(),
-                            g = a.getTaskAssignList();
-                        g.length ? (task_data = b + "|" + g.join(",") + "|" + h, e != task_data && (e = task_data, f.setVal(""), a.clearTaskAssign(), d.setVal(""), b = CS.convertToSend(b), a.model.addTask(room_id, b, h, g, function() {
+                            g = d.getVal(),
+                            h = a.getTaskAssignList();
+                        h.length ? (task_data = b + "|" + h.join(",") + "|" + g, e != task_data && (e = task_data, f.setVal(""), a.clearTaskAssign(), d.setVal(""), b = CS.convertToSend(b), a.model.addTask(room_id, b, g, h, function() {
                             a.initTaskArea();
                             latest_chat = e = ""
                         }, function(i) {
@@ -11068,8 +11084,8 @@ function RoomSubView(b) {
                             latest_chat = e = "";
                             RL.selectRoom(room_id);
                             f.setVal(b);
-                            a.setTaskAssign(g);
-                            d.setVal(h)
+                            a.setTaskAssign(h);
+                            d.setVal(g)
                         }))) : CW.alert(L.chatsend_error_no_incharge)
                     }
                 }
@@ -11126,14 +11142,14 @@ function RoomSubView(b) {
                     RM.sortMember(a);
                     d = [];
                     for (var e = a.length, f = 0; f < e; f++) {
-                        var g = a[f];
-                        if (g != AC.myid) {
+                        var h = a[f];
+                        if (h != AC.myid) {
                             var i =
-                                AC.getName(g);
+                                AC.getName(h);
                             d.push({
-                                keys: AC.getSearchKeys(g),
-                                value: g,
-                                label: CW.getAvatarPanel(g, {
+                                keys: AC.getSearchKeys(h),
+                                value: h,
+                                label: CW.getAvatarPanel(h, {
                                     clicktip: !1,
                                     size: "small"
                                 }) + '<p class="autotrim">' + escape_html(i) + "</p>"
@@ -11159,14 +11175,14 @@ function RoomSubView(b) {
     a.openFold = function() {
         a.isFolded() && a.toggleFold()
     };
-    var g = !1;
+    var i = !1;
     a.toggleFold = function() {
-        if (!g) {
+        if (!i) {
             var b = $("#_chatContent"),
                 d = b.css("right"),
                 e = $("#_mainContentExpandRight");
             b.addClass("foldAnimRight");
-            g = !0;
+            i = !0;
             if (d == "0px") {
                 a.is_folded = !1;
                 b.css("right", $("#_subContent").outerWidth() + "px");
@@ -11189,7 +11205,7 @@ function RoomSubView(b) {
                     CW.view.resizeLayout()
                 }, 300);
             setTimeout(function() {
-                g = !1
+                i = !1
             }, 200)
         }
     };
@@ -11206,9 +11222,9 @@ function RoomSubView(b) {
         CW.view.resizeLayout();
         return a
     };
-    var j = null;
+    var h = null;
     a.prepareGroupCall = function() {
-        j = $("#_groupCallDialog").cwDialog({
+        h = $("#_groupCallDialog").cwDialog({
             title: "ChatWork Live",
             width: "auto",
             height: "auto",
@@ -11270,33 +11286,33 @@ function RoomSubView(b) {
             })
         });
         $C("#_groupCallMember").on("cwCheckBox_update", function(a, b, d) {
-            b ? j.data.select_flag[d] = b : j.data.select_flag[d] && delete j.data.select_flag[d]
+            b ? h.data.select_flag[d] = b : h.data.select_flag[d] && delete h.data.select_flag[d]
         });
         $("#_videoChatContactFilter").cwSearchBox({
             update: function() {
-                var a = j.data.select_flag,
+                var a = h.data.select_flag,
                     b = [],
-                    d = RL.rooms[j.data.room_id],
+                    d = RL.rooms[h.data.room_id],
                     e = this.getVal(),
                     f = "",
-                    g;
-                for (g in d.member_dat)
-                    if (g !=
+                    i;
+                for (i in d.member_dat)
+                    if (i !=
                         AC.myid) {
-                        var k = AC.account_dat[g].nm.toLowerCase();
-                        e && k.indexOf(e.toLowerCase()) === -1 || b.push(g)
+                        var j = AC.account_dat[i].nm.toLowerCase();
+                        e && j.indexOf(e.toLowerCase()) === -1 || b.push(i)
                     }
                 $C("#_groupCallMember").quickEmpty();
                 if (b.length === 0) f = '<div class="groupcallNoMembers">' + L.live_member_not_found + "</div>";
                 else {
                     d.sortMember(b);
-                    for (d = 0; d < b.length; d++) g = b[d], f += '<div class="_groupCallMember _cwSelectableRow groupCallMember" data-aid="' + g + '"><div class="groupCallAvatar">' + $.cwCheckBox.create(!!a[g], "", g, {
+                    for (d = 0; d < b.length; d++) i = b[d], f += '<div class="_groupCallMember _cwSelectableRow groupCallMember" data-aid="' + i + '"><div class="groupCallAvatar">' + $.cwCheckBox.create(!!a[i], "", i, {
                             "data-theme": "green"
-                        }) + CW.getAvatarPanel(g, {
+                        }) + CW.getAvatarPanel(i, {
                             size: "medium",
                             clicktip: !1
                         }) + "</div><p>" +
-                        CW.getName(g) + "</p></div>"
+                        CW.getName(i) + "</p></div>"
                 }
                 $C("#_groupCallMember").html(f)
             }
@@ -11304,8 +11320,8 @@ function RoomSubView(b) {
     };
     a.openGroupCall = function(b) {
         if (!RL.rooms[b]) return !1;
-        j || a.prepareGroupCall();
-        j.open(b)
+        h || a.prepareGroupCall();
+        h.open(b)
     };
     a.openMemberDetailDialog = function(b) {
         var d = $("#_memberDetailDialog").cwDialog({
@@ -11322,7 +11338,7 @@ function RoomSubView(b) {
             },
             open: function() {
                 a.buildMember(b);
-                $("#_memberDetailContent").html(k)
+                $("#_memberDetailContent").html(j)
             }
         });
         $("#_memberDetailEditMember").on("click", this,
@@ -11331,11 +11347,11 @@ function RoomSubView(b) {
                 RD.view.editRoomMember(RM.id)
             })
     };
-    var k = "";
+    var j = "";
     a.buildMember = function(a) {
         var b = RL.rooms[a];
         if (!b) return this;
-        for (var d = b.getSortedMemberList(), e = d.length, f = TM.member_preview_show_max, g = "", j = TM.member_detail_show_max, l = {
+        for (var d = b.getSortedMemberList(), e = d.length, f = TM.member_preview_show_max, h = "", i = TM.member_detail_show_max, k = {
                 admin: "",
                 member: "",
                 readonly: "",
@@ -11348,17 +11364,17 @@ function RoomSubView(b) {
                 nocontact: 0,
                 requested: 0
             }, A = b.type, x = 0; x < e; x++) {
-            var p = d[x],
-                q = b.member_dat[p];
-            w[q] < j && (l[q] += CW.getAvatarPanel(p, {
+            var q = d[x],
+                p = b.member_dat[q];
+            w[p] < i && (k[p] += CW.getAvatarPanel(q, {
                 size: "small"
             }));
-            x < f && (g += '<li class="chatRoomMemberListItem" role="listitem" aria-label="' +
-                escape_html(AC.getName(p)) + '">' + CW.getAvatarPanel(p) + "</li>");
-            w[q]++;
-            A == "group" && !AC.isContact(p) && (AC.myrequest_dat[p] ? (w.requested < j && (l.requested += CW.getAvatarPanel(p, {
+            x < f && (h += '<li class="chatRoomMemberListItem" role="listitem" aria-label="' +
+                escape_html(AC.getName(q)) + '">' + CW.getAvatarPanel(q) + "</li>");
+            w[p]++;
+            A == "group" && !AC.isContact(q) && (AC.myrequest_dat[q] ? (w.requested < i && (k.requested += CW.getAvatarPanel(q, {
                 size: "small"
-            })), w.requested++) : (w.nocontact < j && (l.nocontact += CW.getAvatarPanel(p, {
+            })), w.requested++) : (w.nocontact < i && (k.nocontact += CW.getAvatarPanel(q, {
                 size: "small"
             })), w.nocontact++))
         }
@@ -11389,25 +11405,25 @@ function RoomSubView(b) {
         b = "";
         d = 0;
         for (x = a.length; d < x; d++)
-            if (p = a[d], q = p.key, l[q]) {
+            if (q = a[d], p = q.key, k[p]) {
                 var t = "subContentMemberGroup";
-                p.boxClass != void 0 && (t += " " +
-                    p.boxClass);
+                q.boxClass != void 0 && (t += " " +
+                    q.boxClass);
                 b += '<div class="' + t + '">';
-                p.label && (b += '<div class="subContentGroupInner"><div class="memberListLabel">' + p.label + "\uff1a</div><div>" + l[q]);
-                w[q] > j && (b += '<a class="_showMoreMember showMoreMember" data-role="' + q + '">' + L.chatroom_member_rest_number.replace(/%%rest_number%%/, number_format(w[q] - j)) + "</a>");
-                p.label && (b += "</div></div>");
-                p.after && (b += p.after);
+                q.label && (b += '<div class="subContentGroupInner"><div class="memberListLabel">' + q.label + "\uff1a</div><div>" + k[p]);
+                w[p] > i && (b += '<a class="_showMoreMember showMoreMember" data-role="' + p + '">' + L.chatroom_member_rest_number.replace(/%%rest_number%%/, number_format(w[p] - i)) + "</a>");
+                q.label && (b += "</div></div>");
+                q.after && (b += q.after);
                 b += "</div>"
             }
-        A === "contact" ? ($C("#_subRoomMemberNum").hide(), $C("#_subRoomMemberList").hide(), k = "") : ($C("#_subRoomMemberNum").show().text(" (" +
-            number_format(e) + ")"), $C("#_subRoomMemberList").html(g).show(), k = b);
-        RM.member_dat[AC.myid] === "admin" && (k += '<div><a id="_memberDetailEditMember">' + L.member_detail_edit_member_label + "</a></div>");
+        A === "contact" ? ($C("#_subRoomMemberNum").hide(), $C("#_subRoomMemberList").hide(), j = "") : ($C("#_subRoomMemberNum").show().text(" (" +
+            number_format(e) + ")"), $C("#_subRoomMemberList").html(h).show(), j = b);
+        RM.member_dat[AC.myid] === "admin" && (j += '<div><a id="_memberDetailEditMember">' + L.member_detail_edit_member_label + "</a></div>");
         return this
     };
-    a.setTask = function(b, d, e, g, j) {
-        b ? (a.expandTaskArea(!1), g ? f.setVal(f.getVal() + b) : f.setVal(b)) : f.setVal(b);
-        j && f.focus();
+    a.setTask = function(b, d, e, h, i) {
+        b ? (a.expandTaskArea(!1), h ? f.setVal(f.getVal() + b) : f.setVal(b)) : f.setVal(b);
+        i && f.focus();
         d && d.length > 0 && a.setTaskAssign(d);
         e && $C("#_limitButton").cwDatePicker().setVal(e);
         return this
@@ -11431,14 +11447,14 @@ function RoomSubView(b) {
     a.getTaskMemberList = function(a) {
         for (var a = RL.rooms[a].getSortedMemberList(), b = a.length, d = [], e = 0; e < b; e++) {
             var f = a[e],
-                g = AC.getName(f);
+                h = AC.getName(f);
             d.push({
                 keys: AC.getSearchKeys(f),
                 value: f,
                 label: CW.getAvatarPanel(f, {
                     clicktip: !1,
                     size: "small"
-                }) + '<p class="autotrim">' + escape_html(g) + "</p>"
+                }) + '<p class="autotrim">' + escape_html(h) + "</p>"
             })
         }
         return d
@@ -11449,12 +11465,12 @@ function RoomSubView(b) {
     a.hideSetting = function() {
         $C("#_chatRoomSetting").hide()
     };
-    var l = 0;
+    var k = 0;
     a.resizeRoomInfo = function(a) {
-        a && (l = a);
+        a && (k = a);
         var a = $C("#_subRoomDescription").outerHeight(),
             b = $C("#_subRoomInfoTitle").outerHeight(),
-            b = l - TM.tasklist_min_height - b;
+            b = k - TM.tasklist_min_height - b;
         if (a < b) $C("#_subRoomDescriptionWrapper").removeClass("subRoomDescriptionOverflow").css({
             height: ""
         }).data("is_overflow", !1);
@@ -11477,10 +11493,10 @@ function ChatSendView(b) {
     var e = 0,
         d = $C("#_chatText"),
         f = $("#_fileSendStatusArea"),
-        g = $("#_fileStatus"),
-        j = $("#_chatSendArea"),
-        k = $("#_chatTextArea"),
-        l, h, i, m, n;
+        i = $("#_fileStatus"),
+        h = $("#_chatSendArea"),
+        j = $("#_chatTextArea"),
+        k, g, l, m, n;
     a.prepare = function() {
         a.prepareSendArea();
         a.prepareTo();
@@ -11708,13 +11724,13 @@ function ChatSendView(b) {
                 this.setMoreActionList(more_type_list)
             }
         });
-        for (var h = ["reply", "quote", "task", "edit", "link", "copy", "unread", "delete"], i = 0, k = h.length; i < k; i++) {
-            var l = h[i],
-                m = ucfirst(l);
+        for (var i = ["reply", "quote", "task", "edit", "link", "copy", "unread", "delete"], j = 0, k = i.length; j < k; j++) {
+            var l = i[j],
+                n = ucfirst(l);
             o.addAction(l, {
                 label: L["chat_action_" + l],
                 description: L["chat_action_" + l + "_desc"],
-                iconClass: "icoFontAction" + m,
+                iconClass: "icoFontAction" + n,
                 click: function(a) {
                     return function() {
                         g[a].apply(this, arguments)
@@ -11722,7 +11738,7 @@ function ChatSendView(b) {
                 }(l)
             })
         }
-        for (var n = f.cwActionBar({
+        for (var m = f.cwActionBar({
                     itemSelector: "._message",
                     hoverSelector: "._chatTimeLineMessageBox",
                     hoverClass: "chatTimeLineMessageHover",
@@ -11730,10 +11746,10 @@ function ChatSendView(b) {
                     actionList: ["move", "quote", "task", "link"],
                     descriptionDelay: TM.messagetip_delay
                 }),
-                h = ["quote", "task", "move", "link"], i = 0, k = h.length; i < k; i++)(function() {
-            var a = h[i],
+                i = ["quote", "task", "move", "link"], j = 0, k = i.length; j < k; j++)(function() {
+            var a = i[j],
                 b = ucfirst(a);
-            n.addAction(a, {
+            m.addAction(a, {
                 label: L["chat_action_" + a],
                 description: L["chat_action_" + a + "_desc"],
                 iconClass: "icoFontAction" + b,
@@ -11743,7 +11759,7 @@ function ChatSendView(b) {
                 }
             })
         })();
-        var p = null;
+        var q = null;
         b.on("mouseover", "._timeStamp", function() {
             var a = $(this),
                 b = a.attr("data-tm"),
@@ -11812,7 +11828,7 @@ function ChatSendView(b) {
             return !1
         }).on("click", "._showMoreMemberTask",
             function() {
-                p || (p = $("#_showMoreAssignMemberTip").cwListTip({
+                q || (q = $("#_showMoreAssignMemberTip").cwListTip({
                     search: !0,
                     useHtmlLabel: !0,
                     multiSelect: !1,
@@ -11838,8 +11854,8 @@ function ChatSendView(b) {
                     }
                 }));
                 var a = $(this);
-                p.data.link = a;
-                p.open(a)
+                q.data.link = a;
+                q.open(a)
             });
         $C("#_wrapper").on("click", "._messageLink", function() {
             var a = $(this);
@@ -11848,7 +11864,7 @@ function ChatSendView(b) {
         e.scroll(function() {
             RM.timeline && (e.scrollTop() < 10 && (RM.timeline.has_old ? RM.timeline.loadOld() : RM.timeline.build({
                 everScroll: !0
-            })), RM.timeline.view.has_new && $("#_messageIdEnd").offset().top < j.offset().top + 50 && RM.timeline.build({
+            })), RM.timeline.view.has_new && $("#_messageIdEnd").offset().top < h.offset().top + 50 && RM.timeline.build({
                 everScroll: !0
             }))
         }).on("click", "._editCancel", function() {
@@ -11858,36 +11874,36 @@ function ChatSendView(b) {
         }).on("mouseup", "._messageActionNav", function() {
             return !1
         });
-        var M = 0,
-            q = 0,
-            s = function(a, b) {
-                q = M = 0;
+        var J = 0,
+            p = 0,
+            r = function(a, b) {
+                p = J = 0;
                 var d = a.attr("data-mid"),
                     e = a.attr("data-rid"),
                     f = null;
                 if (e = RL.rooms[e]) e.prepareBuild(), f = e.timeline.chat_id2chat_dat[d];
                 $C("#_replyMessageButtonArea").hide();
-                f ? (M = e.id, q = f.id, d = e.timeline.view.getMessagePanel(f, {
+                f ? (J = e.id, p = f.id, d = e.timeline.view.getMessagePanel(f, {
                         idPrefix: "replyTip"
-                    }), $C("#_replyMessageTipContent").html(d), d = '<div class="tooltipFooter"><div class="_replyMoveButton _roomLink button" data-rid="' + M + '" data-mid="' + q + '">' + L.jump_to_message + "</div></div>", $C("#_replyMessageButtonArea").html(d).show()) : e ?
+                    }), $C("#_replyMessageTipContent").html(d), d = '<div class="tooltipFooter"><div class="_replyMoveButton _roomLink button" data-rid="' + J + '" data-mid="' + p + '">' + L.jump_to_message + "</div></div>", $C("#_replyMessageButtonArea").html(d).show()) : e ?
                     b ? $C("#_replyMessageTipContent").html(L.chat_error_not_found) : (e.load({
                         jumpTo: d,
                         autoBuild: !1
                     }, function() {
-                        s(a, !0);
+                        r(a, !0);
                         t.move(a)
                     }), $C("#_replyMessageTipContent").html('<div class="contentLoading"><img src="./imagenew/all/common/loader/img_loader_white.gif" />' + L.chat_loading + "</div>")) : $C("#_replyMessageTipContent").html(L.chat_error_not_found)
             },
             t = $("#_replyMessageTip").cwToolTip({
                 width: 400,
                 open: function(a) {
-                    s(a)
+                    r(a)
                 },
                 postOpen: function() {
                     $C("#_replyMessageTipContent").scrollTop(0)
                 },
                 close: function() {
-                    q = M = 0
+                    p = J = 0
                 }
             });
         t.$el.on("click", "._messageLink", function() {
@@ -11989,21 +12005,20 @@ function ChatSendView(b) {
             a.resizeChatArea()
         }).keyup(function(b) {
             _is_msie && get_caret_position_ie(this);
-            a.chatTextKeyUp(b);
-            a.resizeChatArea()
+            $.support.isWindowsFirefox || (a.chatTextKeyUp(b), a.resizeChatArea())
         }).focus(function() {
             a.expandChatArea(!0)
         }).blur(function() {
             a.expandChatArea(!1)
-        }).bind("explain_update", function() {
-            if (RM &&
-                RM.view.disabled_send) d.attr("placeholder", "");
-            else {
-                var a = L.chatsend_chat_explain;
-                a += ST.data.enter_action == "send" ? L.chatsend_enter_action_explain_enter : L.chatsend_enter_action_explain_enter_send;
-                d.attr("placeholder", a)
-            }
-        }).blur();
+        }).bind("explain_update",
+            function() {
+                if (RM && RM.view.disabled_send) d.attr("placeholder", "");
+                else {
+                    var a = L.chatsend_chat_explain;
+                    a += ST.data.enter_action == "send" ? L.chatsend_enter_action_explain_enter : L.chatsend_enter_action_explain_enter_send;
+                    d.attr("placeholder", a)
+                }
+            }).blur();
         (function() {
             function a() {
                 setTimeout(function() {
@@ -12019,11 +12034,11 @@ function ChatSendView(b) {
 
             function f(a) {
                 var b = Array.prototype.slice.call(a.types || []);
-                if (!e(b, "text/plain") && e(b, "files") && (b = b.map(function(a, b) {
+                if (!e(b, "text/plain") && e(b, "files") && (b = b.map(function(a,
+                        b) {
                         return [a, b]
                     }).filter(function(a) {
-                        return a[0].toLowerCase() ===
-                            "files"
+                        return a[0].toLowerCase() === "files"
                     }).map(function(b) {
                         return a.items[b[1]]
                     }).pop()) && b.type.match(/^image\/(png|jpe?g|gif)$/i)) return b
@@ -12041,8 +12056,7 @@ function ChatSendView(b) {
                         h = "screenshot_" + CW.getDate(time(), "Y_m_d");
                         $("#_imageDropFileNameInput").val(h);
                         d.name = h + "." + e;
-                        $("#_imageDropSendButton").data("send_file",
-                            d);
+                        $("#_imageDropSendButton").data("send_file", d);
                         b.open($("#_file"))
                     } else a()
                 } else a()
@@ -12083,7 +12097,8 @@ function ChatSendView(b) {
     var u = null;
     a.prepareEmoticon = function() {
         var b = "",
-            b = _is_mac ? L.chatsend_shift_and_command_hint : L.chatsend_shift_and_ctrl_hint;
+            b = _is_mac ? L.chatsend_shift_and_command_hint :
+            L.chatsend_shift_and_ctrl_hint;
         u = $("#_emoticonList").cwToolTip({
             open: function() {
                 $C("#_emoticonDescription").text(b)
@@ -12116,7 +12131,8 @@ function ChatSendView(b) {
                 for (var e = 0; e < d; e++) {
                     var f = a[e];
                     if (f != AC.myid) {
-                        var g = CW.is_business && ST.data.private_nickname && !RM.isInternal() ? AC.getDefaultNickName(f) : AC.getNickName(f);
+                        var g = CW.is_business && ST.data.private_nickname && !RM.isInternal() ?
+                            AC.getDefaultNickName(f) : AC.getNickName(f);
                         this.data.aid2name[f] = g;
                         b.push({
                             keys: AC.getSearchKeys(f),
@@ -12139,7 +12155,8 @@ function ChatSendView(b) {
             b.open($(this))
         });
         $("#_toListSelectAll").click(function() {
-            for (var e = b.getList(), f = "", g = 0, h = e.length; g < h; g++) {
+            for (var e = b.getList(), f = "",
+                    g = 0, h = e.length; g < h; g++) {
                 var i = e[g].value;
                 f += "[To:" + i + "] " + b.data.aid2name[i] + "\n"
             }
@@ -12168,8 +12185,8 @@ function ChatSendView(b) {
             });
             var d = !1,
                 f = !0,
-                h = null,
-                i = $("#_fileDrop").cwToolTip({
+                g = null,
+                h = $("#_fileDrop").cwToolTip({
                     open: function() {
                         f = !1;
                         $C("#_dragZone").show();
@@ -12189,20 +12206,19 @@ function ChatSendView(b) {
             }).on("dragenter", function() {
                 if (d) return !1;
                 if (!$C("#_file").isVisible()) return !1;
-                h || (h = setTimeout(function() {
-                    f && i.open($("#_file"));
-                    h = null
+                g || (g = setTimeout(function() {
+                    f && h.open($("#_file"));
+                    g = null
                 }));
                 return !1
             }).on("dragend", function() {
                 d = !1
             });
-            $C("#_dragZone").on("dragleave",
-                function() {
-                    if (d) return !1;
-                    h || (body_enter = enter_count = 0, i.close());
-                    return !1
-                }).on("drop", function(a) {
+            $C("#_dragZone").on("dragleave", function() {
+                if (d) return !1;
+                g || (body_enter = enter_count = 0, h.close());
+                return !1
+            }).on("drop", function(a) {
                 a.stopPropagation();
                 a.preventDefault();
                 return !1
@@ -12226,7 +12242,7 @@ function ChatSendView(b) {
                 a.sendFiles(RM.id, b.originalEvent.dataTransfer.files);
                 setTimeout(function() {
                     body_enter = enter_count = 0;
-                    i.close();
+                    h.close();
                     f = !0
                 });
                 return !1
@@ -12240,16 +12256,16 @@ function ChatSendView(b) {
                 $("#_fileFrame").on("load", function() {
                     try {
                         var a = unescape_html($(this).contents().find("body").html());
-                        if (a.length > 0) {
+                        if (a.length >
+                            0) {
                             var a = a.match(/\{.+\}/)[0],
                                 d = $.parseJSON(a);
-                            d.result.is_storage_limit != void 0 ?
-                                CW.showStorageLimitDialog("file") : !d.status.success && d.status.message ? CW.alert(d.status.message) : d.status.success == !0 && (FL.updateStorageInfo(d.result.storage, d.result.storage_limit, d.result.limit_time, d.result.is_limit), CW.watch())
+                            d.result.is_storage_limit != void 0 ? CW.showStorageLimitDialog("file") : !d.status.success && d.status.message ? CW.alert(d.status.message) : d.status.success == !0 && (FL.updateStorageInfo(d.result.storage, d.result.storage_limit, d.result.limit_time, d.result.is_limit), CW.watch())
                         } else throw "error";
                     } catch (f) {
                         if (b)
-                            if (e++, e > 1) a = L.upload_cancel_send_message.replace(/%%size%%/g, bytename(FL.storage.available)), d = "", CW.plan == "free" ? (a += L.storage_cancel_send_object_suffix_upgrade, d = L.storage_cancel_upgrade_label) : CW.is_business && !CW.is_admin ? (a += L.storage_cancel_send_object_suffix_tell_admin,
-                                $("#cw_upload_error_button").hide()) : (a += L.storage_cancel_send_object_suffix_add_storage, d = L.storage_cancel_add_storage_label), $("#cw_upload_error_body").html(a), $("#cw_upload_error_link").val(d), $("#cw_upload_error_dialog").dialog("open");
+                            if (e++, e > 1) a = L.upload_cancel_send_message.replace(/%%size%%/g, bytename(FL.storage.available)), d = "", CW.plan == "free" ? (a += L.storage_cancel_send_object_suffix_upgrade,
+                                d = L.storage_cancel_upgrade_label) : CW.is_business && !CW.is_admin ? (a += L.storage_cancel_send_object_suffix_tell_admin, $("#cw_upload_error_button").hide()) : (a += L.storage_cancel_send_object_suffix_add_storage, d = L.storage_cancel_add_storage_label), $("#cw_upload_error_body").html(a), $("#cw_upload_error_link").val(d), $("#cw_upload_error_dialog").dialog("open");
                             else {
                                 setTimeout(function() {
                                     $C("#_fileInput").trigger("change")
@@ -12272,13 +12288,12 @@ function ChatSendView(b) {
                     size: 0
                 }]
             }
-            _has_fileapi ||
-                j.close();
+            _has_fileapi || j.close();
             b = !0;
             a.sendFiles(RM.id, d)
         });
         var k = function() {
-            _has_fileapi || (g.stop().fadeOut(function() {
+            _has_fileapi || (i.stop().fadeOut(function() {
                 $C("#_file").stop().fadeIn()
             }), $C("#_fileHiddenForm")[0].reset());
             file_send_rid = e = 0;
@@ -12296,8 +12311,7 @@ function ChatSendView(b) {
         });
         $("#cw_upload_error_link").click(function() {
             $("#cw_upload_error_dialog").dialog("close");
-            CW.plan == "free" ? CW.view.showServiceAdmin("upgrade") :
-                CW.view.showOptionPlanPrice()
+            CW.plan == "free" ? CW.view.showServiceAdmin("upgrade") : CW.view.showOptionPlanPrice()
         })
     };
     a.testShowSendFiles = function(a, b, d) {
@@ -12305,7 +12319,8 @@ function ChatSendView(b) {
                 name: a,
                 size: b
             },
-            e = $('<li><p class="fileSendStatusMeta autotrim">' + escape_html(a.name) + " (" + bytename(a.size) + ')</p><div class="fileSendStatusBarArea"><div class="_fileSendStatusBarProgress fileSendStatusBar fileSendStatusBarProgress"></div></div><p class="_fileSendProgress fileSendProgress">0%</p><span class="_fileSendCancel icoFontCancel icFileSendCancel"></span><span class="icoTextHide">' + L.button_cancel + "</span></li>");
+            e = $('<li><p class="fileSendStatusMeta autotrim">' + escape_html(a.name) + " (" + bytename(a.size) + ')</p><div class="fileSendStatusBarArea"><div class="_fileSendStatusBarProgress fileSendStatusBar fileSendStatusBarProgress"></div></div><p class="_fileSendProgress fileSendProgress">0%</p><span class="_fileSendCancel icoFontCancel icFileSendCancel"></span><span class="icoTextHide">' +
+                L.button_cancel + "</span></li>");
         f.append(e).show();
         e.find("._fileSendProgress").text(d + "%");
         e.find("._fileSendStatusBarProgress").css("width", d + "%");
@@ -12318,26 +12333,27 @@ function ChatSendView(b) {
         })
     };
     a.sendFiles = function(a, b) {
-        for (var d = ["ade", "adp", "bat", "chm", "cmd", "com", "cpl", "exe", "hta", "ins", "isp", "jse", "lib", "mde", "msc", "msp", "mst", "pif", "scr", "sct", "shb", "sys", "vb", "vbe", "vbs", "vxd", "wsc", "wsf", "wsh"], e = 0; e < b.length; e++) {
-            var h = b[e],
-                i = "",
-                j = h.name.match(/\.([^\.]+)$/);
-            j && (i = j[1].toLowerCase());
-            if (h.size >= 5368709120) {
-                CW.alert(L.error_upload_over_max_filesize.replace(/%%max_size%%/g, bytename(5368709120)).replace(/%%size%%/g, bytename(h.size)));
+        for (var d = ["ade", "adp", "bat", "chm", "cmd", "com", "cpl", "exe", "hta", "ins", "isp", "jse", "lib", "mde", "msc", "msp", "mst", "pif", "scr", "sct", "shb", "sys", "vb", "vbe", "vbs", "vxd", "wsc", "wsf", "wsh"],
+                e = 0; e < b.length; e++) {
+            var g = b[e],
+                h = "",
+                j = g.name.match(/\.([^\.]+)$/);
+            j && (h = j[1].toLowerCase());
+            if (g.size >= 5368709120) {
+                CW.alert(L.error_upload_over_max_filesize.replace(/%%max_size%%/g, bytename(5368709120)).replace(/%%size%%/g, bytename(g.size)));
                 reset_send_file();
                 return
-            } else if (in_array(i, d)) {
+            } else if (in_array(h, d)) {
                 CW.alert(L.error_upload_executable);
                 reset_send_file();
                 return
             }
         }
         d = [];
-        for (e = 0; e < b.length; e++) h = b[e], d.push({
+        for (e = 0; e < b.length; e++) g = b[e], d.push({
             key: e,
-            name: h.name,
-            size: h.size
+            name: g.name,
+            size: g.size
         });
         CW.post("gateway.php", {
                 cmd: "get_s3_post_object",
@@ -12346,76 +12362,75 @@ function ChatSendView(b) {
                 noredirect: _has_fileapi,
                 region: "tokyo"
             }, function(a) {
-                for (var d = 0, e = a.upload_info.length; d <
-                    e; d++) {
-                    var h = a.upload_info[d];
+                for (var d = 0, e = a.upload_info.length; d < e; d++) {
+                    var g = a.upload_info[d];
                     if (_has_fileapi) {
-                        var i = new FormData;
-                        i.append("key", h.uri);
-                        i.append("AWSAccessKeyId", h.accesskey);
-                        i.append("acl", h.acl);
-                        i.append("policy", h.policy);
-                        i.append("signature", h.signature);
-                        i.append("Content-Type", "application/octet-stream");
-                        i.append("Content-Disposition", h.disposition);
-                        i.append("x-amz-server-side-encryption", "AES256");
-                        h.auth_token && i.append("x-amz-security-token", h.auth_token);
-                        i.append("file", b[h.key]);
+                        var h = new FormData;
+                        h.append("key", g.uri);
+                        h.append("AWSAccessKeyId", g.accesskey);
+                        h.append("acl", g.acl);
+                        h.append("policy", g.policy);
+                        h.append("signature", g.signature);
+                        h.append("Content-Type", "application/octet-stream");
+                        h.append("Content-Disposition", g.disposition);
+                        h.append("x-amz-server-side-encryption", "AES256");
+                        g.auth_token && h.append("x-amz-security-token", g.auth_token);
+                        h.append("file", b[g.key]);
                         (function(a, b) {
                             var d = !1,
                                 e = $.ajax({
                                     url: S3_PATH,
                                     type: "POST",
-                                    data: i,
+                                    data: h,
                                     processData: !1,
                                     contentType: !1,
                                     xhr: function() {
                                         var a = new window.XMLHttpRequest;
                                         a.upload.addEventListener("progress", function(a) {
-                                            a.lengthComputable && (a = parseInt(a.loaded / a.total * 100, 10), h.find("._fileSendProgress").text(a + "%"), h.find("._fileSendStatusBarProgress").css("width", a + "%"))
+                                            a.lengthComputable && (a = parseInt(a.loaded / a.total * 100, 10), g.find("._fileSendProgress").text(a + "%"), g.find("._fileSendStatusBarProgress").css("width", a + "%"))
                                         });
                                         return a
                                     },
                                     success: function() {
-                                        h.find("._fileSendProgress").text("100%");
-                                        h.find("._fileSendStatusBarProgress").css("width", "100%");
+                                        g.find("._fileSendProgress").text("100%");
+                                        g.find("._fileSendStatusBarProgress").css("width", "100%");
                                         CW.get(b.redirect, {}, function() {
-                                                h.fadeOut("fast", function() {
-                                                    h.remove();
+                                            g.fadeOut("fast",
+                                                function() {
+                                                    g.remove();
                                                     CS.view.resizeChatArea(!0)
                                                 })
-                                            },
-                                            function() {
-                                                CW.view.alert(L.error_upload + L._chatwork_path_help_file_upload_error, "", !0);
-                                                h.remove();
-                                                CS.view.resizeChatArea(!0)
-                                            })
+                                        }, function() {
+                                            CW.view.alert(L.error_upload + L._chatwork_path_help_file_upload_error, "", !0);
+                                            g.remove();
+                                            CS.view.resizeChatArea(!0)
+                                        })
                                     },
                                     error: function() {
                                         d || CW.view.alert(L.error_upload + L._chatwork_path_help_file_upload_error, "", !0);
-                                        h.remove();
+                                        g.remove();
                                         CS.view.resizeChatArea(!0)
                                     }
                                 }),
-                                h = $('<li><p class="fileSendStatusMeta autotrim">' + escape_html(a.name) + " (" + bytename(a.size) + ')</p><div class="fileSendStatusBarArea"><div class="_fileSendStatusBarProgress fileSendStatusBar fileSendStatusBarProgress"></div></div><p class="_fileSendProgress fileSendProgress">0%</p><span class="_fileSendCancel icoFontCancel icFileSendCancel"></span><span class="icoTextHide">' +
+                                g = $('<li><p class="fileSendStatusMeta autotrim">' + escape_html(a.name) + " (" + bytename(a.size) + ')</p><div class="fileSendStatusBarArea"><div class="_fileSendStatusBarProgress fileSendStatusBar fileSendStatusBarProgress"></div></div><p class="_fileSendProgress fileSendProgress">0%</p><span class="_fileSendCancel icoFontCancel icFileSendCancel"></span><span class="icoTextHide">' +
                                     L.button_cancel + "</span></li>");
-                            f.append(h).show();
-                            g.fadeIn();
-                            h.slideDown("fast", function() {
+                            f.append(g).show();
+                            i.fadeIn();
+                            g.slideDown("fast", function() {
                                 CS.view.resizeChatArea(!0)
                             });
-                            h.find("._fileSendCancel").click(function() {
+                            g.find("._fileSendCancel").click(function() {
                                 d = !0;
                                 e.abort()
                             })
-                        })(b[h.key], h)
+                        })(b[g.key], g)
                     } else {
                         $C("#_file").stop().fadeOut(function() {
-                            g.stop().fadeIn()
+                            i.stop().fadeIn()
                         });
-                        var j = '<input type="hidden" name="key" value="' + h.uri + '"/><input type="hidden" name="AWSAccessKeyId" value="' + h.accesskey + '"/><input type="hidden" name="acl" value="' + h.acl + '"/><input type="hidden" name="success_action_redirect" value="' + h.redirect +
-                            '"/><input type="hidden" name="policy" value="' + h.policy + '"/><input type="hidden" name="signature" value="' + h.signature + '"/><input type="hidden" name="Content-Type" value="application/octet-stream"/><input type="hidden" name="Content-Disposition" value="' + escape_html(h.disposition) + '"/><input type="hidden" name="x-amz-server-side-encryption" value="AES256"/>';
-                        h.auth_token && (j += '<input type="hidden" name="x-amz-security-token" value="' + h.auth_token + '"/>');
+                        var j = '<input type="hidden" name="key" value="' + g.uri + '"/><input type="hidden" name="AWSAccessKeyId" value="' + g.accesskey + '"/><input type="hidden" name="acl" value="' + g.acl + '"/><input type="hidden" name="success_action_redirect" value="' + g.redirect +
+                            '"/><input type="hidden" name="policy" value="' + g.policy + '"/><input type="hidden" name="signature" value="' + g.signature + '"/><input type="hidden" name="Content-Type" value="application/octet-stream"/><input type="hidden" name="Content-Disposition" value="' + escape_html(g.disposition) + '"/><input type="hidden" name="x-amz-server-side-encryption" value="AES256"/>';
+                        g.auth_token && (j += '<input type="hidden" name="x-amz-security-token" value="' + g.auth_token + '"/>');
                         $("#_fileHiddenValue").html(j);
                         $("#_fileHiddenForm").submit()
                     }
@@ -12445,42 +12460,44 @@ function ChatSendView(b) {
                 }
                 var b =
                     CS.convertToSend(b),
-                    h = RM,
-                    g = 0;
-                f || (g = h.addSendingChat(b));
+                    g = RM,
+                    h = 0;
+                f || (h = g.addSendingChat(b));
                 a.model.sendMessage(room_id, b, {
                     read: 1,
                     edit_id: f
                 }, function() {
-                    g && h.deleteSendingChat(g);
-                    h.id == RM.id && !f && h.build()
+                    h && g.deleteSendingChat(h);
+                    g.id == RM.id && !f && g.build();
+                    $.support.isWindowsFirefox && $("#_chatText").val("")
                 }, function(d) {
-                    g && h.deleteSendingChat(g);
+                    h && g.deleteSendingChat(h);
                     d ? CW.alert(d) : CW.alert(L.chatsend_error_send);
-                    RL.selectRoom(h.id);
+                    RL.selectRoom(g.id);
                     a.setChatText(b)
                 })
             }
         } else CW.alert(L.error_no_select)
     };
     a.chatTextKeyDown = function(b) {
-        l = typeof b.modifiers == "undefined" ? b.ctrlKey : b.modifiers & Event.CONTROL_MASK;
-        h = typeof b.modifiers == "undefined" ? b.shiftKey : b.modifiers & Event.SHIFT_MASK;
-        i = typeof b.modifiers == "undefined" ? b.altKey : b.modifiers & Event.ALT_MASK;
+        k = typeof b.modifiers == "undefined" ? b.ctrlKey : b.modifiers & Event.CONTROL_MASK;
+        g = typeof b.modifiers ==
+            "undefined" ? b.shiftKey : b.modifiers & Event.SHIFT_MASK;
+        l = typeof b.modifiers == "undefined" ? b.altKey : b.modifiers & Event.ALT_MASK;
         m = typeof b.modifiers == "undefined" ? b.metaKey : b.modifiers & Event.META_MASK;
         press_key = b.keyCode;
         if (press_key == 38) {
             var e = RM.timeline.getLastChatId();
             d.val() == "" && RM.timeline.chat_id2chat_dat[e].aid == AC.myid && a.setChatEdit(e, RM)
         } else press_key == 27 && a.clearChatEdit();
+        $.support.isWindowsFirefox && a.chatTextKeyUp(b);
         if (ST.data.enter_action == "send") {
             if (press_key == 13)
-                if (!h && !l && !i && !m) return b.preventDefault(), !1;
+                if (!g && !k && !l && !m) return b.preventDefault(), !1;
                 else if (m) return a.chatTextKeyUp({
                 keyCode: 13
             }), b.preventDefault(), !1
-        } else if (press_key ==
-            13 && (l || h || i || m)) return m && a.chatTextKeyUp({
+        } else if (press_key == 13 && (k || g || l || m)) return m && a.chatTextKeyUp({
             keyCode: 13
         }), b.preventDefault(), !1;
         RM && a.raiseRoomToTop(RM.id)
@@ -12488,23 +12505,22 @@ function ChatSendView(b) {
     a.chatTextKeyUp = function(b) {
         up_key = b.keyCode;
         if (up_key == 13 && press_key == 13)
-            if (ST.data.enter_action == "send") !h && !l && !i && !m ? a.sendMessage() : (l || i || m) && d.insertAtCaretForMessage("\n");
-            else if (l || h || i || m) return a.sendMessage(), !1;
+            if (ST.data.enter_action == "send") !g && !k && !l && !m ? a.sendMessage() : (k || l || m) && d.insertAtCaretForMessage("\n");
+            else if (k || g || l || m) return a.sendMessage(), !1;
         (function() {
             if (!(up_key !== 13 || press_key !== 13)) {
                 var a = d.val(),
                     b = d.prop("selectionStart"),
                     e = d.prop("selectionEnd");
-                b === e && (e = a.substr(0, b).replace(/(^|\n)```\r?\n([\s\S]+?)\r?\n```\n$/,
-                    "$1[code]\n$2\n[/code]\n"), a = a.substr(b), d.val(e + a), d.prop("selectionStart", e.length), d.prop("selectionEnd", e.length))
+                b === e && (e = a.substr(0, b), e = $.support.isWindowsFirefox ? e.replace(/(^|\n)```\r?\n([\s\S]+?)\r?\n```$/, "$1[code]\n$2\n[/code]") : e.replace(/(^|\n)```\r?\n([\s\S]+?)\r?\n```\n$/, "$1[code]\n$2\n[/code]\n"), a = a.substr(b), d.val(e + a), d.prop("selectionStart", e.length), d.prop("selectionEnd", e.length))
             }
         })();
         d.val() == "" && CS.clearChatEdit();
         press_key == 27 && up_key == 27 && d.blur()
     };
-    var s = 0;
+    var r = 0;
     a.expandChatArea = function(b) {
-        RM && RM.id != s && (s = !RM.view.disabled_send && b ? RM.id : 0, a.resizeChatArea(!0))
+        RM && RM.id != r && (r = !RM.view.disabled_send && b ? RM.id : 0, a.resizeChatArea(!0))
     };
     var v = TM.timeline_min_height,
         w = TM.chattext_min_content_height,
@@ -12512,42 +12528,40 @@ function ChatSendView(b) {
         x = TM.chatSendArea_initial_height;
     $("#_chatSendToolbar").outerHeight();
     var b = d.height(),
-        p = k.innerHeight() -
-        b,
-        q = $("#_roomTitle").outerHeight(!0);
-    j.outerHeight(!0);
-    j.height();
+        q = j.innerHeight() - b,
+        p = $("#_roomTitle").outerHeight(!0);
+    h.outerHeight(!0);
+    h.height();
     d.innerWidth();
     d.width();
     var t = 0;
     a.resizeChatArea = function(a) {
-        f.isVisible() && f.find("li").length == 0 && (f.hide(), g.fadeOut(), $C("#_fileInput").val(""));
-        var b = j.height(),
+        f.isVisible() && f.find("li").length == 0 && (f.hide(), i.fadeOut(), $C("#_fileInput").val(""));
+        var b = h.height(),
             e = d.height(),
-            h = k.scrollTop();
+            g = j.scrollTop();
         d.height(0);
-        var i = d[0].scrollHeight;
-        i < w && (i = w);
-        if (!a && t == i) d.height(e), h != 0 && k.scrollTop(h);
+        var k = d[0].scrollHeight;
+        k < w && (k = w);
+        if (!a && t == k) d.height(e), g != 0 && j.scrollTop(g);
         else {
             var l = f.outerHeight(),
-                m = $C("#_chatSendToolbar").outerHeight(),
-                n = i + p + m + l,
+                n = $C("#_chatSendToolbar").outerHeight(),
+                m = k + q + n + l,
                 o = 0,
-                o = s ? A + l : x + l;
-            n < o && (n = o);
+                o = r ? A + l : x + l;
+            m < o && (m = o);
             o = $C("#_mainContent").height();
-            o - n < v ? k.css({
-                height: o -
-                    v - p - m - l,
+            o - m < v ? j.css({
+                height: o - v - q - n - l,
                 "overflow-y": "scroll"
-            }) : k.css({
+            }) : j.css({
                 height: "",
                 "overflow-y": "hidden"
             });
-            a || b != n ? (d.height(n - m - l - p), a = j.outerHeight(), a = o - q - a, b = $C("#_timeLine"), e = b.height(), l = b.scrollTop(), b.height(a), b.scrollTop(l + (e - a))) : d.height(e);
-            t < i ? k.scrollTop(h + 30) : k.scrollTop(h);
-            t = i
+            a || b != m ? (d.height(m - n - l - q), a = h.outerHeight(), a = o - p - a, b = $C("#_timeLine"), e = b.height(), l = b.scrollTop(), b.height(a), b.scrollTop(l + (e - a))) : d.height(e);
+            t < k ? j.scrollTop(g + 30) : j.scrollTop(g);
+            t = k
         }
     };
     a.disableChatArea = function() {
@@ -12571,19 +12585,18 @@ function ChatSendView(b) {
         a.resizeChatArea(!0);
         d.scrollTop(1E8);
         if (e) {
-            j.height(j.height());
+            h.height(h.height());
             var f = d.css("height");
             d.css("height", parseInt(f, 10) + 1);
             setTimeout(function() {
                 d.css("height", f);
-                j.css("height", "")
+                h.css("height", "")
             }, 500)
         }
     };
     a.setChatEdit = function(b, e) {
         if (a.model.chatedit_id != b) {
-            a.model.chatedit_id =
-                b;
+            a.model.chatedit_id = b;
             a.setChatEditColor(b);
             if (!e) return !1;
             if (e.timeline.chat_id2chat_dat[b]) {
@@ -12600,13 +12613,12 @@ function ChatSendView(b) {
         $C("#_sendButton").cwButton({
             text: L.button_save
         });
-        k.addClass("chatSendTextareaEdit")
+        j.addClass("chatSendTextareaEdit")
     };
     a.clearChatEdit = function(b) {
-        if (a.model.chatedit_id) $C("#_editInfo").hide(), a.setChatText(""), k.data("external") === !0 && $C("#_externalInfo").show(),
-            k.removeClass("chatSendTextareaEdit"), $C("#_sendButton").cwButton({
-                text: L.button_send
-            }), a.model.chatedit_id = 0, b || RM.timeline.build()
+        if (a.model.chatedit_id) $C("#_editInfo").hide(), a.setChatText(""), j.data("external") === !0 && $C("#_externalInfo").show(), j.removeClass("chatSendTextareaEdit"), $C("#_sendButton").cwButton({
+            text: L.button_send
+        }), a.model.chatedit_id = 0, b || RM.timeline.build()
     };
     a.raiseRoomToTop = function(a) {
         d.val() == "" && (RL.setLastUpdateTime(a, time()), RL.build(), $C("#_roomListArea").scrollTop(0))
@@ -12644,15 +12656,15 @@ function ChatSendView(b) {
                     e = [],
                     d = RL.rooms[a].member_dat,
                     f;
-                for (f in d) f != AC.myid && e.push(f);
+                for (f in d) f !=
+                    AC.myid && e.push(f);
                 e.sort(function(a, b) {
                     if (a == AC.myid) return -1;
                     if (b == AC.myid) return 1;
                     return AC.getMentionNum(b) - AC.getMentionNum(a)
                 });
                 d = 0;
-                for (a =
-                    e.length; d < a; d++) f = e[d], b += "<tr><td>" + CW.getAvatarPanel(f, {
+                for (a = e.length; d < a; d++) f = e[d], b += "<tr><td>" + CW.getAvatarPanel(f, {
                     size: "medium",
                     clicktip: !1,
                     hovertip: !1
@@ -12661,10 +12673,11 @@ function ChatSendView(b) {
             }
         })
     };
-    a.openSettingNickname = function(b) {
-        n || a.prepareSettingNickname();
-        n.open(b)
-    }
+    a.openSettingNickname =
+        function(b) {
+            n || a.prepareSettingNickname();
+            n.open(b)
+        }
 }
 
 function SearchView(b) {
@@ -12685,7 +12698,7 @@ function SearchView(b) {
         $("#_messageSearch").click(function() {
             a.openMessageSearchWindow();
             a.executeSearchMessage($C("#_search").val());
-            g || $C("#_messageSearchQuery").focus().caretPos("last")
+            i || $C("#_messageSearchQuery").focus().caretPos("last")
         })
     };
     var e = 0;
@@ -12697,7 +12710,7 @@ function SearchView(b) {
             d = !1,
             f = $("#_search").cwSearchBox({
                 update: function() {
-                    j()
+                    i()
                 }
             });
         $C("#_search").keydown(function(a) {
@@ -12727,20 +12740,20 @@ function SearchView(b) {
                     e = 0, b = !1
             }
             b ?
-                j() : ($(this).blur(), $.cwFloatBox.close())
+                i() : ($(this).blur(), $.cwFloatBox.close())
         }).click(function() {
             $.cwFloatBox.skip(b)
         }).focus(function() {
-            j()
+            i()
         }).blur(function() {
             e = 0
         }).keyup(function(a) {
-            a.keyCode === 13 && j(!0)
+            a.keyCode === 13 && i(!0)
         });
-        var g = "",
-            j = function(j) {
+        var h = "",
+            i = function(i) {
                 var m = f.getVal();
-                m.length > 0 || j ? (g != m && a.buildResult(m), g = m, d || ($C("#_searchResultChatList").find("._room").removeClass("searchResultChatListFocus"), $.cwFloatBox.close(), $.cwFloatBox.open(b, function() {
+                m.length > 0 || i ? (h != m && a.buildResult(m), h = m, d || ($C("#_searchResultChatList").find("._room").removeClass("searchResultChatListFocus"), $.cwFloatBox.close(), $.cwFloatBox.open(b, function() {
                     d = !1;
                     e = 0
                 }), d = !0, $C("#_searchResultChatList").scrollTop(0))) : $.cwFloatBox.close()
@@ -12753,8 +12766,8 @@ function SearchView(b) {
     };
     var d = null,
         f = null,
-        g = !1,
-        j = null;
+        i = !1,
+        h = null;
     a.prepareMessageSearch = function() {
         function b(a) {
             a.data("_searchMessage_doubleClick", setTimeout(function() {
@@ -12765,11 +12778,11 @@ function SearchView(b) {
         function e(a) {
             a.removeData("_searchMessage_doubleClick")
         }
-        j = $("#_messageSearchContent").cwFloatWindow({
+        h = $("#_messageSearchContent").cwFloatWindow({
             title: L.search_title,
             open: function() {
                 $C("#_messageSearchExceptWord").val("");
-                h.clear();
+                g.clear();
                 $C("#_messageSearchTerm").cwSelectBox().select("all");
                 $C("#_messageSearchDateFrom").val("");
                 $C("#_messageSearchDateTo").val("");
@@ -12780,12 +12793,12 @@ function SearchView(b) {
         $("#_messageSearchOption").click(function() {
             var a = $C("#_messageSearchOptionArea");
             a.isVisible() ? (a.slideUp("fast", function() {
-                j.resize()
+                h.resize()
             }), $C("#_messageSearchOption ._iconRotate").removeClass("rotate180")) : (a.slideDown("fast", function() {
-                j.resize()
+                h.resize()
             }), $C("#_messageSearchOption ._iconRotate").addClass("rotate180"))
         });
-        var h = $("#_speakerTip").cwListTip({
+        var g = $("#_speakerTip").cwListTip({
             search: !0,
             multiSelect: !0,
             useHtmlLabel: !0,
@@ -12796,14 +12809,14 @@ function SearchView(b) {
                 b.unshift(AC.myid);
                 for (var d = b.length, e = 0; e < d; e++) {
                     var f = b[e],
-                        h = AC.getName(f);
+                        g = AC.getName(f);
                     a.push({
                         keys: AC.getSearchKeys(f),
                         value: f,
                         label: CW.getAvatarPanel(f, {
                             clicktip: !1,
                             size: "small"
-                        }) + '<p class="autotrim">' + escape_html(h) + "</p>"
+                        }) + '<p class="autotrim">' + escape_html(g) + "</p>"
                     })
                 }
                 return a
@@ -12818,11 +12831,11 @@ function SearchView(b) {
             }
         });
         $("#_messageSearchSpeaker").click(function() {
-            h.open($(this))
+            g.open($(this))
         });
         $("#_messageSearchSpeakerBox").on("click", "._taskAssignCancel", function() {
             var a = $(this).attr("data-aid");
-            h.select(a)
+            g.select(a)
         }).on("mouseover", "._taskAssignMemberLabel", function() {
             var a = $(this),
                 b = a.attr("data-aid");
@@ -12835,11 +12848,11 @@ function SearchView(b) {
             $("#_messageSearchSpeaker").click();
             return !1
         });
-        var g = 0;
+        var i = 0;
         $("#_messageSearchQuery").keydown(function(a) {
-            g = a.keyCode
+            i = a.keyCode
         }).keyup(function(a) {
-            g == a.keyCode && a.keyCode == 13 && ($C("#_messageSearchSend").click(), $.cwFloatBox.close())
+            i == a.keyCode && a.keyCode == 13 && ($C("#_messageSearchSend").click(), $.cwFloatBox.close())
         });
         $C("#_messageSearchSend").click(function() {
             var d = $C("#_messageSearchQuery").cwSearchBox().getVal(),
@@ -12849,19 +12862,19 @@ function SearchView(b) {
                 SC.cancelSearch();
                 $C("#_messageSearchLoading").hide();
                 $C("#_messageSearchResult").empty();
-                var g = {};
-                g.q = d;
+                var h = {};
+                h.q = d;
                 if ($("#_messageSearchOptionArea").isVisible())
-                    if (g.exq = $C("#_messageSearchExceptWord").val(), g.aid = h.getVal(), g.term = $("#_messageSearchTerm").cwSelectBox().getVal(), g.term == "specify") {
+                    if (h.exq = $C("#_messageSearchExceptWord").val(), h.aid = g.getVal(), h.term = $("#_messageSearchTerm").cwSelectBox().getVal(), h.term == "specify") {
                         var d = $C("#_messageSearchDateFrom").val(),
                             i = $C("#_messageSearchDateTo").val();
-                        if (d != "") g.term_from = strtotime_format(d, ST.data.dateformat);
-                        if (i != "") g.term_to = strtotime_format(i, ST.data.dateformat)
-                    } else if (g.term !=
-                    "all") d = strtotime_format(CW.getDate(time(), "Y-m-d"), "Y-m-d"), g.term_from = d - parseInt(g.term, 10) * 86400, g.term_to = d;
+                        if (d != "") h.term_from = strtotime_format(d, ST.data.dateformat);
+                        if (i != "") h.term_to = strtotime_format(i, ST.data.dateformat)
+                    } else if (h.term !=
+                    "all") d = strtotime_format(CW.getDate(time(), "Y-m-d"), "Y-m-d"), h.term_from = d - parseInt(h.term, 10) * 86400, h.term_to = d;
                 $C("#_messageSearchResultHead").hide();
                 $C("#_messageSearchLoading").show();
-                SC.search(g, function(b) {
+                SC.search(h, function(b) {
                     e(f);
                     a.msg_dat = b;
                     a.ms_result_timeline_list = [];
@@ -12876,11 +12889,11 @@ function SearchView(b) {
                     });
                     d = 0;
                     for (b = a.ms_result_timeline_list.length; d < b; d++) {
-                        var h = a.msg_dat[a.ms_result_timeline_list[d]];
-                        a.ms_result_byroom_dat[h.rid] == void 0 && (a.ms_result_byroom_idx_list.push(h.rid), a.ms_result_byroom_dat[h.rid] = []);
-                        a.ms_result_byroom_dat[h.rid].push(h.id);
-                        a.ms_result_byuser_dat[h.aid] == void 0 && (a.ms_result_byuser_idx_list.push(h.aid), a.ms_result_byuser_dat[h.aid] = []);
-                        a.ms_result_byuser_dat[h.aid].push(h.id)
+                        var g = a.msg_dat[a.ms_result_timeline_list[d]];
+                        a.ms_result_byroom_dat[g.rid] == void 0 && (a.ms_result_byroom_idx_list.push(g.rid), a.ms_result_byroom_dat[g.rid] = []);
+                        a.ms_result_byroom_dat[g.rid].push(g.id);
+                        a.ms_result_byuser_dat[g.aid] == void 0 && (a.ms_result_byuser_idx_list.push(g.aid), a.ms_result_byuser_dat[g.aid] = []);
+                        a.ms_result_byuser_dat[g.aid].push(g.id)
                     }
                     a.ms_result_not_found = a.ms_result_timeline_list.length == 0 ? !0 : !1;
                     $C("#_messageSearchLoading").hide();
@@ -12942,70 +12955,70 @@ function SearchView(b) {
         })
     };
     a.openMessageSearchWindow = function() {
-        j || a.prepareMessageSearch();
-        j.open()
+        h || a.prepareMessageSearch();
+        h.open()
     };
     a.closeMessageSearchWindow = function() {
-        j.isOpen() && j.close()
+        h.isOpen() && h.close()
     };
     a.buildSpeaker = function() {};
     a.buildMSResult = function() {
-        if (j.isOpen()) {
+        if (h.isOpen()) {
             var b = $C("#_messageSearchQuery").cwSearchBox().getVal();
             $C("#_messageSearchOverflow").hide();
             if (a.ms_result_timeline_list.length > 0) {
                 var e = "",
-                    h = 0,
                     g = 0,
+                    i = 0,
                     m = [];
                 d.enableButtonAll();
                 switch (a.ms_result_type) {
                     case "byroom":
                         f.enableButtonAll();
-                        for (var n = 0, h = a.ms_result_byroom_idx_list.length; n < h; n++)
-                            for (var o = a.ms_result_byroom_idx_list[n], u = 0, s = a.ms_result_byroom_dat[o].length; u < s; u++) m.push(a.ms_result_byroom_dat[o][u]);
+                        for (var n = 0, g = a.ms_result_byroom_idx_list.length; n < g; n++)
+                            for (var o = a.ms_result_byroom_idx_list[n], u = 0, r = a.ms_result_byroom_dat[o].length; u < r; u++) m.push(a.ms_result_byroom_dat[o][u]);
                         break;
                     case "byuser":
                         f.enableButtonAll();
                         n = 0;
-                        for (h = a.ms_result_byuser_idx_list.length; n < h; n++) {
+                        for (g = a.ms_result_byuser_idx_list.length; n < g; n++) {
                             o = a.ms_result_byuser_idx_list[n];
                             u = 0;
-                            for (s = a.ms_result_byuser_dat[o].length; u <
-                                s; u++) m.push(a.ms_result_byuser_dat[o][u])
+                            for (r = a.ms_result_byuser_dat[o].length; u <
+                                r; u++) m.push(a.ms_result_byuser_dat[o][u])
                         }
                         break;
                     default:
                         f.disableButtonAll(), m = a.ms_result_timeline_list
                 }
-                h = m.length;
+                g = m.length;
                 u = {
                     idPrefix: "_search"
                 };
-                for (n = 0; n < h; n++) {
-                    s = a.msg_dat[m[n]];
+                for (n = 0; n < g; n++) {
+                    r = a.msg_dat[m[n]];
                     switch (a.ms_result_type) {
                         case "byroom":
-                            if (g != s.rid) g = s.rid, n > 0 && (e += "</div>"), e += '<div class="searchResultTitle _messageSearchChatGroup" data-gid="' + s.rid + '">' + RL.rooms[s.rid].getIcon() + " " + escape_html(RL.rooms[s.rid].getName()) + " <span>(" + number_format(a.ms_result_byroom_dat[s.rid].length) + L.search_result_unit + ')</span><span class="_messageSearchArrow transitionAll03sLinear icoFontTriangleDown"></span></div><div id="_searchResultGroupId' +
-                                s.rid + '" style="display:none">';
+                            if (i != r.rid) i = r.rid, n > 0 && (e += "</div>"), e += '<div class="searchResultTitle _messageSearchChatGroup" data-gid="' + r.rid + '">' + RL.rooms[r.rid].getIcon() + " " + escape_html(RL.rooms[r.rid].getName()) + " <span>(" + number_format(a.ms_result_byroom_dat[r.rid].length) + L.search_result_unit + ')</span><span class="_messageSearchArrow transitionAll03sLinear icoFontTriangleDown"></span></div><div id="_searchResultGroupId' +
+                                r.rid + '" style="display:none">';
                             break;
                         case "byuser":
-                            if (g != s.aid) g = s.aid, n > 0 && (e += "</div>"), e += '<div class="searchResultTitle _messageSearchChatGroup" data-gid="' + s.aid + '">' + CW.getAvatarPanel(s.aid, {
+                            if (i != r.aid) i = r.aid, n > 0 && (e += "</div>"), e += '<div class="searchResultTitle _messageSearchChatGroup" data-gid="' + r.aid + '">' + CW.getAvatarPanel(r.aid, {
                                 clicktip: !1,
                                 hovertip: !1,
                                 size: "small"
-                            }) + " " + CW.getName(s.aid) + " <span>(" + number_format(a.ms_result_byuser_dat[s.aid].length) + L.search_result_unit + ')</span><span class="_messageSearchArrow transitionAll03sLinear icoFontTriangleDown"></span></div><div id="_searchResultGroupId' + s.aid + '" style="display:none">'
+                            }) + " " + CW.getName(r.aid) + " <span>(" + number_format(a.ms_result_byuser_dat[r.aid].length) + L.search_result_unit + ')</span><span class="_messageSearchArrow transitionAll03sLinear icoFontTriangleDown"></span></div><div id="_searchResultGroupId' + r.aid + '" style="display:none">'
                     }
                     u.topView =
                         n === 0 ? !0 : !1;
-                    e += TimeLineView.prototype.getMessagePanel(s, u)
+                    e += TimeLineView.prototype.getMessagePanel(r, u)
                 }
                 switch (a.ms_result_type) {
                     case "byroom":
-                        h > 0 && (e += "</div>");
+                        g > 0 && (e += "</div>");
                         break;
                     case "byuser":
-                        h > 0 && (e += "</div>")
+                        g > 0 && (e += "</div>")
                 }
                 $C("#_messageSearchResultHead").show();
                 $C("#_messageSearchResultNum").text(number_format(m.length));
@@ -13015,7 +13028,7 @@ function SearchView(b) {
                 for (n in b) e = b[n], e.charAt(0) == "+" && (e = e.substr(1)), e = trim(e), e.length > 0 && $("#_messageSearchResult pre").markText(e,
                     "searchEm")
             } else d.disableButtonAll(), f.disableButtonAll(), $C("#_messageSearchResultNum").text("0"), a.ms_result_not_found ? ($C("#_messageSearchResultHead").show(), $C("#_messageSearchResult").html('<div class="searchNotFound alert alertWarning">' + L.search_result_not_found.replace("%%keyword%%", escape_html(b)) + "</div>")) : ($C("#_messageSearchResultHead").show(), $C("#_messageSearchResult").quickEmpty());
-            j.resize()
+            h.resize()
         }
     };
     a.room_show_limit = 50;
@@ -13028,18 +13041,18 @@ function SearchView(b) {
             var d = RL.getSortedRoomList(),
                 e = "",
                 f = null,
-                g = d.length;
-            if (g) {
-                for (var j = [], j = CW.splitWithSpace(b.toLowerCase()), o = 0, u = 0; u < g; u++)
+                h = d.length;
+            if (h) {
+                for (var i = [], i = CW.splitWithSpace(b.toLowerCase()), o = 0, u = 0; u < h; u++)
                     if (d[u] != void 0) {
-                        var s = d[u],
-                            f = RL.rooms[s];
+                        var r = d[u],
+                            f = RL.rooms[r];
                         if (!(a.search_type == "contact" && f.type != "contact")) {
                             if (f.type == "contact") {
-                                if (!AC.isMatchedWithKeyList(j, f.getAccountId())) continue
-                            } else if (!CW.isMatchedWithKeyList(j,
+                                if (!AC.isMatchedWithKeyList(i, f.getAccountId())) continue
+                            } else if (!CW.isMatchedWithKeyList(i,
                                     f.getName())) continue;
-                            e += RL.view.getRoomItemPanel(s, {
+                            e += RL.view.getRoomItemPanel(r, {
                                 showOrg: !0,
                                 showPin: !1,
                                 showSelected: !1,
@@ -13094,8 +13107,8 @@ function CheatSheetView() {
             left: a
         }
     }
-    var e = b.scrollTo = function(a, e, g) {
-        b(window).scrollTo(a, e, g)
+    var e = b.scrollTo = function(a, e, i) {
+        b(window).scrollTo(a, e, i)
     };
     e.defaults = {
         axis: "xy",
@@ -13113,66 +13126,66 @@ function CheatSheetView() {
                 a.compatMode == "BackCompat" ? a.body : a.documentElement
         })
     };
-    b.fn.scrollTo = function(d, f, g) {
-        typeof f == "object" && (g = f, f = 0);
-        typeof g == "function" && (g = {
-            onAfter: g
+    b.fn.scrollTo = function(d, f, i) {
+        typeof f == "object" && (i = f, f = 0);
+        typeof i == "function" && (i = {
+            onAfter: i
         });
         d == "max" && (d = 9E9);
-        g = b.extend({}, e.defaults, g);
-        f = f || g.duration;
-        g.queue = g.queue && g.axis.length > 1;
-        g.queue && (f /= 2);
-        g.offset = a(g.offset);
-        g.over = a(g.over);
+        i = b.extend({}, e.defaults, i);
+        f = f || i.duration;
+        i.queue = i.queue && i.axis.length > 1;
+        i.queue && (f /= 2);
+        i.offset = a(i.offset);
+        i.over = a(i.over);
         return this._scrollable().each(function() {
-            function j(a) {
-                l.animate(m, f, g.easing, a && function() {
-                    a.call(this, d, g)
+            function h(a) {
+                k.animate(m, f, i.easing, a && function() {
+                    a.call(this, d, i)
                 })
             }
             if (d != null) {
-                var k = this,
-                    l = b(k),
-                    h = d,
-                    i, m = {},
-                    n = l.is("html,body");
-                switch (typeof h) {
+                var j = this,
+                    k = b(j),
+                    g = d,
+                    l, m = {},
+                    n = k.is("html,body");
+                switch (typeof g) {
                     case "number":
                     case "string":
-                        if (/^([+-]=?)?\d+(\.\d+)?(px|%)?$/.test(h)) {
-                            h =
-                                a(h);
+                        if (/^([+-]=?)?\d+(\.\d+)?(px|%)?$/.test(g)) {
+                            g =
+                                a(g);
                             break
                         }
-                        h = b(h, this);
-                        if (!h.length) return;
+                        g = b(g, this);
+                        if (!g.length) return;
                     case "object":
-                        if (h.is || h.style) i = (h = b(h)).offset()
+                        if (g.is || g.style) l = (g = b(g)).offset()
                 }
-                b.each(g.axis.split(""), function(a, b) {
+                b.each(i.axis.split(""), function(a, b) {
                     var d = b == "x" ? "Left" : "Top",
                         f = d.toLowerCase(),
                         w = "scroll" + d,
-                        A = k[w],
-                        x = e.max(k, b);
-                    i ? (m[w] = i[f] + (n ? 0 : A - l.offset()[f]), g.margin && (m[w] -= parseInt(h.css("margin" + d), 10) || 0, m[w] -= parseInt(h.css("border" + d + "Width"), 10) || 0), m[w] += g.offset[f] || 0, g.over[f] && (m[w] += h[b == "x" ? "width" : "height"]() * g.over[f])) : (d = h[f], m[w] = d.slice && d.slice(-1) == "%" ? parseFloat(d) / 100 * x : d);
-                    g.limit && /^\d+$/.test(m[w]) &&
+                        A = j[w],
+                        x = e.max(j, b);
+                    l ? (m[w] = l[f] + (n ? 0 : A - k.offset()[f]), i.margin && (m[w] -= parseInt(g.css("margin" + d), 10) || 0, m[w] -= parseInt(g.css("border" + d + "Width"), 10) || 0), m[w] += i.offset[f] || 0, i.over[f] && (m[w] += g[b == "x" ? "width" : "height"]() * i.over[f])) : (d = g[f], m[w] = d.slice && d.slice(-1) == "%" ? parseFloat(d) / 100 * x : d);
+                    i.limit && /^\d+$/.test(m[w]) &&
                         (m[w] = m[w] <= 0 ? 0 : Math.min(m[w], x));
-                    !a && g.queue && (A != m[w] && j(g.onAfterFirst), delete m[w])
+                    !a && i.queue && (A != m[w] && h(i.onAfterFirst), delete m[w])
                 });
-                j(g.onAfter)
+                h(i.onAfter)
             }
         }).end()
     };
     e.max = function(a, e) {
-        var g = e == "x" ? "Width" : "Height",
-            j = "scroll" + g;
-        if (!b(a).is("html,body")) return a[j] - b(a)[g.toLowerCase()]();
-        var g = "client" + g,
-            k = a.ownerDocument.documentElement,
-            l = a.ownerDocument.body;
-        return Math.max(k[j], l[j]) - Math.min(k[g], l[g])
+        var i = e == "x" ? "Width" : "Height",
+            h = "scroll" + i;
+        if (!b(a).is("html,body")) return a[h] - b(a)[i.toLowerCase()]();
+        var i = "client" + i,
+            j = a.ownerDocument.documentElement,
+            k = a.ownerDocument.body;
+        return Math.max(j[h], k[h]) - Math.min(j[i], k[i])
     }
 })(jQuery);
 (function(b) {
@@ -13189,35 +13202,35 @@ function CheatSheetView() {
     function d(a) {
         a.indexOf('"') === 0 && (a = a.slice(1, -1).replace(/\\"/g, '"').replace(/\\\\/g, "\\"));
         try {
-            return g.json ? JSON.parse(a) : a
+            return i.json ? JSON.parse(a) : a
         } catch (b) {}
     }
     var f = /\+/g,
-        g = b.cookie = function(f, k, l) {
-            if (k !== void 0) {
-                l = b.extend({}, g.defaults, l);
-                if (typeof l.expires === "number") {
-                    var h = l.expires,
-                        i = l.expires = new Date;
-                    i.setDate(i.getDate() + h)
+        i = b.cookie = function(f, j, k) {
+            if (j !== void 0) {
+                k = b.extend({}, i.defaults, k);
+                if (typeof k.expires === "number") {
+                    var g = k.expires,
+                        l = k.expires = new Date;
+                    l.setDate(l.getDate() + g)
                 }
-                k = g.json ?
-                    JSON.stringify(k) : String(k);
-                return document.cookie = [g.raw ? f : encodeURIComponent(f), "=", g.raw ? k : encodeURIComponent(k), l.expires ? "; expires=" + l.expires.toUTCString() : "", l.path ? "; path=" + l.path : "", l.domain ? "; domain=" + l.domain : "", l.secure ? "; secure" : ""].join("")
+                j = i.json ?
+                    JSON.stringify(j) : String(j);
+                return document.cookie = [i.raw ? f : encodeURIComponent(f), "=", i.raw ? j : encodeURIComponent(j), k.expires ? "; expires=" + k.expires.toUTCString() : "", k.path ? "; path=" + k.path : "", k.domain ? "; domain=" + k.domain : "", k.secure ? "; secure" : ""].join("")
             }
-            for (var k = g.raw ? a : e, l = document.cookie.split("; "), h = f ? void 0 : {}, i = 0, m = l.length; i < m; i++) {
-                var n = l[i].split("="),
-                    o = k(n.shift()),
-                    n = k(n.join("="));
+            for (var j = i.raw ? a : e, k = document.cookie.split("; "), g = f ? void 0 : {}, l = 0, m = k.length; l < m; l++) {
+                var n = k[l].split("="),
+                    o = j(n.shift()),
+                    n = j(n.join("="));
                 if (f && f === o) {
-                    h = d(n);
+                    g = d(n);
                     break
                 }
-                f || (h[o] = d(n))
+                f || (g[o] = d(n))
             }
-            return h
+            return g
         };
-    g.defaults = {};
+    i.defaults = {};
     b.removeCookie = function(a, d) {
         if (b.cookie(a) !==
             void 0) return b.cookie(a, "", b.extend({}, d, {
@@ -13246,38 +13259,38 @@ function CheatSheetView() {
             if (e === "object") {
                 if (typeof a.toJSON === "function") return b.toJSON(a.toJSON());
                 if (a.constructor === Date) {
-                    var g = a.getUTCMonth() + 1,
-                        j = a.getUTCDate(),
-                        k = a.getUTCFullYear(),
+                    var i = a.getUTCMonth() + 1,
+                        h = a.getUTCDate(),
+                        j = a.getUTCFullYear(),
                         e = a.getUTCHours(),
-                        l = a.getUTCMinutes(),
-                        h = a.getUTCSeconds(),
+                        k = a.getUTCMinutes(),
+                        g = a.getUTCSeconds(),
                         a = a.getUTCMilliseconds();
-                    g < 10 && (g = "0" + g);
-                    j < 10 && (j = "0" + j);
-                    e < 10 && (e = "0" + e);
-                    l < 10 && (l = "0" + l);
+                    i < 10 && (i = "0" + i);
                     h < 10 && (h = "0" + h);
+                    e < 10 && (e = "0" + e);
+                    k < 10 && (k = "0" + k);
+                    g < 10 && (g = "0" + g);
                     a < 100 && (a = "0" + a);
                     a < 10 && (a = "0" + a);
-                    return '"' + k + "-" + g + "-" + j + "T" + e + ":" + l + ":" + h + "." + a + 'Z"'
+                    return '"' + j + "-" + i + "-" + h + "T" + e + ":" + k + ":" + g + "." + a + 'Z"'
                 }
                 if (a.constructor === Array) {
-                    g = [];
-                    for (j = 0; j < a.length; j++) g.push(b.toJSON(a[j]) || "null");
-                    return "[" + g.join(",") + "]"
+                    i = [];
+                    for (h = 0; h < a.length; h++) i.push(b.toJSON(a[h]) || "null");
+                    return "[" + i.join(",") + "]"
                 }
-                j = [];
-                for (k in a) {
-                    e = typeof k;
-                    if (e === "number") g = '"' + k + '"';
-                    else if (e === "string") g = b.quoteString(k);
+                h = [];
+                for (j in a) {
+                    e = typeof j;
+                    if (e === "number") i = '"' + j + '"';
+                    else if (e === "string") i = b.quoteString(j);
                     else continue;
-                    e = typeof a[k];
+                    e = typeof a[j];
                     e === "function" || e ===
-                        "undefined" || (e = b.toJSON(a[k]), j.push(g + ":" + e))
+                        "undefined" || (e = b.toJSON(a[j]), h.push(i + ":" + e))
                 }
-                return "{" + j.join(",") + "}"
+                return "{" + h.join(",") + "}"
             }
         }
     };
@@ -13310,32 +13323,32 @@ function CheatSheetView() {
     }
 
     function f(f) {
-        function K(a) {
-            S++ || (T(), Q && (r[J] = {
+        function M(a) {
+            S++ || (T(), Q && (s[K] = {
                 s: [a]
-            }), W && (a = W.apply(f, [a])), d(H, f, [a, A, f]), d(M, f, [f, A]))
+            }), W && (a = W.apply(f, [a])), d(H, f, [a, A, f]), d(J, f, [f, A]))
         }
 
         function G(a) {
-            S++ || (T(), Q && a != x && (r[J] = a), d(U, f, [f, a]), d(M, f, [f, a]))
+            S++ || (T(), Q && a != x && (s[K] = a), d(U, f, [f, a]), d(J, f, [f, a]))
         }
         var f = b.extend({}, z, f),
             H = f.success,
             U = f.error,
-            M = f.complete,
+            J = f.complete,
             W = f.dataFilter,
             P = f.callbackParameter,
             X = f.callback,
             aa = f.cache,
             Q = f.pageCache,
             Y = f.charset,
-            J = f.url,
+            K = f.url,
             N = f.data,
             Z = f.timeout,
             R, S = 0,
             T = a,
             F, O, V;
-        q && q(function(a) {
+        p && p(function(a) {
             a.done(H).fail(U);
             H =
                 a.resolve;
@@ -13345,72 +13358,72 @@ function CheatSheetView() {
             !S++ && T()
         };
         if (d(f.beforeSend, f, [f]) === !1 || S) return f;
-        J = J || k;
-        N = N ? typeof N == "string" ? N : b.param(N, f.traditional) : k;
-        J += N ? (/\?/.test(J) ? "&" : "?") + N : k;
-        P && (J += (/\?/.test(J) ? "&" : "?") + encodeURIComponent(P) + "=?");
-        !aa && !Q && (J += (/\?/.test(J) ? "&" : "?") + "_" + (new Date).getTime() + "=");
-        J = J.replace(/=\?(&|$)/, "=" + X + "$1");
-        if (Q && (R = r[J])) R.s ? K(R.s[0]) : G(R);
+        K = K || j;
+        N = N ? typeof N == "string" ? N : b.param(N, f.traditional) : j;
+        K += N ? (/\?/.test(K) ? "&" : "?") + N : j;
+        P && (K += (/\?/.test(K) ? "&" : "?") + encodeURIComponent(P) + "=?");
+        !aa && !Q && (K += (/\?/.test(K) ? "&" : "?") + "_" + (new Date).getTime() + "=");
+        K = K.replace(/=\?(&|$)/, "=" + X + "$1");
+        if (Q && (R = s[K])) R.s ? M(R.s[0]) : G(R);
         else {
-            p[X] = e;
+            q[X] = e;
             F = b(w)[0];
-            F.id = i + B++;
-            Y && (F[j] = Y);
+            F.id = l + B++;
+            Y && (F[h] = Y);
             E && E.version() < 11.6 ? (O = b(w)[0]).text = "document.getElementById('" + F.id +
-                "')." + n + "()" : F[g] = g;
+                "')." + n + "()" : F[i] = i;
             if (y) F.htmlFor = F.id, F.event = m;
             F[o] = F[n] = F[u] = function(a) {
-                if (!F[s] || !/i/.test(F[s])) {
+                if (!F[r] || !/i/.test(F[r])) {
                     try {
                         F[m] && F[m]()
                     } catch (b) {}
                     a = I;
                     I = 0;
-                    a ? K(a[0]) : G(l)
+                    a ? M(a[0]) : G(k)
                 }
             };
-            F.src = J;
+            F.src = K;
             T = function() {
                 V && clearTimeout(V);
                 F[u] = F[o] = F[n] = null;
                 t[v](F);
                 O && t[v](O)
             };
-            t[h](F, P = t.firstChild);
-            O && t[h](O, P);
+            t[g](F, P = t.firstChild);
+            O && t[g](O, P);
             V = Z > 0 && setTimeout(function() {
                 G(x)
             }, Z)
         }
         return f
     }
-    var g = "async",
-        j = "charset",
-        k = "",
-        l = "error",
-        h = "insertBefore",
-        i = "_jqjsp",
+    var i = "async",
+        h = "charset",
+        j = "",
+        k = "error",
+        g = "insertBefore",
+        l = "_jqjsp",
         m = "onclick",
-        n = "on" + l,
+        n = "on" + k,
         o = "onload",
         u = "onreadystatechange",
-        s = "readyState",
+        r = "readyState",
         v = "removeChild",
         w = "<script>",
         A = "success",
         x =
         "timeout",
-        p = window,
-        q = b.Deferred,
+        q = window,
+        p = b.Deferred,
         t = b("head")[0] || document.documentElement,
-        r = {},
+        s = {},
         B = 0,
         I, z = {
-            callback: i,
+            callback: l,
             url: location.href
         },
-        E = p.opera,
+        E = q.opera,
         y = !!b("<div>").html("<\!--[if IE]><i><![endif]--\>").find("i").length;
     f.setup = function(a) {
         b.extend(z, a)
@@ -13418,30 +13431,30 @@ function CheatSheetView() {
     b.jsonp = f
 })(jQuery);
 (function(b) {
-    var a = function(b, d, f, g) {
+    var a = function(b, d, f, i) {
         b = b.toLowerCase();
         f = f || document.body;
-        g = g || {};
-        if (typeof g.skipClassName == "string" || g.skipClassName instanceof String) g.skipClassName = [g.skipClassName];
-        if (g.skipClassName instanceof Array) g.skipClassName = RegExp("\\b(" + g.skipClassName.join("|") + ")\\b");
-        g.tag = g.tag || "span";
+        i = i || {};
+        if (typeof i.skipClassName == "string" || i.skipClassName instanceof String) i.skipClassName = [i.skipClassName];
+        if (i.skipClassName instanceof Array) i.skipClassName = RegExp("\\b(" + i.skipClassName.join("|") + ")\\b");
+        i.tag = i.tag || "span";
         for (f = f.firstChild; f; f = f.nextSibling)
-            if (f.nodeType == 1)(!g.skipClassName || !g.skipClassName.test(f.className)) && a(b, d, f, g);
+            if (f.nodeType == 1)(!i.skipClassName || !i.skipClassName.test(f.className)) && a(b, d, f, i);
             else if (f.nodeType == 3)
             for (;;) {
-                var j = f.nodeValue.toLowerCase().indexOf(b);
-                if (j == -1) break;
-                var k = f,
-                    l = g.tag,
-                    h = j;
-                j += b.length;
-                var i = document.createTextNode(k.nodeValue.substring(0, h));
-                k.parentNode.insertBefore(i, k);
-                l = document.createElement(l);
-                l.appendChild(document.createTextNode(k.nodeValue.substring(h, j)));
-                k.parentNode.insertBefore(l, k);
-                k.nodeValue = k.nodeValue.substring(j);
-                l.className = d
+                var h = f.nodeValue.toLowerCase().indexOf(b);
+                if (h == -1) break;
+                var j = f,
+                    k = i.tag,
+                    g = h;
+                h += b.length;
+                var l = document.createTextNode(j.nodeValue.substring(0, g));
+                j.parentNode.insertBefore(l, j);
+                k = document.createElement(k);
+                k.appendChild(document.createTextNode(j.nodeValue.substring(g, h)));
+                j.parentNode.insertBefore(k, j);
+                j.nodeValue = j.nodeValue.substring(h);
+                k.className = d
             }
     };
     b.fn.markText = function(b, d, f) {
@@ -13454,31 +13467,31 @@ window.Modernizr = function(b, a, e) {
     function d(a, b) {
         for (var d in a) {
             var f = a[d];
-            if (!~("" + f).indexOf("-") && l[f] !== e) return b == "pfx" ? f : !0
+            if (!~("" + f).indexOf("-") && k[f] !== e) return b == "pfx" ? f : !0
         }
         return !1
     }
 
     function f(a, b, f) {
-        var g = a.charAt(0).toUpperCase() + a.slice(1),
-            j = (a + " " + h.join(g + " ") + g).split(" ");
-        if (typeof b === "string" || typeof b === "undefined") return d(j, b);
+        var h = a.charAt(0).toUpperCase() + a.slice(1),
+            i = (a + " " + g.join(h + " ") + h).split(" ");
+        if (typeof b === "string" || typeof b === "undefined") return d(i, b);
         else {
-            j = (a + " " + i.join(g + " ") + g).split(" ");
+            i = (a + " " + l.join(h + " ") + h).split(" ");
             a: {
-                var a = j,
-                    k;
-                for (k in a)
-                    if (g = b[a[k]], g !== e) {
+                var a = i,
+                    j;
+                for (j in a)
+                    if (h = b[a[j]], h !== e) {
                         if (f === !1) {
-                            b = a[k];
+                            b = a[j];
                             break a
                         }
-                        if (typeof g === "function") {
-                            b = g.bind(f || b);
+                        if (typeof h === "function") {
+                            b = h.bind(f || b);
                             break a
                         }
-                        b = g;
+                        b = h;
                         break a
                     }
                 b = !1
@@ -13486,20 +13499,20 @@ window.Modernizr = function(b, a, e) {
             return b
         }
     }
-    var g = {},
-        j = a.documentElement,
-        k = a.createElement("modernizr"),
-        l = k.style,
+    var i = {},
+        h = a.documentElement,
+        j = a.createElement("modernizr"),
+        k = j.style,
         b = " -webkit- -moz- -o- -ms- ".split(" "),
-        h = "Webkit Moz O ms".split(" "),
-        i = "webkit moz o ms".split(" "),
+        g = "Webkit Moz O ms".split(" "),
+        l = "webkit moz o ms".split(" "),
         m = {
             svg: "http://www.w3.org/2000/svg"
         },
-        k = {},
+        j = {},
         n = [],
         o = n.slice,
-        u, s = function() {
+        u, r = function() {
             var b = {
                 select: "input",
                 change: "input",
@@ -13512,10 +13525,10 @@ window.Modernizr = function(b, a, e) {
             return function(d, f) {
                 var f = f || a.createElement(b[d] || "div"),
                     d = "on" + d,
-                    h = d in f;
-                h || (f.setAttribute || (f = a.createElement("div")), f.setAttribute && f.removeAttribute && (f.setAttribute(d, ""), h = typeof f[d] ===
+                    g = d in f;
+                g || (f.setAttribute || (f = a.createElement("div")), f.setAttribute && f.removeAttribute && (f.setAttribute(d, ""), g = typeof f[d] ===
                     "function", typeof f[d] === "undefined" || (f[d] = e), f.removeAttribute(d)));
-                return h
+                return g
             }
         }(),
         v = {}.hasOwnProperty,
@@ -13534,61 +13547,61 @@ window.Modernizr = function(b, a, e) {
                     var f = function() {};
                     f.prototype = b.prototype;
                     var f = new f,
-                        h = b.apply(f, d.concat(o.call(arguments)));
-                    if (Object(h) === h) return h;
+                        g = b.apply(f, d.concat(o.call(arguments)));
+                    if (Object(g) === g) return g;
                     return f
                 } else return b.apply(a, d.concat(o.call(arguments)))
             };
         return e
     };
-    k.svg = function() {
+    j.svg = function() {
         return !!a.createElementNS && !!a.createElementNS(m.svg, "svg").createSVGRect
     };
-    for (var A in k) w(k, A) && (u = A.toLowerCase(), g[u] = k[A](), n.push((g[u] ? "" : "no-") + u));
-    g.addTest = function(a, b) {
+    for (var A in j) w(j, A) && (u = A.toLowerCase(), i[u] = j[A](), n.push((i[u] ? "" : "no-") + u));
+    i.addTest = function(a, b) {
         if (typeof a == "object")
-            for (var d in a) w(a, d) && g.addTest(d, a[d]);
+            for (var d in a) w(a, d) && i.addTest(d, a[d]);
         else {
             a = a.toLowerCase();
-            if (g[a] !== e) return g;
+            if (i[a] !== e) return i;
             b = typeof b == "function" ? b() : b;
-            typeof !0 !== "undefined" && (j.className +=
+            typeof !0 !== "undefined" && (h.className +=
                 " " + (b ? "" : "no-") + a);
-            g[a] = b
+            i[a] = b
         }
-        return g
+        return i
     };
-    l.cssText = "";
-    k = null;
-    g._version = "2.6.2";
-    g._prefixes = b;
-    g._domPrefixes = i;
-    g._cssomPrefixes = h;
-    g.hasEvent = s;
-    g.testProp = function(a) {
+    k.cssText = "";
+    j = null;
+    i._version = "2.6.2";
+    i._prefixes = b;
+    i._domPrefixes = l;
+    i._cssomPrefixes = g;
+    i.hasEvent = r;
+    i.testProp = function(a) {
         return d([a])
     };
-    g.testAllProps = f;
-    g.testStyles = function(b, d, e, f) {
-        var h, g, i = a.createElement("div"),
+    i.testAllProps = f;
+    i.testStyles = function(b, d, e, f) {
+        var g, i, j = a.createElement("div"),
             k = a.body,
             l = k || a.createElement("body");
         if (parseInt(e, 10))
-            for (; e--;) h = a.createElement("div"), h.id = f ? f[e] : "modernizr" + (e + 1), i.appendChild(h);
+            for (; e--;) g = a.createElement("div"), g.id = f ? f[e] : "modernizr" + (e + 1), j.appendChild(g);
         e = ['&#173;<style id="smodernizr">', b, "</style>"].join("");
-        i.id = "modernizr";
-        (k ? i : l).innerHTML += e;
-        l.appendChild(i);
-        if (!k) l.style.background = "", l.style.overflow = "hidden", g = j.style.overflow, j.style.overflow = "hidden", j.appendChild(l);
-        b = d(i, b);
-        k ? i.parentNode.removeChild(i) : (l.parentNode.removeChild(l), j.style.overflow = g);
+        j.id = "modernizr";
+        (k ? j : l).innerHTML += e;
+        l.appendChild(j);
+        if (!k) l.style.background = "", l.style.overflow = "hidden", i = h.style.overflow, h.style.overflow = "hidden", h.appendChild(l);
+        b = d(j, b);
+        k ? j.parentNode.removeChild(j) : (l.parentNode.removeChild(l), h.style.overflow = i);
         return !!b
     };
-    g.prefixed = function(a, b, d) {
+    i.prefixed = function(a, b, d) {
         return b ? f(a, b, d) : f(a, "pfx")
     };
-    j.className = j.className.replace(/(^|\s)no-js(\s|$)/, "$1$2") + (" js " + n.join(" "));
-    return g
+    h.className = h.className.replace(/(^|\s)no-js(\s|$)/, "$1$2") + (" js " + n.join(" "));
+    return i
 }(this, this.document);
 (function(b, a, e) {
     function d(a) {
@@ -13599,38 +13612,38 @@ window.Modernizr = function(b, a, e) {
         return "string" == typeof a
     }
 
-    function g() {}
+    function i() {}
 
-    function j(a) {
+    function h(a) {
         return !a || "loaded" == a || "complete" == a || "uninitialized" == a
     }
 
-    function k() {
-        var a = s.shift();
+    function j() {
+        var a = r.shift();
         v = 1;
         a ? a.t ? n(function() {
             ("c" == a.t ? E.injectCss : E.injectJs)(a.s, 0, a.a, a.x, a.e, 1)
-        }, 0) : (a(), k()) : v = 0
+        }, 0) : (a(), j()) : v = 0
     }
 
-    function l(b, d, e, f, h, g, i) {
+    function k(b, d, e, f, g, i, k) {
         function l(a) {
-            if (!p && j(m.readyState) && (r.r = p = 1, !v && k(), m.onload = m.onreadystatechange = null, a))
+            if (!p && h(m.readyState) && (s.r = p = 1, !v && j(), m.onload = m.onreadystatechange = null, a))
                 for (var e in "img" != b && n(function() {
                         x.removeChild(m)
                     }, 50), B[d]) B[d].hasOwnProperty(e) &&
                     B[d][e].onload()
         }
-        var i = i || E.errorTimeout,
+        var k = k || E.errorTimeout,
             m = a.createElement(b),
             p = 0,
             q = 0,
-            r = {
+            s = {
                 t: e,
                 s: d,
-                e: h,
-                a: g,
-                x: i
+                e: g,
+                a: i,
+                x: k
             };
         1 === B[d] && (q = 1, B[d] = []);
         "object" == b ? m.data = d : (m.src = d, m.type = b);
@@ -13638,18 +13651,18 @@ window.Modernizr = function(b, a, e) {
         m.onerror = m.onload = m.onreadystatechange = function() {
             l.call(this, q)
         };
-        s.splice(f, 0, r);
-        "img" != b && (q || 2 === B[d] ? (x.insertBefore(m, A ? null : o), n(l, i)) : B[d].push(m))
+        r.splice(f, 0, s);
+        "img" != b && (q || 2 === B[d] ? (x.insertBefore(m, A ? null : o), n(l, k)) : B[d].push(m))
     }
 
-    function h(a, b, d, e, h) {
-        return v = 0, b = b || "j", f(a) ? l("c" == b ? q : p, a, b, this.i++, d, e, h) : (s.splice(this.i++, 0, a), 1 == s.length && k()), this
+    function g(a, b, d, e, g) {
+        return v = 0, b = b || "j", f(a) ? k("c" == b ? p : q, a, b, this.i++, d, e, g) : (r.splice(this.i++, 0, a), 1 == r.length && j()), this
     }
 
-    function i() {
+    function l() {
         var a = E;
         return a.loader = {
-            load: h,
+            load: g,
             i: 0
         }, a
     }
@@ -13657,19 +13670,19 @@ window.Modernizr = function(b, a, e) {
         n = b.setTimeout,
         o = a.getElementsByTagName("script")[0],
         u = {}.toString,
-        s = [],
+        r = [],
         v = 0,
         w = "MozAppearance" in m.style,
         A = w && !!a.createRange().compareNode,
         x = A ? m : o.parentNode,
         m = b.opera && "[object Opera]" == u.call(b.opera),
         m = !!a.attachEvent && !m,
-        p = w ? "object" : m ? "script" : "img",
-        q = m ? "script" : p,
+        q = w ? "object" : m ? "script" : "img",
+        p = m ? "script" : q,
         t = Array.isArray || function(a) {
             return "[object Array]" == u.call(a)
         },
-        r = [],
+        s = [],
         B = {},
         I = {
             timeout: function(a, b) {
@@ -13680,7 +13693,7 @@ window.Modernizr = function(b, a, e) {
     E = function(a) {
         function b(a) {
             var a = a.split("!"),
-                d = r.length,
+                d = s.length,
                 e =
                 a.pop(),
                 f = a.length,
@@ -13689,73 +13702,74 @@ window.Modernizr = function(b, a, e) {
                     origUrl: e,
                     prefixes: a
                 },
-                h, g, i;
-            for (g = 0; g < f; g++) i = a[g].split("="), (h = I[i.shift()]) && (e = h(e, i));
-            for (g = 0; g < d; g++) e = r[g](e);
+                g, h, i;
+            for (h = 0; h < f; h++) i = a[h].split("="), (g = I[i.shift()]) && (e = g(e, i));
+            for (h = 0; h < d; h++) e = s[h](e);
             return e
         }
 
-        function h(a, f, g, j, k) {
-            var l = b(a),
-                m = l.autoCallback;
-            l.url.split(".").pop().split("?").shift();
-            l.bypass || (f && (f = d(f) ? f : f[a] || f[j] || f[a.split("/").pop().split("?")[0]]), l.instead ? l.instead(a, f, g, j, k) : (B[l.url] ? l.noexec = !0 : B[l.url] = 1, g.load(l.url, l.forceCSS || !l.forceJS && "css" == l.url.split(".").pop().split("?").shift() ? "c" : e, l.noexec, l.attrs, l.timeout), (d(f) || d(m)) && g.load(function() {
-                i();
-                f && f(l.origUrl, k, j);
-                m && m(l.origUrl, k, j);
-                B[l.url] = 2
-            })))
+        function g(a, f, h, i, j) {
+            var k = b(a),
+                m = k.autoCallback;
+            k.url.split(".").pop().split("?").shift();
+            k.bypass || (f && (f = d(f) ? f : f[a] || f[i] || f[a.split("/").pop().split("?")[0]]), k.instead ? k.instead(a, f, h, i, j) : (B[k.url] ? k.noexec = !0 : B[k.url] = 1, h.load(k.url, k.forceCSS || !k.forceJS && "css" == k.url.split(".").pop().split("?").shift() ? "c" : e, k.noexec, k.attrs, k.timeout),
+                (d(f) || d(m)) && h.load(function() {
+                    l();
+                    f && f(k.origUrl, j, i);
+                    m && m(k.origUrl, j, i);
+                    B[k.url] = 2
+                })))
         }
 
-        function j(a, b) {
-            function e(a, g) {
+        function h(a, b) {
+            function e(a, h) {
                 if (a)
-                    if (f(a)) g || (l = function() {
+                    if (f(a)) h || (l = function() {
                         var a = [].slice.call(arguments);
                         m.apply(this, a);
                         H()
-                    }), h(a, l, b, 0, i);
+                    }), g(a, l, b, 0, j);
                     else {
                         if (Object(a) === a)
-                            for (o in n = function() {
+                            for (J in n = function() {
                                     var b = 0,
                                         d;
                                     for (d in a) a.hasOwnProperty(d) && b++;
                                     return b
-                                }(), a) a.hasOwnProperty(o) && (!g && !--n && (d(l) ? l = function() {
+                                }(), a) a.hasOwnProperty(J) && (!h && !--n && (d(l) ? l = function() {
                                 var a = [].slice.call(arguments);
                                 m.apply(this, a);
                                 H()
-                            } : l[o] = function(a) {
+                            } : l[J] = function(a) {
                                 return function() {
                                     var b = [].slice.call(arguments);
                                     a && a.apply(this,
                                         b);
                                     H()
                                 }
-                            }(m[o])), h(a[o], l, b, o, i))
-                    } else !g && H()
+                            }(m[J])), g(a[J], l, b, J, j))
+                    } else !h && H()
             }
-            var i = !!a.test,
+            var j = !!a.test,
                 k = a.load || a.both,
-                l = a.callback || g,
+                l = a.callback || i,
                 m = l,
-                H = a.complete || g,
-                n, o;
-            e(i ? a.yep : a.nope, !!k);
+                H = a.complete || i,
+                n, J;
+            e(j ? a.yep : a.nope, !!k);
             k && e(k)
         }
-        var k, l, m = this.yepnope.loader;
-        if (f(a)) h(a, 0, m, 0);
+        var j, k, m = this.yepnope.loader;
+        if (f(a)) g(a, 0, m, 0);
         else if (t(a))
-            for (k = 0; k < a.length; k++) l = a[k], f(l) ? h(l, 0, m, 0) : t(l) ? E(l) : Object(l) === l && j(l, m);
-        else Object(a) === a && j(a, m)
+            for (j = 0; j < a.length; j++) k = a[j], f(k) ? g(k, 0, m, 0) : t(k) ? E(k) : Object(k) === k && h(k, m);
+        else Object(a) === a && h(a, m)
     };
     E.addPrefix = function(a, b) {
         I[a] = b
     };
     E.addFilter = function(a) {
-        r.push(a)
+        s.push(a)
     };
     E.errorTimeout = 1E4;
     null == a.readyState && a.addEventListener && (a.readyState = "loading", a.addEventListener("DOMContentLoaded",
@@ -13763,31 +13777,31 @@ window.Modernizr = function(b, a, e) {
             a.removeEventListener("DOMContentLoaded", z, 0);
             a.readyState = "complete"
         }, 0));
-    b.yepnope = i();
-    b.yepnope.executeStack = k;
-    b.yepnope.injectJs = function(b, d, e, f, h, i) {
+    b.yepnope = l();
+    b.yepnope.executeStack = j;
+    b.yepnope.injectJs = function(b, d, e, f, g, k) {
         var l = a.createElement("script"),
             m, p, f = f || E.errorTimeout;
         l.src = b;
         for (p in e) l.setAttribute(p, e[p]);
-        d = i ? k : d || g;
+        d = k ? j : d || i;
         l.onreadystatechange = l.onload = function() {
-            !m && j(l.readyState) && (m = 1, d(), l.onload = l.onreadystatechange = null)
+            !m && h(l.readyState) && (m = 1, d(), l.onload = l.onreadystatechange = null)
         };
         n(function() {
             m || (m = 1, d(1))
         }, f);
-        h ? l.onload() : o.parentNode.insertBefore(l, o)
+        g ? l.onload() : o.parentNode.insertBefore(l, o)
     };
-    b.yepnope.injectCss = function(b, d, e, f, h, i) {
+    b.yepnope.injectCss = function(b, d, e, f, g, h) {
         var f =
             a.createElement("link"),
-            j, d = i ? k : d || g;
+            k, d = h ? j : d || i;
         f.href = b;
         f.rel = "stylesheet";
         f.type = "text/css";
-        for (j in e) f.setAttribute(j, e[j]);
-        h || (o.parentNode.insertBefore(f, o), n(d, 0))
+        for (k in e) f.setAttribute(k, e[k]);
+        g || (o.parentNode.insertBefore(f, o), n(d, 0))
     }
 })(this, document);
 Modernizr.load = function() {
@@ -13805,23 +13819,23 @@ Modernizr.load = function() {
             ready: null
         },
         f = {},
-        g = 0,
-        j = {},
-        k = 0,
-        l = {},
-        h = null,
-        i = null,
+        i = 0,
+        h = {},
+        j = 0,
+        k = {},
+        g = null,
+        l = null,
         m = function() {
             var a, b, d, e, f = "ZeroClipboard.swf";
             if (!document.currentScript || !(e = document.currentScript.src)) {
-                var h = document.getElementsByTagName("script");
-                if ("readyState" in h[0])
-                    for (a = h.length; a--;) {
-                        if (h[a].readyState === "interactive" && (e = h[a].src)) break
-                    } else if (document.readyState === "loading") e = h[h.length - 1].src;
+                var g = document.getElementsByTagName("script");
+                if ("readyState" in g[0])
+                    for (a = g.length; a--;) {
+                        if (g[a].readyState === "interactive" && (e = g[a].src)) break
+                    } else if (document.readyState === "loading") e = g[g.length - 1].src;
                     else {
-                        for (a = h.length; a--;) {
-                            d = h[a].src;
+                        for (a = g.length; a--;) {
+                            d = g[a].src;
                             if (!d) {
                                 b = null;
                                 break
@@ -13864,13 +13878,13 @@ Modernizr.load = function() {
                 var d = (b || "").split(/\s+/);
                 if (a.nodeType === 1)
                     if (a.className) {
-                        for (var e = " " + a.className + " ", f = a.className, h = 0, g = d.length; h < g; h++) e.indexOf(" " + d[h] + " ") < 0 && (f += " " + d[h]);
+                        for (var e = " " + a.className + " ", f = a.className, g = 0, h = d.length; g < h; g++) e.indexOf(" " + d[g] + " ") < 0 && (f += " " + d[g]);
                         a.className = f.replace(/^\s+|\s+$/g, "")
                     } else a.className = b
             }
             return a
         },
-        s = function(a, b) {
+        r = function(a, b) {
             if (!a || a.nodeType !== 1) return a;
             if (a.classList) return a.classList.contains(b) && a.classList.remove(b),
                 a;
@@ -13878,7 +13892,7 @@ Modernizr.load = function() {
                 var d = (b || "").split(/\s+/);
                 if (a.nodeType === 1 && a.className)
                     if (b) {
-                        for (var e = (" " + a.className + " ").replace(/[\n\t]/g, " "), f = 0, h = d.length; f < h; f++) e = e.replace(" " + d[f] + " ", " ");
+                        for (var e = (" " + a.className + " ").replace(/[\n\t]/g, " "), f = 0, g = d.length; f < g; f++) e = e.replace(" " + d[f] + " ", " ");
                         a.className = e.replace(/^\s+|\s+$/g, "")
                     } else a.className = ""
             }
@@ -13912,20 +13926,20 @@ Modernizr.load = function() {
                 else if (typeof y.zIndex === "string" && (d = parseInt(y.zIndex, 10)) && !isNaN(d) && d > 0) b = d;
             return b || 0
         },
-        p = function(a, b) {
+        q = function(a, b) {
             if (a && b !== !1 && typeof console !==
                 "undefined" && console && (console.warn || console.log)) {
                 var d = "`" + a + "` is deprecated. See docs for more info:\n    https://github.com/zeroclipboard/zeroclipboard/blob/master/docs/instructions.md#deprecations";
                 console.warn ? console.warn(d) : console.log(d)
             }
         },
-        q = function() {
-            var a, b, d, e, f, h = arguments[0] || {};
+        p = function() {
+            var a, b, d, e, f, g = arguments[0] || {};
             a = 1;
             for (b = arguments.length; a < b; a++)
                 if ((d = arguments[a]) != null)
-                    for (e in d) d.hasOwnProperty(e) && (f = d[e], h !== f && f !== void 0 && (h[e] = f));
-            return h
+                    for (e in d) d.hasOwnProperty(e) && (f = d[e], g !== f && f !== void 0 && (g[e] = f));
+            return g
         },
         t = function(a) {
             if (a == null || a === "") return null;
@@ -13938,7 +13952,7 @@ Modernizr.load = function() {
             if ((a = d === -1 ? a : b === -1 || d === 0 ? null : a.slice(0, d)) && a.slice(-4).toLowerCase() === ".swf") return null;
             return a || null
         },
-        r = function() {
+        s = function() {
             var a = function(a, b) {
                     var d, e, f;
                     if (a != null && b[0] !== "*" && (typeof a === "string" && (a = [a]), typeof a === "object" && "length" in a)) {
@@ -13960,18 +13974,18 @@ Modernizr.load = function() {
                     never: "never"
                 };
             return function(d, e) {
-                var f, h = e.allowScriptAccess;
-                if (typeof h === "string" && (f = h.toLowerCase()) && /^always|samedomain|never$/.test(f)) return b[f];
+                var f, g = e.allowScriptAccess;
+                if (typeof g === "string" && (f = g.toLowerCase()) && /^always|samedomain|never$/.test(f)) return b[f];
                 f = t(e.moviePath);
                 f === null && (f = d);
-                h = [];
-                a(e.trustedOrigins, h);
-                a(e.trustedDomains, h);
-                var g = h.length;
-                if (g > 0) {
-                    if (g === 1 && h[0] === "*") return "always";
-                    if (v(d, h) !== -1) {
-                        if (g === 1 && d === f) return "sameDomain";
+                g = [];
+                a(e.trustedOrigins, g);
+                a(e.trustedDomains, g);
+                var h = g.length;
+                if (h > 0) {
+                    if (h === 1 && g[0] === "*") return "always";
+                    if (v(d, g) !== -1) {
+                        if (h === 1 && d === f) return "sameDomain";
                         return "always"
                     }
                 }
@@ -13998,34 +14012,34 @@ Modernizr.load = function() {
         },
         z = function(a, e) {
             if (!(this instanceof z)) return new z(a, e);
-            this.id = "" + g++;
-            j[this.id] = {
+            this.id = "" + i++;
+            h[this.id] = {
                 instance: this,
                 elements: [],
                 handlers: {}
             };
             a && this.clip(a);
-            typeof e !== "undefined" && (p("new ZeroClipboard(elements, options)", y.debug), z.config(e));
+            typeof e !== "undefined" && (q("new ZeroClipboard(elements, options)", y.debug), z.config(e));
             this.options = z.config();
             if (typeof d.disabled !== "boolean") d.disabled = !I();
             if (d.disabled === !1 && d.outdated !== !0 && d.bridge === null) {
                 d.outdated = !1;
                 d.ready = !1;
-                var f, k, l = document.getElementById("global-zeroclipboard-html-bridge");
-                if (!l) {
+                var f, j, k = document.getElementById("global-zeroclipboard-html-bridge");
+                if (!k) {
                     f = z.config();
-                    f.jsModuleId = typeof h === "string" && h || typeof i === "string" && i || null;
-                    var l = r(b.location.host, y),
-                        m, n, o, q = [],
-                        s = [],
+                    f.jsModuleId = typeof g === "string" && g || typeof l === "string" && l || null;
+                    var k = s(b.location.host, y),
+                        m, n, o, p = [],
+                        r = [],
                         u = [];
-                    f.trustedOrigins && (typeof f.trustedOrigins === "string" ? s.push(f.trustedOrigins) : typeof f.trustedOrigins === "object" && "length" in f.trustedOrigins && (s =
-                        s.concat(f.trustedOrigins)));
-                    f.trustedDomains && (typeof f.trustedDomains === "string" ? s.push(f.trustedDomains) : typeof f.trustedDomains === "object" && "length" in f.trustedDomains && (s = s.concat(f.trustedDomains)));
-                    if (s.length) {
+                    f.trustedOrigins && (typeof f.trustedOrigins === "string" ? r.push(f.trustedOrigins) : typeof f.trustedOrigins === "object" && "length" in f.trustedOrigins && (r =
+                        r.concat(f.trustedOrigins)));
+                    f.trustedDomains && (typeof f.trustedDomains === "string" ? r.push(f.trustedDomains) : typeof f.trustedDomains === "object" && "length" in f.trustedDomains && (r = r.concat(f.trustedDomains)));
+                    if (r.length) {
                         m = 0;
-                        for (n = s.length; m < n; m++)
-                            if (s.hasOwnProperty(m) && s[m] && typeof s[m] === "string" && (o = t(s[m]))) {
+                        for (n = r.length; m < n; m++)
+                            if (r.hasOwnProperty(m) && r[m] && typeof r[m] === "string" && (o = t(r[m]))) {
                                 if (o === "*") {
                                     u = [o];
                                     break
@@ -14033,27 +14047,27 @@ Modernizr.load = function() {
                                 u.push.apply(u, [o, "//" + o, b.location.protocol + "//" + o])
                             }
                     }
-                    u.length && q.push("trustedOrigins=" + encodeURIComponent(u.join(",")));
+                    u.length && p.push("trustedOrigins=" + encodeURIComponent(u.join(",")));
                     typeof f.jsModuleId === "string" && f.jsModuleId &&
-                        q.push("jsModuleId=" + encodeURIComponent(f.jsModuleId));
-                    f = q.join("&");
+                        p.push("jsModuleId=" + encodeURIComponent(f.jsModuleId));
+                    f = p.join("&");
                     m = y.moviePath + (y == null || y && y.cacheBust === !0 && y.useNoCache === !0 ? (y.moviePath.indexOf("?") === -1 ? "?" : "&") + "noCache=" + (new Date).getTime() : "");
-                    f = '      <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" id="global-zeroclipboard-flash-bridge" width="100%" height="100%">         <param name="movie" value="' + m + '"/>         <param name="allowScriptAccess" value="' + l + '"/>         <param name="scale" value="exactfit"/>         <param name="loop" value="false"/>         <param name="menu" value="false"/>         <param name="quality" value="best" />         <param name="bgcolor" value="#ffffff"/>         <param name="wmode" value="transparent"/>         <param name="flashvars" value="' +
-                        f + '"/>         <embed src="' + m + '"           loop="false" menu="false"           quality="best" bgcolor="#ffffff"           width="100%" height="100%"           name="global-zeroclipboard-flash-bridge"           allowScriptAccess="' + l + '"           allowFullScreen="false"           type="application/x-shockwave-flash"           wmode="transparent"           pluginspage="http://www.macromedia.com/go/getflashplayer"           flashvars="' + f + '"           scale="exactfit">         </embed>       </object>';
-                    l = document.createElement("div");
-                    l.id = "global-zeroclipboard-html-bridge";
-                    l.setAttribute("class", "global-zeroclipboard-container");
-                    l.style.position = "absolute";
-                    l.style.left = "0px";
-                    l.style.top = "-9999px";
-                    l.style.width = "15px";
-                    l.style.height = "15px";
-                    l.style.zIndex = "" + x(y.zIndex);
-                    document.body.appendChild(l);
-                    l.innerHTML = f
+                    f = '      <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" id="global-zeroclipboard-flash-bridge" width="100%" height="100%">         <param name="movie" value="' + m + '"/>         <param name="allowScriptAccess" value="' + k + '"/>         <param name="scale" value="exactfit"/>         <param name="loop" value="false"/>         <param name="menu" value="false"/>         <param name="quality" value="best" />         <param name="bgcolor" value="#ffffff"/>         <param name="wmode" value="transparent"/>         <param name="flashvars" value="' +
+                        f + '"/>         <embed src="' + m + '"           loop="false" menu="false"           quality="best" bgcolor="#ffffff"           width="100%" height="100%"           name="global-zeroclipboard-flash-bridge"           allowScriptAccess="' + k + '"           allowFullScreen="false"           type="application/x-shockwave-flash"           wmode="transparent"           pluginspage="http://www.macromedia.com/go/getflashplayer"           flashvars="' + f + '"           scale="exactfit">         </embed>       </object>';
+                    k = document.createElement("div");
+                    k.id = "global-zeroclipboard-html-bridge";
+                    k.setAttribute("class", "global-zeroclipboard-container");
+                    k.style.position = "absolute";
+                    k.style.left = "0px";
+                    k.style.top = "-9999px";
+                    k.style.width = "15px";
+                    k.style.height = "15px";
+                    k.style.zIndex = "" + x(y.zIndex);
+                    document.body.appendChild(k);
+                    k.innerHTML = f
                 }
-                if ((f = document["global-zeroclipboard-flash-bridge"]) && (k = f.length)) f = f[k - 1];
-                d.bridge = f || l.children[0].lastElementChild
+                if ((f = document["global-zeroclipboard-flash-bridge"]) && (j = f.length)) f = f[j - 1];
+                d.bridge = f || k.children[0].lastElementChild
             }
         };
     z.prototype.setText = function(a) {
@@ -14071,7 +14085,7 @@ Modernizr.load = function() {
     z.prototype.destroy = function() {
         this.unclip();
         this.off();
-        delete j[this.id]
+        delete h[this.id]
     };
     z.version = "1.3.5";
     var y = {
@@ -14085,35 +14099,35 @@ Modernizr.load = function() {
         autoActivate: !0
     };
     z.config = function(a) {
-        typeof a === "object" && a !== null && q(y, a);
+        typeof a === "object" && a !== null && p(y, a);
         if (typeof a === "string" && a) {
             if (y.hasOwnProperty(a)) return y[a]
         } else {
             var a = {},
                 b;
-            for (b in y) y.hasOwnProperty(b) && (a[b] = typeof y[b] === "object" && y[b] !== null ? "length" in y[b] ? y[b].slice(0) : q({}, y[b]) : y[b]);
+            for (b in y) y.hasOwnProperty(b) && (a[b] = typeof y[b] === "object" && y[b] !== null ? "length" in y[b] ? y[b].slice(0) : p({}, y[b]) : y[b]);
             return a
         }
     };
     z.destroy = function() {
         z.deactivate();
-        for (var a in j)
-            if (j.hasOwnProperty(a) && j[a]) {
-                var b = j[a].instance;
+        for (var a in h)
+            if (h.hasOwnProperty(a) && h[a]) {
+                var b = h[a].instance;
                 b && typeof b.destroy === "function" && b.destroy()
             }
         if ((a =
                 D(d.bridge)) && a.parentNode) a.parentNode.removeChild(a), d.ready = null, d.bridge = null
     };
     z.activate = function(a) {
-        e && (s(e, y.hoverClass), s(e, y.activeClass));
+        e && (r(e, y.hoverClass), r(e, y.activeClass));
         e = a;
         u(a, y.hoverClass);
-        K();
+        M();
         var f = y.title || a.getAttribute("title");
         if (f) {
-            var h = D(d.bridge);
-            h && h.setAttribute("title", f)
+            var g = D(d.bridge);
+            g && g.setAttribute("title", f)
         }
         if (!(f = y.forceHandCursor === !0)) {
             a: {
@@ -14132,13 +14146,13 @@ Modernizr.load = function() {
     z.deactivate = function() {
         var a = D(d.bridge);
         if (a) a.style.left = "0px", a.style.top = "-9999px", a.removeAttribute("title");
-        e && (s(e, y.hoverClass), s(e, y.activeClass), e = null)
+        e && (r(e, y.hoverClass), r(e, y.activeClass), e = null)
     };
     var D = function(a) {
             for (var b = /^OBJECT|EMBED$/, a = a && a.parentNode; a && b.test(a.nodeName) && a.parentNode;) a = a.parentNode;
             return a || null
         },
-        K = function() {
+        M = function() {
             if (e) {
                 var a = e,
                     f = {
@@ -14150,19 +14164,19 @@ Modernizr.load = function() {
                     };
                 if (a.getBoundingClientRect) {
                     var a = a.getBoundingClientRect(),
-                        h, g;
+                        g, h;
                     if ("pageXOffset" in b && "pageYOffset" in
-                        b) h = b.pageXOffset, g = b.pageYOffset;
+                        b) g = b.pageXOffset, h = b.pageYOffset;
                     else {
-                        h = 1;
-                        if (typeof document.body.getBoundingClientRect === "function") h = document.body.getBoundingClientRect(), h = h.right - h.left, g = document.body.offsetWidth, h = Math.round(h / g * 100) / 100;
-                        g = h;
-                        h = Math.round(document.documentElement.scrollLeft / g);
-                        g = Math.round(document.documentElement.scrollTop / g)
+                        g = 1;
+                        if (typeof document.body.getBoundingClientRect === "function") g = document.body.getBoundingClientRect(), g = g.right - g.left, h = document.body.offsetWidth, g = Math.round(g / h * 100) / 100;
+                        h = g;
+                        g = Math.round(document.documentElement.scrollLeft / h);
+                        h = Math.round(document.documentElement.scrollTop / h)
                     }
                     var i = document.documentElement.clientTop || 0;
-                    f.left = a.left + h - (document.documentElement.clientLeft || 0);
-                    f.top = a.top + g - i;
+                    f.left = a.left + g - (document.documentElement.clientLeft || 0);
+                    f.top = a.top + h - i;
                     f.width = "width" in a ? a.width : a.right - a.left;
                     f.height = "height" in a ?
                         a.height : a.bottom - a.top
@@ -14173,46 +14187,46 @@ Modernizr.load = function() {
             return this
         };
     z.prototype.on = function(a, b) {
-        var e, f, h, g = {},
-            i = j[this.id] && j[this.id].handlers;
-        if (typeof a === "string" && a) h = a.toLowerCase().split(/\s+/);
+        var e, f, g, i = {},
+            j = h[this.id] && h[this.id].handlers;
+        if (typeof a === "string" && a) g = a.toLowerCase().split(/\s+/);
         else if (typeof a === "object" && a && typeof b === "undefined")
             for (e in a)
                 if (a.hasOwnProperty(e) &&
                     typeof e === "string" && e && typeof a[e] === "function") this.on(e, a[e]);
-        if (h && h.length) {
+        if (g && g.length) {
             e = 0;
-            for (f = h.length; e < f; e++) a = h[e].replace(/^on/, ""), g[a] = !0, i[a] || (i[a] = []), i[a].push(b);
-            g.noflash && d.disabled && G.call(this, "noflash", {});
-            g.wrongflash && d.outdated && G.call(this, "wrongflash", {
+            for (f = g.length; e < f; e++) a = g[e].replace(/^on/, ""), i[a] = !0, j[a] || (j[a] = []), j[a].push(b);
+            i.noflash && d.disabled && G.call(this, "noflash", {});
+            i.wrongflash && d.outdated && G.call(this, "wrongflash", {
                 flashVersion: d.version
             });
-            g.load && d.ready && G.call(this, "load", {
+            i.load && d.ready && G.call(this, "load", {
                 flashVersion: d.version
             })
         }
         return this
     };
     z.prototype.off = function(a, b) {
-        var d, e, f, h, g, i = j[this.id] && j[this.id].handlers;
-        if (arguments.length === 0) h = B(i);
+        var d, e, f, g, i, j = h[this.id] && h[this.id].handlers;
+        if (arguments.length === 0) g = B(j);
         else if (typeof a === "string" &&
-            a) h = a.split(/\s+/);
+            a) g = a.split(/\s+/);
         else if (typeof a === "object" && a && typeof b === "undefined")
             for (d in a) a.hasOwnProperty(d) && typeof d === "string" && d && typeof a[d] === "function" && this.off(d, a[d]);
-        if (h && h.length) {
+        if (g && g.length) {
             d = 0;
-            for (e = h.length; d < e; d++)
-                if (a = h[d].toLowerCase().replace(/^on/, ""), (g = i[a]) && g.length)
+            for (e = g.length; d < e; d++)
+                if (a = g[d].toLowerCase().replace(/^on/, ""), (i = j[a]) && i.length)
                     if (b)
-                        for (f = v(b, g); f !== -1;) g.splice(f, 1), f = v(b, g, f);
-                    else i[a].length = 0
+                        for (f = v(b, i); f !== -1;) i.splice(f, 1), f = v(b, i, f);
+                    else j[a].length = 0
         }
         return this
     };
     z.prototype.handlers = function(a) {
         var b, d = null,
-            e = j[this.id] && j[this.id].handlers;
+            e = h[this.id] && h[this.id].handlers;
         if (e) {
             if (typeof a === "string" && a) return e[a] ? e[a].slice(0) : null;
             d = {};
@@ -14223,26 +14237,26 @@ Modernizr.load = function() {
     z.prototype.clip = function(a) {
         for (var a = w(a), b = 0; b < a.length; b++)
             if (a.hasOwnProperty(b) && a[b] && a[b].nodeType === 1) {
-                if (a[b].zcClippingId) v(this.id, l[a[b].zcClippingId]) === -1 && l[a[b].zcClippingId].push(this.id);
-                else if (a[b].zcClippingId = "zcClippingId_" + k++, l[a[b].zcClippingId] = [this.id], y.autoActivate === !0) {
+                if (a[b].zcClippingId) v(this.id, k[a[b].zcClippingId]) === -1 && k[a[b].zcClippingId].push(this.id);
+                else if (a[b].zcClippingId = "zcClippingId_" + j++, k[a[b].zcClippingId] = [this.id], y.autoActivate === !0) {
                     var d = a[b],
                         e = o;
                     d && d.nodeType === 1 && (d.addEventListener ? d.addEventListener("mouseover", e, !1) : d.attachEvent && d.attachEvent("onmouseover",
                         e))
                 }
-                d = j[this.id].elements;
+                d = h[this.id].elements;
                 v(a[b], d) === -1 && d.push(a[b])
             }
         return this
     };
     z.prototype.unclip = function(a) {
-        var b = j[this.id];
+        var b = h[this.id];
         if (b)
             for (var b = b.elements, d, a = typeof a === "undefined" ? b.slice(0) : w(a), e = a.length; e--;)
                 if (a.hasOwnProperty(e) && a[e] && a[e].nodeType === 1) {
                     for (d = 0;
                         (d = v(a[e], b, d)) !== -1;) b.splice(d, 1);
-                    var f = l[a[e].zcClippingId];
+                    var f = k[a[e].zcClippingId];
                     if (f) {
                         for (d = 0;
                             (d = v(this.id, f, d)) !== -1;) f.splice(d, 1);
@@ -14253,7 +14267,7 @@ Modernizr.load = function() {
         return this
     };
     z.prototype.elements = function() {
-        var a = j[this.id];
+        var a = h[this.id];
         return a && a.elements ? a.elements.slice(0) : []
     };
     y.hoverClass = "zeroclipboard-is-hover";
@@ -14263,7 +14277,7 @@ Modernizr.load = function() {
     y.useNoCache = !0;
     y.moviePath = "ZeroClipboard.swf";
     z.detectFlashSupport = function() {
-        p("ZeroClipboard.detectFlashSupport", y.debug);
+        q("ZeroClipboard.detectFlashSupport", y.debug);
         return I()
     };
     z.dispatch = function(a, b) {
@@ -14273,27 +14287,27 @@ Modernizr.load = function() {
             if (d) {
                 var f;
                 if (e && y.autoActivate === !0) {
-                    var h, g, i, k;
+                    var g, i, j, l;
                     f = [];
-                    if (e && e.nodeType === 1 && (h = e.zcClippingId) && l.hasOwnProperty(h))
-                        if ((h = l[h]) && h.length) {
-                            g = 0;
-                            for (i = h.length; g < i; g++)(k = j[h[g]].instance) && k instanceof z && f.push(k)
+                    if (e && e.nodeType === 1 && (g = e.zcClippingId) && k.hasOwnProperty(g))
+                        if ((g = k[g]) && g.length) {
+                            i = 0;
+                            for (j = g.length; i < j; i++)(l = h[g[i]].instance) && l instanceof z && f.push(l)
                         }
                 } else {
-                    i = [];
-                    k = B(j);
+                    j = [];
+                    l = B(h);
                     f = 0;
-                    for (h = k.length; f < h; f++)(g = j[k[f]].instance) && g instanceof z && i.push(g);
-                    f = i
+                    for (g = l.length; f < g; f++)(i = h[l[f]].instance) && i instanceof z && j.push(i);
+                    f = j
                 }
-                h = 0;
-                for (g = f.length; h < g; h++) G.call(f[h], d, b)
+                g = 0;
+                for (i = f.length; g < i; g++) G.call(f[g], d, b)
             }
         }
     };
     z.prototype.setHandCursor = function(a) {
-        p("ZeroClipboard.prototype.setHandCursor", y.debug);
+        q("ZeroClipboard.prototype.setHandCursor", y.debug);
         a = typeof a === "boolean" ?
             a : !!a;
         E(a);
@@ -14301,29 +14315,29 @@ Modernizr.load = function() {
         return this
     };
     z.prototype.reposition = function() {
-        p("ZeroClipboard.prototype.reposition", y.debug);
-        return K()
+        q("ZeroClipboard.prototype.reposition", y.debug);
+        return M()
     };
     z.prototype.receiveEvent = function(a, b) {
-        p("ZeroClipboard.prototype.receiveEvent", y.debug);
+        q("ZeroClipboard.prototype.receiveEvent", y.debug);
         if (typeof a === "string" && a) {
             var d = a.toLowerCase().replace(/^on/, "");
             d && G.call(this, d, b)
         }
     };
     z.prototype.setCurrent = function(a) {
-        p("ZeroClipboard.prototype.setCurrent", y.debug);
+        q("ZeroClipboard.prototype.setCurrent", y.debug);
         z.activate(a);
         return this
     };
     z.prototype.resetBridge = function() {
-        p("ZeroClipboard.prototype.resetBridge",
+        q("ZeroClipboard.prototype.resetBridge",
             y.debug);
         z.deactivate();
         return this
     };
     z.prototype.setTitle = function(a) {
-        p("ZeroClipboard.prototype.setTitle", y.debug);
+        q("ZeroClipboard.prototype.setTitle", y.debug);
         if (a = a || y.title || e && e.getAttribute("title")) {
             var b = D(d.bridge);
             b && b.setAttribute("title", a)
@@ -14331,43 +14345,43 @@ Modernizr.load = function() {
         return this
     };
     z.setDefaults = function(a) {
-        p("ZeroClipboard.setDefaults", y.debug);
+        q("ZeroClipboard.setDefaults", y.debug);
         z.config(a)
     };
     z.prototype.addEventListener = function(a, b) {
-        p("ZeroClipboard.prototype.addEventListener", y.debug);
+        q("ZeroClipboard.prototype.addEventListener", y.debug);
         return this.on(a, b)
     };
     z.prototype.removeEventListener = function(a, b) {
-        p("ZeroClipboard.prototype.removeEventListener",
+        q("ZeroClipboard.prototype.removeEventListener",
             y.debug);
         return this.off(a, b)
     };
     z.prototype.ready = function() {
-        p("ZeroClipboard.prototype.ready", y.debug);
+        q("ZeroClipboard.prototype.ready", y.debug);
         return d.ready === !0
     };
-    var G = function(h, g) {
-        var h = h.toLowerCase().replace(/^on/, ""),
-            i = g && g.flashVersion && a(g.flashVersion) || null,
+    var G = function(g, i) {
+        var g = g.toLowerCase().replace(/^on/, ""),
+            j = i && i.flashVersion && a(i.flashVersion) || null,
             k = e,
             l = !0;
-        switch (h) {
+        switch (g) {
             case "load":
-                if (i) {
-                    if (!(parseFloat(a(i)) >= 10)) {
+                if (j) {
+                    if (!(parseFloat(a(j)) >= 10)) {
                         G.call(this, "onWrongFlash", {
-                            flashVersion: i
+                            flashVersion: j
                         });
                         return
                     }
                     d.outdated = !1;
                     d.ready = !0;
-                    d.version = i
+                    d.version = j
                 }
                 break;
             case "wrongflash":
-                if (i && !(parseFloat(a(i)) >= 10)) d.outdated = !0, d.ready = !1, d.version = i;
+                if (j && !(parseFloat(a(j)) >= 10)) d.outdated = !0, d.ready = !1, d.version = j;
                 break;
             case "mouseover":
                 u(k,
@@ -14380,7 +14394,7 @@ Modernizr.load = function() {
                 u(k, y.activeClass);
                 break;
             case "mouseup":
-                s(k, y.activeClass);
+                r(k, y.activeClass);
                 break;
             case "datarequested":
                 if (k) {
@@ -14392,26 +14406,26 @@ Modernizr.load = function() {
             case "complete":
                 if (f)
                     for (var n in f) f.hasOwnProperty(n) && delete f[n];
-                if (i = k) {
+                if (j = k) {
                     a: {
                         try {
                             m = document.activeElement;
                             break a
                         } catch (o) {}
                         m =
-                            null
+                        null
                     }
-                    i = k !== m && k.focus
+                    j = k !== m && k.focus
                 }
-                i && k.focus()
+                j && k.focus()
         }
-        m = [this, g];
-        if ((i = j[this.id] && j[this.id].handlers[h]) && i.length) {
-            var p, q, r = k || this;
+        m = [this, i];
+        if ((j = h[this.id] && h[this.id].handlers[g]) && j.length) {
+            var p, q, s = k || this;
             n = 0;
-            for (p = i.length; n < p; n++) {
-                q = i[n];
-                k = r;
+            for (p = j.length; n < p; n++) {
+                q = j[n];
+                k = s;
                 typeof q === "string" && typeof b[q] === "function" && (q = b[q]);
                 if (typeof q === "object" && q && typeof q.handleEvent === "function") k = q, q = q.handleEvent;
                 typeof q === "function" && A(q, k, m, l)
@@ -14420,10 +14434,10 @@ Modernizr.load = function() {
         return this
     };
     typeof define === "function" && define.amd ? define(["require", "exports", "module"], function(a, b, d) {
-            h = d && d.id || null;
+            g = d && d.id || null;
             return z
         }) : typeof module === "object" && module && typeof module.exports ===
-        "object" && module.exports && typeof b.require === "function" ? (i = module.id || null, module.exports = z) : b.ZeroClipboard = z
+        "object" && module.exports && typeof b.require === "function" ? (l = module.id || null, module.exports = z) : b.ZeroClipboard = z
 })(function() {
     return this
 }());
@@ -14440,7 +14454,7 @@ var C;
     var e = {},
         d = {},
         f = 0,
-        g = {};
+        i = {};
     b.cwUI = b.cwUI || {};
     b.cwUI.floatZIndex = 1E3;
     b.cwUI.imagePath = "./image";
@@ -14468,36 +14482,36 @@ var C;
         b == void 0 && (b = f++, a.data("cwui-float_id", [b]));
         var d = this.floatZIndex,
             e;
-        for (e in g) {
-            var j = parseInt(g[e].css("z-index"), 10);
-            d < j && (d = j)
+        for (e in i) {
+            var h = parseInt(i[e].css("z-index"), 10);
+            d < h && (d = h)
         }
         d++;
         a.css("z-index", d);
-        g[b] = a;
+        i[b] = a;
         return this
     };
     b.cwUI.unsetZIndex =
         function(a) {
             a = a.data("cwui-float_id");
-            if (a != void 0) return delete g[a], this
+            if (a != void 0) return delete i[a], this
         };
     b.cwUI.getUpperLayerObjects = function(a) {
         var a = parseInt(a.css("z-index"), 10),
             b = [],
             d;
-        for (d in g) parseInt(g[d].css("z-index"), 10) > a && b.push(g[d]);
+        for (d in i) parseInt(i[d].css("z-index"), 10) > a && b.push(i[d]);
         return b
     };
-    b.cwUI.addWidget = function(f, g, j, n) {
-        b[f] = new l(f, g);
+    b.cwUI.addWidget = function(f, h, i, n) {
+        b[f] = new k(f, h);
         if (n != void 0)
             for (var o in n) b[f][o] = n[o];
         e[f] = function() {
             this.widget_name = f
         };
-        e[f].prototype = new k;
-        for (o in j) e[f].prototype[o] = j[o];
+        e[f].prototype = new j;
+        for (o in i) e[f].prototype[o] = i[o];
         d[f] = function(a) {
             this.widget_name = f;
             this.widget_list = a
@@ -14514,7 +14528,7 @@ var C;
             }
         })();
         var u = "cwui-" + f;
-        b.fn[f] = function(g) {
+        b.fn[f] = function(h) {
             var i = this.length;
             if (i != 0 && !b.cwUI.isWidget(this[0])) {
                 var j = null,
@@ -14531,11 +14545,11 @@ var C;
                         j = new e[f];
                         j.widget_id = a++;
                         j._setUp(d);
-                        g = b.extend({}, b[f].getDefaultOption(), g);
-                        j._init && j._init(g);
+                        h = b.extend({}, b[f].getDefaultOption(), h);
+                        j._init && j._init(h);
                         b.data(i, u, j)
                     }
-                    j.setOption(g);
+                    j.setOption(h);
                     k.push(j)
                 });
                 return i == 1 ? j : new d[f](k)
@@ -14543,15 +14557,15 @@ var C;
         }
     };
     b.cwUI.isWidget = function(a) {
-        if (a instanceof k) return !0;
+        if (a instanceof j) return !0;
         return !1
     };
     if (navigator.mimeTypes["application/x-shockwave-flash"] != void 0) b.cwUI.hasFlash = !0;
     else try {
         new ActiveXObject("ShockwaveFlash.ShockwaveFlash"), b.cwUI.hasFlash = !0
-    } catch (j) {}
-    var k = function() {};
-    k.prototype = {
+    } catch (h) {}
+    var j = function() {};
+    j.prototype = {
         $el: null,
         el: null,
         data: {},
@@ -14578,11 +14592,11 @@ var C;
             return this
         }
     };
-    var l = function(a, b) {
+    var k = function(a, b) {
         this.widget_name = a;
         this.default_option = b
     };
-    l.prototype = {
+    k.prototype = {
         getWidget: function(a) {
             return b.data(a, "cwui-" + this.widget_name)
         },
@@ -14644,19 +14658,19 @@ var C;
         })
     });
     b.cwFloatBox = {
-        open: function(d, e, j) {
-            var k = b.extend({
+        open: function(d, e, h) {
+            var j = b.extend({
                 noAnimation: !1
-            }, j);
+            }, h);
             b.data(d[0], "cwFloatBox") || (d.on("click.cwFloatBox", function() {
                 b.cwFloatBox.skip(b(this));
-                k.skip && b.cwFloatBox.skip(k.skip)
+                j.skip && b.cwFloatBox.skip(j.skip)
             }), b.data(d[0], "cwFloatBox", !0));
             a.push({
                 obj: d,
                 zindex: d.css("z-index"),
                 callback: e,
-                noanim: k.noAnimation
+                noanim: j.noAnimation
             });
             d.stop(!0, !0).show().css({
                 opacity: 1
@@ -14665,30 +14679,30 @@ var C;
             return this
         },
         close: function(d, e) {
-            var j = a.length,
-                k = null,
-                l = [],
-                h = [];
-            if (j > 0) {
+            var h = a.length,
+                j = null,
+                k = [],
+                g = [];
+            if (h > 0) {
                 if (d) {
-                    var i;
-                    if (d instanceof jQuery) i = [d];
-                    else if (b.isArray(d)) i = d;
+                    var l;
+                    if (d instanceof jQuery) l = [d];
+                    else if (b.isArray(d)) l = d;
                     else return;
-                    for (j -= 1; j >= 0; j--) {
-                        for (var m = !1, n = 0, o = i.length; n < o; n++)
-                            if (i[n][0] == a[j].obj[0]) {
+                    for (h -= 1; h >= 0; h--) {
+                        for (var m = !1, n = 0, o = l.length; n < o; n++)
+                            if (l[n][0] == a[h].obj[0]) {
                                 m = !0;
                                 break
                             }
-                        e ? m ? h.push(a[j]) : l.push(a[j]) : m ? l.push(a[j]) : h.push(a[j])
+                        e ? m ? g.push(a[h]) : k.push(a[h]) : m ? k.push(a[h]) : g.push(a[h])
                     }
-                } else l = a;
-                j = 0;
-                for (i = l.length; j < i; j++) k = l[j], typeof k.callback == "function" && k.callback(), k.noanim ? (k.obj.hide(), k.obj.css("z-index", k.zindex)) : k.obj.fadeOut("fast", function() {
-                    k.obj.css("z-index", k.zindex)
-                }), b.cwUI.unsetZIndex(k.obj), k.floatbox && k.floatbox.remove();
-                a = h
+                } else k = a;
+                h = 0;
+                for (l = k.length; h < l; h++) j = k[h], typeof j.callback == "function" && j.callback(), j.noanim ? (j.obj.hide(), j.obj.css("z-index", j.zindex)) : j.obj.fadeOut("fast", function() {
+                    j.obj.css("z-index", j.zindex)
+                }), b.cwUI.unsetZIndex(j.obj), j.floatbox && j.floatbox.remove();
+                a = g
             }
             var u = this;
             setTimeout(function() {
@@ -14697,9 +14711,9 @@ var C;
             return this
         },
         closeUpperLayer: function(b) {
-            for (var b = parseInt(b.css("z-index"), 10), d = [], e = 0, k = a.length; e < k; e++) {
-                var l = a[e].obj;
-                b < parseInt(l.css("z-index"), 10) && d.push(l)
+            for (var b = parseInt(b.css("z-index"), 10), d = [], e = 0, j = a.length; e < j; e++) {
+                var k = a[e].obj;
+                b < parseInt(k.css("z-index"), 10) && d.push(k)
             }
             d.length > 0 && this.close(d);
             return this
@@ -14742,41 +14756,41 @@ var C;
         })
     });
     b.cwResize = {
-        setHandle: function(g, j) {
-            var k = b.extend({
+        setHandle: function(i, h) {
+            var j = b.extend({
                     type: "",
                     start: function() {},
                     end: function() {},
                     move: function() {}
-                }, j),
-                l = "";
-            switch (k.type) {
+                }, h),
+                k = "";
+            switch (j.type) {
                 case "col":
-                    l = "cwResizeHandleCol";
+                    k = "cwResizeHandleCol";
                     break;
                 case "row":
-                    l = "cwResizeHandleRow";
+                    k = "cwResizeHandleRow";
                     break;
                 default:
-                    l = "cwResizeHandle"
+                    k = "cwResizeHandle"
             }
-            g.addClass(l).on("mousedown.cwResize", function(g) {
+            i.addClass(k).on("mousedown.cwResize", function(g) {
                 a = !0;
-                var i = b(document.body);
-                i.append('<div id="_cwRZBack" class="stopActionOverlay"></div>');
-                switch (k.type) {
+                var h = b(document.body);
+                h.append('<div id="_cwRZBack" class="stopActionOverlay"></div>');
+                switch (j.type) {
                     case "col":
-                        i.addClass("cwResizeHandleCol");
+                        h.addClass("cwResizeHandleCol");
                         break;
                     case "row":
-                        i.addClass("cwResizeHandleRow");
+                        h.addClass("cwResizeHandleRow");
                         break;
                     default:
-                        i.addClass("cwResizeHandle")
+                        h.addClass("cwResizeHandle")
                 }
                 d = g.clientX;
                 f = g.clientY;
-                e = k;
+                e = j;
                 e.start();
                 return !1
             });
@@ -14789,14 +14803,14 @@ var C;
         File: {
             hasError: function(e, d) {
                 var f = 0,
-                    g = "",
-                    j = "";
-                e.files ? (f = e.files[0], g = f.name, f = f.size) : g = e.value.replace(/\\/g, "/").replace(/.*\//, "");
-                (g = g.match(/\.([^\.]+)$/)) && (j = g[1].toLowerCase());
-                g = [];
-                d.maxsize && f >= d.maxsize && g.push(a.error_upload_over_max_filesize.replace(/%%max_size%%/g, bytename(d.maxsize)).replace(/%%size%%/g, bytename(f)));
-                d.onlyimage && (in_array(j, ["jpg", "png", "gif", "jpeg"]) || g.push(a.error_upload_image));
-                return g.length ? (b(e).val(""), g) : !1
+                    i = "",
+                    h = "";
+                e.files ? (f = e.files[0], i = f.name, f = f.size) : i = e.value.replace(/\\/g, "/").replace(/.*\//, "");
+                (i = i.match(/\.([^\.]+)$/)) && (h = i[1].toLowerCase());
+                i = [];
+                d.maxsize && f >= d.maxsize && i.push(a.error_upload_over_max_filesize.replace(/%%max_size%%/g, bytename(d.maxsize)).replace(/%%size%%/g, bytename(f)));
+                d.onlyimage && (in_array(h, ["jpg", "png", "gif", "jpeg"]) || i.push(a.error_upload_image));
+                return i.length ? (b(e).val(""), i) : !1
             }
         }
     }
@@ -14856,9 +14870,9 @@ var C;
                 d.on("click.cwActionBar", "._cwABAction", function() {
                     var d = b(this),
                         e = d.attr("data-cwui-ab-type"),
-                        g = d.attr("data-cwui-ab-id"),
+                        i = d.attr("data-cwui-ab-id"),
                         e = a.action_item[e];
-                    typeof e.click == "function" && e.click.apply(a, [g, d]);
+                    typeof e.click == "function" && e.click.apply(a, [i, d]);
                     f.close();
                     if (a.option.stopBubbling) return !1
                 }).on("mouseenter.cwActionBar", "._cwABAction", function() {
@@ -14872,16 +14886,16 @@ var C;
                     }).open())
                 });
                 var f = null,
-                    g = null;
+                    i = null;
                 e.on("click.cwActionBar", "._cwABMoreTip", function() {
-                    g = b(this);
+                    i = b(this);
                     f || (f = d.cwToolTip({
                         open: function() {
                             a.is_hold = !0;
-                            for (var b = g.attr("data-cwui-ab-id"), e = "", f = 0, h = a.option.moreActionList.length; f < h; f++) {
-                                var i = a.option.moreActionList[f],
-                                    m = a.action_item[i];
-                                e += '<li class="_cwABAction chatActionMore" data-cwui-ab-id="' + b + '" data-cwui-ab-type="' + i + '"><span class="' + m.iconClass + '"></span><span class="chatActiontext">' + m.label + "</li>"
+                            for (var b = i.attr("data-cwui-ab-id"), e = "", f = 0, g = a.option.moreActionList.length; f < g; f++) {
+                                var l = a.option.moreActionList[f],
+                                    m = a.action_item[l];
+                                e += '<li class="_cwABAction chatActionMore" data-cwui-ab-id="' + b + '" data-cwui-ab-type="' + l + '"><span class="' + m.iconClass + '"></span><span class="chatActiontext">' + m.label + "</li>"
                             }
                             d.find("._cwABMoreListBox").html(e)
                         },
@@ -14913,11 +14927,11 @@ var C;
                     if (d || f) e = b('<div class="_cwABShowArea actionArea"></div>'), a.append(e);
                     else return !1;
                 if (!b.data(e[0], "_cwABNavInit")) {
-                    for (var d = '<ul role="toolbar" class="_messageActionNav cwTextUnselectable actionNav">', f = this.option.idKey ? a.attr(this.option.idKey) : "", g = 0, j = this.option.actionList.length; g < j; g++) {
-                        var k = this.option.actionList[g],
-                            l = this.action_item[k];
-                        l != void 0 && (d += '<li role="button" class="_cwABAction linkStatus" data-cwui-ab-id="' +
-                            f + '" data-cwui-ab-type="' + k + '"><span class="' + l.iconClass + '""></span><span class="_showAreaText showAreatext">' + l.label + "</span></li>")
+                    for (var d = '<ul role="toolbar" class="_messageActionNav cwTextUnselectable actionNav">', f = this.option.idKey ? a.attr(this.option.idKey) : "", i = 0, h = this.option.actionList.length; i < h; i++) {
+                        var j = this.option.actionList[i],
+                            k = this.action_item[j];
+                        k != void 0 && (d += '<li role="button" class="_cwABAction linkStatus" data-cwui-ab-id="' +
+                            f + '" data-cwui-ab-type="' + j + '"><span class="' + k.iconClass + '""></span><span class="_showAreaText showAreatext">' + k.label + "</span></li>")
                     }
                     this.option.moreActionList.length > 0 && (this._prepareMore(), d += '<li role="button" class="_cwABMoreTip linkStatus" data-cwui-ab-id="' + f + '"><span class="icoFontActionMore"></span><span class="_showAreaText showAreatext"></span></li>');
                     d += "</ul>";
@@ -15072,16 +15086,16 @@ var C;
         create: function(a, b, d) {
             d == void 0 && (d = {});
             var f = "<div",
-                g = "btn";
-            b && (g += " btn" + ucfirst(b));
-            for (var j in d) switch (j) {
+                i = "btn";
+            b && (i += " btn" + ucfirst(b));
+            for (var h in d) switch (h) {
                 case "class":
-                    g += " " + d[j];
+                    i += " " + d[h];
                     break;
                 default:
-                    f += " " + j + '="' + d[j] + '"'
+                    f += " " + h + '="' + d[h] + '"'
             }
-            f += ' role="button" class="' + g + '">' + a +
+            f += ' role="button" class="' + i + '">' + a +
                 "</div>";
             return f
         }
@@ -15105,12 +15119,12 @@ var C;
             });
             this.length = 0;
             var f = b.data(d[0], "_cwBBSelectDat"),
-                g;
-            for (g in f) this.selected_dat[g] = !1, this.length++;
+                i;
+            for (i in f) this.selected_dat[i] = !1, this.length++;
             b.data(d[0], "_cwBBSelectDat", null);
             a.descriptionList = b.data(d[0], "_cwBBDescriptionList");
             b.data(d[0], "_cwBBDescriptionList", null);
-            for (g in f) f[g] && this.select(g), this.disabled_dat[g] = !1
+            for (i in f) f[i] && this.select(i), this.disabled_dat[i] = !1
         },
         _setOption: function(a) {
             var e = this;
@@ -15210,21 +15224,21 @@ var C;
             if (a.hasClass("_cwBB")) return !1;
             else if (e.tagName.toLowerCase() == "ul") {
                 var f = [],
-                    g = [],
-                    j = 0;
+                    i = [],
+                    h = 0;
                 a.find("li").each(function() {
                     var a = b(this);
                     f.push(a.html());
-                    d[j] = a.hasClass("._cwBBSelected") ? !0 : !1;
-                    g.push(a.attr("aria-label"));
-                    j++
+                    d[h] = a.hasClass("._cwBBSelected") ? !0 : !1;
+                    i.push(a.attr("aria-label"));
+                    h++
                 });
                 e = a.getAttrs();
                 e = b(b.cwButtonBar.create(f, e));
                 a.before(e);
                 a.remove();
                 b.data(e[0], "_cwBBSelectDat", d);
-                b.data(e[0], "_cwBBDescriptionList", g);
+                b.data(e[0], "_cwBBDescriptionList", i);
                 return e
             }
         },
@@ -15232,17 +15246,17 @@ var C;
             b == void 0 && (b = {});
             var d = "<ul",
                 f = "cwTextUnselectable btnNavList",
-                g;
-            for (g in b) switch (g) {
+                i;
+            for (i in b) switch (i) {
                 case "class":
-                    f += " " + b[g];
+                    f += " " + b[i];
                     break;
                 default:
-                    d += " " + g + '="' + b[g] + '"'
+                    d += " " + i + '="' + b[i] + '"'
             }
             d += ' class="' + f + '">';
             f = a.length;
-            for (g = 0; g < f; g++) d += '<li role="menuitemradio" class="_cwBBButton button" data-cwui-bb-idx="' + g + '">' + a[g] + "</li>";
+            for (i = 0; i < f; i++) d += '<li role="menuitemradio" class="_cwBBButton button" data-cwui-bb-idx="' + i + '">' + a[i] + "</li>";
             d += "</ul>";
             return d
         }
@@ -15347,24 +15361,24 @@ var C;
             e || (e = "");
             d == void 0 && (d = "on");
             f == void 0 && (f = {});
-            var g = "";
-            f["data-theme"] != void 0 && (g = f["data-theme"]);
-            var j = '<span role="checkbox"',
-                k = "_cwCB";
-            a ? (k += " _cwCBChecked " + b.cwCheckBox._getClass("active", g), j += ' aria-checked="true"') : (k += " _cwCBUnchecked " + b.cwCheckBox._getClass("", g), j += ' aria-checked="false"');
-            for (var l in f) switch (l) {
+            var i = "";
+            f["data-theme"] != void 0 && (i = f["data-theme"]);
+            var h = '<span role="checkbox"',
+                j = "_cwCB";
+            a ? (j += " _cwCBChecked " + b.cwCheckBox._getClass("active", i), h += ' aria-checked="true"') : (j += " _cwCBUnchecked " + b.cwCheckBox._getClass("", i), h += ' aria-checked="false"');
+            for (var k in f) switch (k) {
                 case "class":
-                    k += " " + f[l];
+                    j += " " + f[k];
                     break;
                 default:
-                    j +=
-                        " " + l + '="' + f[l] + '"'
+                    h +=
+                        " " + k + '="' + f[k] + '"'
             }
             f = '<input type="hidden"';
             e && (f += ' data-cwui-cb-name="' + e + '"', a && (f += ' name="' + e + '"'));
             d && (f += ' value="' + b.cwUI.escapeHTML(d) + '"');
             f += " />";
-            return j + ' class="' + k + '">' + f + "</span>"
+            return h + ' class="' + j + '">' + f + "</span>"
         },
         _getClass: function(a, e) {
             var d = "";
@@ -15534,12 +15548,12 @@ var C;
             }
         },
         f = null,
-        g = null;
+        i = null;
     b(function() {
-        g = b('<div id="_datePicker" class="datePicker" style="display:none"><div class="tooltipHeader datePickerHeaderControl linkIconStatus"><span id="_datePickerPrev" role="button" aria-label="' + a.pager_prev + '" class="icoFontTriangleLeft"></span><span class="_datePickerYM"></span><span id="_datePickerNext" role="button" aria-label="' + a.pager_next + '" class="icoFontTriangleRight"></span></div><table><thead><tr><th>' +
+        i = b('<div id="_datePicker" class="datePicker" style="display:none"><div class="tooltipHeader datePickerHeaderControl linkIconStatus"><span id="_datePickerPrev" role="button" aria-label="' + a.pager_prev + '" class="icoFontTriangleLeft"></span><span class="_datePickerYM"></span><span id="_datePickerNext" role="button" aria-label="' + a.pager_next + '" class="icoFontTriangleRight"></span></div><table><thead><tr><th>' +
             e.dayNamesMin[0] + "</th><th>" + e.dayNamesMin[1] + "</th><th>" + e.dayNamesMin[2] + "</th><th>" + e.dayNamesMin[3] + "</th><th>" + e.dayNamesMin[4] + "</th><th>" + e.dayNamesMin[5] + "</th><th>" + e.dayNamesMin[6] + '</th></tr></thead><tbody class="_datePickerDay" style="padding:5px;text-align:right"></tbody></table><div class="tooltipFooter btnGroup"><div id="_datePickerToday" role="button" class="button btnPrimary">' + e.currentText + '</div> <div id="_datePickerClose" role="button" class="button">' + a.button_close + "</div></div>");
-        b(document.body).append(g);
-        g.on("click.cwDatePicker", "td", function() {
+        b(document.body).append(i);
+        i.on("click.cwDatePicker", "td", function() {
             var a = b(this).attr("data-cwui-dp-date").match(/([0-9]+)-([0-9]+)-([0-9]+)/);
             f.select(a[1], a[2], a[3])
         });
@@ -15563,7 +15577,7 @@ var C;
     }, {
         _init: function() {
             var a = this;
-            this.tooltip = g.cwToolTip();
+            this.tooltip = i.cwToolTip();
             this.$el.on("click.cwDatePicker", function() {
                 a.open()
             });
@@ -15665,28 +15679,28 @@ var C;
                 f = (new Date(a, b - 1, 1)).getDay();
             d.getDay();
             var d = d.getDate(),
-                i = a,
+                l = a,
                 m = b,
                 n = 1,
                 o = "",
                 u = !1;
             this._syncDate();
-            for (var s = 1; s <= 6; s++) {
+            for (var r = 1; r <= 6; r++) {
                 o += "<tr>";
                 for (var v = 0; v < 7; v++) {
-                    s == 1 ? v < f ? (n = new Date(a, b - 1, v - f + 1), i = n.getFullYear(), m = n.getMonth() +
-                        1, n = n.getDate()) : v == f ? (i = a, m = b, n = 1, u = !0) : n++ : n >= d ? (u = !1, m = new Date(a, b, 1), i = m.getFullYear(), m = m.getMonth() + 1, n = 1) : n++;
+                    r == 1 ? v < f ? (n = new Date(a, b - 1, v - f + 1), l = n.getFullYear(), m = n.getMonth() +
+                        1, n = n.getDate()) : v == f ? (l = a, m = b, n = 1, u = !0) : n++ : n >= d ? (u = !1, m = new Date(a, b, 1), l = m.getFullYear(), m = m.getMonth() + 1, n = 1) : n++;
                     var w = "";
-                    u ? i == this.now_year && m == this.now_month && n == this.now_day && (w = "datePickerToday") : w = "datePickerOtherMonth";
-                    i == this.val_year && m == this.val_month && n == this.val_day && (w.length > 0 && (w += " "), w += "datePickerSelected");
-                    o += '<td data-cwui-dp-date="' + i + "-" + m + "-" + n + '" class="' + w + '">' + n + "</td>"
+                    u ? l == this.now_year && m == this.now_month && n == this.now_day && (w = "datePickerToday") : w = "datePickerOtherMonth";
+                    l == this.val_year && m == this.val_month && n == this.val_day && (w.length > 0 && (w += " "), w += "datePickerSelected");
+                    o += '<td data-cwui-dp-date="' + l + "-" + m + "-" + n + '" class="' + w + '">' + n + "</td>"
                 }
                 o += "</tr>"
             }
             YMLabel = e.showMonthAfterYear ? a + e.yearSuffix + e.yearMonthSeparator + e.monthNames[b - 1] : e.monthNames[b -
                 1] + e.yearMonthSeparator + a + e.yearSuffix;
-            g.find("._datePickerYM").text(YMLabel);
-            g.find("._datePickerDay").html(o);
+            i.find("._datePickerYM").text(YMLabel);
+            i.find("._datePickerDay").html(o);
             return this
         }
     }, {})
@@ -15745,31 +15759,31 @@ var C;
                 } else this.wrapper.find("._cwDGTitleButton").hide(), this.title.quickEmpty().hide(), this.$el.attr("aria-label", "");
             if (this.option.buttonLabels != void 0 && (a.buttonLabels != void 0 || a.buttonSubmit != void 0 || a.buttonDelete != void 0 || a.buttonCancel != void 0)) {
                 for (var d =
-                        "", e = ["buttonSubmit", "buttonDelete", "buttonCancel"], k = {}, l = e.length; l--;) {
-                    var h = e[l],
-                        i = this.option[h];
-                    if (i != void 0)
-                        if (typeof i == "object" && i.length)
-                            for (var m = i.length; m--;) k[i[m]] = h;
-                        else k[i] = h
+                        "", e = ["buttonSubmit", "buttonDelete", "buttonCancel"], j = {}, k = e.length; k--;) {
+                    var g = e[k],
+                        l = this.option[g];
+                    if (l != void 0)
+                        if (typeof l == "object" && l.length)
+                            for (var m = l.length; m--;) j[l[m]] = g;
+                        else j[l] = g
                 }
                 e = this.option.buttonLabels.length;
-                for (l = 0; l < e; l++) {
-                    h = "buttonGray";
-                    i = "";
-                    switch (k[l]) {
+                for (k = 0; k < e; k++) {
+                    g = "buttonGray";
+                    l = "";
+                    switch (j[k]) {
                         case "buttonSubmit":
-                            h = "btnPrimary";
+                            g = "btnPrimary";
                             break;
                         case "buttonDelete":
-                            h = "btnDanger";
+                            g = "btnDanger";
                             break;
                         case "buttonCancel":
-                            i += " _cwDGButtonCancel"
+                            l += " _cwDGButtonCancel"
                     }
-                    m = b.cwUI.escapeHTML(this.option.buttonLabels[l]);
+                    m = b.cwUI.escapeHTML(this.option.buttonLabels[k]);
                     d += '<div role="button" aria-label="' + m + '" class="_cwDGButton' +
-                        i + " button " + h + '" data-idx="' + l + '">' + m + "</div>"
+                        l + " button " + g + '" data-idx="' + k + '">' + m + "</div>"
                 }
                 d ? this.wrapper.find("._cwDGFooter").html(d).show() : this.wrapper.find("._cwDGFooter").quickEmpty().hide()
             }
@@ -15784,36 +15798,36 @@ var C;
             e.push(this);
             b.cwUI.setZIndex(this.backbox);
             this.backbox.fadeIn("fast");
-            var j = arguments;
+            var h = arguments;
             this.backbox.fadeIn("fast", function() {
                 a.option.openCallback && a.option.openCallback.apply(a,
-                    j)
+                    h)
             });
             if (this.option.width == "auto") {
                 d.css("display", "inline-block");
-                var k = this.wrapper.outerWidth() - this.wrapper.width(),
-                    k = d.outerWidth() + k;
+                var j = this.wrapper.outerWidth() - this.wrapper.width(),
+                    j = d.outerWidth() + j;
                 d.css("display", "block");
-                this.wrapper.width(k)
+                this.wrapper.width(j)
             } else this.wrapper.width(this.option.width);
-            k = this.wrapper.width();
-            this.option.maxWidth && this.option.maxWidth < k && this.wrapper.width(this.option.maxWidth);
-            this.option.minWidth && this.option.minWidth > k && this.wrapper.width(this.option.minWidth);
+            j = this.wrapper.width();
+            this.option.maxWidth && this.option.maxWidth < j && this.wrapper.width(this.option.maxWidth);
+            this.option.minWidth && this.option.minWidth > j && this.wrapper.width(this.option.minWidth);
             switch (this.option.height) {
                 case "auto":
                 case "full":
-                    var l = 0;
+                    var k = 0;
                     this.option.title &&
-                        (l = this.title.outerHeight());
-                    var h = 0;
-                    this.option.buttonLabels && (h = this.footer.outerHeight());
-                    k = a.getMaxHeight();
-                    l = this.option.height == "auto" ? d.innerHeight() + l + h : k;
-                    h = 0;
-                    l > k && (d = this.option.contentScrollSelector ? d.find(this.option.contentScrollSelector) : d, d.height(d.height() - (l - k)), d.css({
+                        (k = this.title.outerHeight());
+                    var g = 0;
+                    this.option.buttonLabels && (g = this.footer.outerHeight());
+                    j = a.getMaxHeight();
+                    k = this.option.height == "auto" ? d.innerHeight() + k + g : j;
+                    g = 0;
+                    k > j && (d = this.option.contentScrollSelector ? d.find(this.option.contentScrollSelector) : d, d.height(d.height() - (k - j)), d.css({
                         overflow: "auto"
-                    }), l = k);
-                    this.wrapper.height(l);
+                    }), k = j);
+                    this.wrapper.height(k);
                     break;
                 default:
                     this.wrapper.height(this.option.height)
@@ -15822,8 +15836,8 @@ var C;
             this.option.maxHeight && this.option.maxHeight < d && this.wrapper.height(this.option.maxHeight);
             this.option.minHeight && this.option.minHeight > d && this.wrapper.height(this.option.minHeight);
             d = this.backbox.height();
-            l = this.wrapper.outerHeight();
-            this.wrapper.css("margin-top", parseInt(d / 2 - l / 2, 10) + "px");
+            k = this.wrapper.outerHeight();
+            this.wrapper.css("margin-top", parseInt(d / 2 - k / 2, 10) + "px");
             typeof a.option.postOpen == "function" && a.option.postOpen.apply(a, arguments);
             return this
         },
@@ -15900,13 +15914,13 @@ var C;
             });
             var d = ["offsetTop", "offsetLeft", "showPosition", "theme", "useFloatBox", "parentFloatBox"],
                 f = !1,
-                g = {},
-                j;
-            for (j in d) {
-                var k = d[j];
-                a[k] != void 0 && (f = !0, g[k] = a[k])
+                i = {},
+                h;
+            for (h in d) {
+                var j = d[h];
+                a[j] != void 0 && (f = !0, i[j] = a[j])
             }
-            f && this.tooltip.setOption(g)
+            f && this.tooltip.setOption(i)
         },
         open: function() {
             var a = this._getList(),
@@ -15915,8 +15929,8 @@ var C;
                 for (var d = 0, f = a.length; d < f; d++)
                     if (a[d] == "hr") e += '</ul><div class="line"></div><ul role="menu" class="_cwDDListBody ddListBody cwNoWrap">';
                     else {
-                        var g = this.option.useHtmlLabel ? a[d].label : b.cwUI.escapeHTML(a[d].label);
-                        e += '<li role="menuitem" class="_cwDDList" data-cwui-dd-value="' + b.cwUI.escapeHTML(a[d].value) + '">' + g + "</li>"
+                        var i = this.option.useHtmlLabel ? a[d].label : b.cwUI.escapeHTML(a[d].label);
+                        e += '<li role="menuitem" class="_cwDDList" data-cwui-dd-value="' + b.cwUI.escapeHTML(a[d].value) + '">' + i + "</li>"
                     }
             e += "</ul>";
             if (this.latest_list != e) this.tip_body.html(e), this.latest_list = e;
@@ -16000,15 +16014,15 @@ var C;
                 var f;
                 f = typeof this.option.minHeight === "function" ? this.option.minHeight.apply(this) : this.option.minHeight;
                 d < f && (d = f);
-                var g = !1;
+                var i = !1;
                 if (this.option.maxHeight) {
-                    var j;
-                    j = typeof this.option.maxHeight === "function" ? this.option.maxHeight.apply(this) : this.option.maxHeight;
-                    f > j && (j = f);
-                    d > j && (d = j, g = !0)
+                    var h;
+                    h = typeof this.option.maxHeight === "function" ? this.option.maxHeight.apply(this) : this.option.maxHeight;
+                    f > h && (h = f);
+                    d > h && (d = h, i = !0)
                 }
                 a.height(d);
-                g ? a.css("overflow-y", "auto").scrollTop(b) : a.css("overflow-y", "hidden");
+                i ? a.css("overflow-y", "auto").scrollTop(b) : a.css("overflow-y", "hidden");
                 return this
             }
         }
@@ -16053,12 +16067,12 @@ var C;
             }
             a.htmlTitle != void 0 && this.$el.attr("aria-label", this.finner.find("h1").html('<span class="autotrim">' + a.htmlTitle + "</span>").text());
             if (this.option.buttonLabels != void 0 && (a.buttonLabels != void 0 || a.buttonSubmit != void 0 || a.buttonCancel)) {
-                for (var a = "", e = this.option.buttonLabels.length, g = 0; g < e; g++) {
-                    var j = "buttonGray",
-                        k = "";
-                    this.option.buttonSubmit != void 0 && this.option.buttonSubmit == g ? j = "btnPrimary" : this.option.buttonCancel != void 0 && this.option.buttonCancel == g && (k += " _cwFWButtonCancel");
-                    var l = b.cwUI.escapeHTML(this.option.buttonLabels[g]);
-                    a += '<div role="button" aria-label="' + l + '" class="_cwFWButton' + k + " button " + j + '" data-cwui-fw-idx="' + g + '">' + l + "</div>"
+                for (var a = "", e = this.option.buttonLabels.length, i = 0; i < e; i++) {
+                    var h = "buttonGray",
+                        j = "";
+                    this.option.buttonSubmit != void 0 && this.option.buttonSubmit == i ? h = "btnPrimary" : this.option.buttonCancel != void 0 && this.option.buttonCancel == i && (j += " _cwFWButtonCancel");
+                    var k = b.cwUI.escapeHTML(this.option.buttonLabels[i]);
+                    a += '<div role="button" aria-label="' + k + '" class="_cwFWButton' + j + " button " + h + '" data-cwui-fw-idx="' + i + '">' + k + "</div>"
                 }
                 a ? this.finner.find("._cwFWButtonFooter").html(a).show() : this.finner.find("._cwFWButtonFooter").quickEmpty().hide()
             }
@@ -16066,21 +16080,21 @@ var C;
         open: function() {
             var a = this,
                 f = this.$el,
-                g = this.option;
+                i = this.option;
             typeof a.option.open == "function" && a.option.open.apply(a, arguments);
             if (this.is_open) f.scrollTop(0);
             else {
-                var j = [];
-                if (!g.allowOverlay)
-                    for (var k in e) e[k].isOpen() && j.push(k);
-                g = function() {
-                    for (var b = j.length; b--;) e[j[b]].close();
+                var h = [];
+                if (!i.allowOverlay)
+                    for (var j in e) e[j].isOpen() && h.push(j);
+                i = function() {
+                    for (var b = h.length; b--;) e[h[b]].close();
                     a.resize();
                     a.fcontent.scrollTop(0)
                 };
                 a.resize();
                 f.show();
-                this.option.noAnimation ? (a.fwindow.show(), g()) : a.fwindow.fadeIn("fast", g);
+                this.option.noAnimation ? (a.fwindow.show(), i()) : a.fwindow.fadeIn("fast", i);
                 b.cwUI.setZIndex(a.fwindow)
             }
             this.is_open = !0;
@@ -16119,15 +16133,15 @@ var C;
             a = b(this.option.wrapperSelector).height();
             this.fcontent.height(a);
             var e = this.finner.find("h1").outerHeight(),
-                g = this.finner.find("._cwFWHeader").length > 0 ? this.finner.find("._cwFWHeader").outerHeight() : 0,
-                j = this.finner.find("._cwFWFooter"),
-                j = j.length > 0 && j.isVisible() ? j.outerHeight() : 0,
-                k = this.finner.find("._cwFWButtonFooter"),
-                l = k.isVisible() ? k.outerHeight() : 0,
-                k = this.fcontent,
-                h = k.innerHeight() - k.height(),
-                a = a - e - g - j - l - h;
-            k.height(a);
+                i = this.finner.find("._cwFWHeader").length > 0 ? this.finner.find("._cwFWHeader").outerHeight() : 0,
+                h = this.finner.find("._cwFWFooter"),
+                h = h.length > 0 && h.isVisible() ? h.outerHeight() : 0,
+                j = this.finner.find("._cwFWButtonFooter"),
+                k = j.isVisible() ? j.outerHeight() : 0,
+                j = this.fcontent,
+                g = j.innerHeight() - j.height(),
+                a = a - e - i - h - k - g;
+            j.height(a);
             typeof this.option.resize == "function" && this.option.resize.apply(this, [a]);
             return this
         }
@@ -16204,15 +16218,15 @@ var C;
             if (e.search != void 0)
                 if (e.search) {
                     d.search_focus_idx = 0;
-                    var g = {
+                    var i = {
                         update: function() {
                             d.search_focus_idx = 0;
                             d.build()
                         }
                     };
-                    g.placeHolder = e.placeHolder ? e.placeHolder : a.button_search;
-                    this.searchbox = f.find("._cwLTSearchBoxArea").html('<input class="inputMedium" type="text" />').find("input").cwSearchBox(g);
-                    var j = function() {
+                    i.placeHolder = e.placeHolder ? e.placeHolder : a.button_search;
+                    this.searchbox = f.find("._cwLTSearchBoxArea").html('<input class="inputMedium" type="text" />').find("input").cwSearchBox(i);
+                    var h = function() {
                             var a = d.ul.find("li");
                             if (a.length == 0) d.search_focus_idx = 0;
                             else {
@@ -16227,7 +16241,7 @@ var C;
                                 }
                             }
                         },
-                        k = function() {
+                        j = function() {
                             var a = d.ul.find("li");
                             if (a.length == 0) d.search_focus_idx = 0;
                             else {
@@ -16252,10 +16266,10 @@ var C;
                                 }
                                 break;
                             case 38:
-                                j();
+                                h();
                                 break;
                             case 40:
-                                k()
+                                j()
                         }
                     })
                 } else this.searchbox && this.searchbox.quickEmpty();
@@ -16263,27 +16277,27 @@ var C;
                 placeHolder: e.placeHolder
             });
             if (e.multiSelect != void 0) {
-                var g = f.find("._cwLTCheckHandle"),
-                    l = this.ul;
-                e.multiSelect ? (l.addClass("toolTipSelectList"), g.html('<span class="_cwLTCheckAll linkStatus">' + a.checkall + '</span> / <span class="_cwLTUnCheckAll linkStatus">' + a.uncheckall + "</span>"), g.find("._cwLTCheckAll").on("click.cwListTip", function() {
-                        l.find("li").each(function() {
+                var i = f.find("._cwLTCheckHandle"),
+                    k = this.ul;
+                e.multiSelect ? (k.addClass("toolTipSelectList"), i.html('<span class="_cwLTCheckAll linkStatus">' + a.checkall + '</span> / <span class="_cwLTUnCheckAll linkStatus">' + a.uncheckall + "</span>"), i.find("._cwLTCheckAll").on("click.cwListTip", function() {
+                        k.find("li").each(function() {
                             var a = b(this);
                             a.hasClass("listSelected") || a.click()
                         })
-                    }), g.find("._cwLTUnCheckAll").on("click.cwListTip", function() {
-                        l.find("li.listSelected").click()
-                    }), g.show()) :
-                    (g.quickEmpty(), g.hide())
+                    }), i.find("._cwLTUnCheckAll").on("click.cwListTip", function() {
+                        k.find("li.listSelected").click()
+                    }), i.show()) :
+                    (i.quickEmpty(), i.hide())
             }
-            if (e.selectOptionArea != void 0) f = f.find("._cwLTSelectOptionArea"), l = this.ul, e.selectOptionArea ? (f.html(e.selectOptionArea), f.show()) : (f.quickEmpty(), f.hide());
+            if (e.selectOptionArea != void 0) f = f.find("._cwLTSelectOptionArea"), k = this.ul, e.selectOptionArea ? (f.html(e.selectOptionArea), f.show()) : (f.quickEmpty(), f.hide());
             e.selectable != void 0 && (e.selectable ? this.ul.addClass("toolTipSelectList") : this.ul.removeClass("toolTipSelectList"));
             var f = ["offsetTop", "offsetLeft", "showPosition", "direction", "noAnimation", "noTriangle", "useFloatBox", "parentFloatBox", "theme"],
-                h;
-            for (h in f)
-                if (g = f[h], e[g] != void 0) {
-                    var i = {};
-                    i[g] = e[g];
-                    this.tooltip.setOption(i)
+                g;
+            for (g in f)
+                if (i = f[g], e[i] != void 0) {
+                    var l = {};
+                    l[i] = e[i];
+                    this.tooltip.setOption(l)
                 }
         },
         open: function() {
@@ -16333,16 +16347,16 @@ var C;
                 b = [],
                 f = [];
             this.searchbox && (f = this.searchbox.getVal().toLowerCase().replace(/^\s+|\s+$/g, "").split(/\s+/));
-            for (var g =
-                    a.length, j = 0; j < g; j++) {
-                var k = "",
-                    l = a[j],
-                    k = l.keys != void 0 ? l.keys.join(" ") : l.label,
-                    k = k.toLowerCase();
+            for (var i =
+                    a.length, h = 0; h < i; h++) {
+                var j = "",
+                    k = a[h],
+                    j = k.keys != void 0 ? k.keys.join(" ") : k.label,
+                    j = j.toLowerCase();
                 (function() {
                     for (var a = 0; a < f.length; a++)
-                        if (k.indexOf(f[a]) === -1) return;
-                    b.push(l)
+                        if (j.indexOf(f[a]) === -1) return;
+                    b.push(k)
                 })()
             }
             return b
@@ -16358,19 +16372,19 @@ var C;
             var e = "",
                 d = this.getList();
             if (b.isArray(d)) {
-                for (var f = 0, g = d.length, j = 0; j <
-                    g; j++) {
-                    var k = d[j];
+                for (var f = 0, i = d.length, h = 0; h <
+                    i; h++) {
+                    var j = d[h];
                     f++;
                     if (!(f > this.option.limit)) {
-                        var l = b.cwUI.escapeHTML(k.value),
-                            h = this.option.useHtmlLabel ? k.label : b.cwUI.escapeHTML(k.label);
-                        e += this.option.selectable ? this.select_dat[k.value] != void 0 ? '<li class="_cwSelectableRow listSelected" role="listitem" data-cwui-lt-idx="' + j + '" data-cwui-lt-value="' + l + '">' + b.cwCheckBox.create(!0, "", j, {
+                        var k = b.cwUI.escapeHTML(j.value),
+                            g = this.option.useHtmlLabel ? j.label : b.cwUI.escapeHTML(j.label);
+                        e += this.option.selectable ? this.select_dat[j.value] != void 0 ? '<li class="_cwSelectableRow listSelected" role="listitem" data-cwui-lt-idx="' + h + '" data-cwui-lt-value="' + k + '">' + b.cwCheckBox.create(!0, "", h, {
                             "data-theme": "green"
-                        }) + h + "</li>" : '<li class="_cwSelectableRow" role="listitem" data-cwui-lt-idx="' + j + '" data-cwui-lt-value="' + l + '">' + b.cwCheckBox.create(!1,
-                            "", j, {
+                        }) + g + "</li>" : '<li class="_cwSelectableRow" role="listitem" data-cwui-lt-idx="' + h + '" data-cwui-lt-value="' + k + '">' + b.cwCheckBox.create(!1,
+                            "", h, {
                                 "data-theme": "green"
-                            }) + h + "</li>" : '<li role="listitem" data-cwui-lt-idx="' + j + '" data-cwui-lt-value="' + l + '">' + h + "</li>"
+                            }) + g + "</li>" : '<li role="listitem" data-cwui-lt-idx="' + h + '" data-cwui-lt-value="' + k + '">' + g + "</li>"
                     }
                 }
                 f > this.option.limit && (e += '<div style="text-align:center;font-size:12px;color:#666">' + a.cwui_listip_list_overflow.replace(/%%num%%/, b.cwUI.formatNumber(f - this.option.limit)) + " " + a.cwui_listip_list_overflow_max.replace(/%%num%%/, b.cwUI.formatNumber(this.option.limit)) + "</div>");
@@ -16388,10 +16402,10 @@ var C;
     });
     var d = "",
         f = null,
-        g = !1,
-        j = null,
-        k = !1,
-        l = null;
+        i = !1,
+        h = null,
+        j = !1,
+        k = null;
     b.cwUI.addWidget("cwMessageTip", {
         theme: "black",
         delay: 0,
@@ -16437,9 +16451,9 @@ var C;
             for (e in d) {
                 var f = d[e];
                 if (a[f] != void 0) {
-                    var g = {};
-                    g[f] = a[f];
-                    this.tooltip.setOption(g)
+                    var h = {};
+                    h[f] = a[f];
+                    this.tooltip.setOption(h)
                 }
             }
         },
@@ -16447,23 +16461,23 @@ var C;
             var b = this;
             if (b.is_disabled) return b;
             a = b;
-            g = !0;
-            j = b;
+            i = !0;
+            h = b;
             f && (clearTimeout(f), f = null);
-            var e = b.option.delayQuickMode && k ? 0 : j.option.delay,
+            var e = b.option.delayQuickMode && j ? 0 : h.option.delay,
                 m = function() {
-                    g ? (b.refresh(j.$el), d && (j.tooltip.open(j.$el), k = !0)) : (b.tooltip.close(), j._closeTip());
+                    i ? (b.refresh(h.$el), d && (h.tooltip.open(h.$el), j = !0)) : (b.tooltip.close(), h._closeTip());
                     f = null
                 };
             e ? f = setTimeout(m, e) : m();
-            l && (clearTimeout(l), l = null);
+            k && (clearTimeout(k), k = null);
             return b
         },
         close: function() {
             if (this.is_disabled) return this;
             a = null;
-            g = !1;
-            j = this;
+            i = !1;
+            h = this;
             this._closeTip();
             return this
         },
@@ -16476,10 +16490,10 @@ var C;
             return this
         },
         _closeTip: function() {
-            l && clearTimeout(l);
+            k && clearTimeout(k);
             this.tooltip.close();
-            l = setTimeout(function() {
-                k = !1
+            k = setTimeout(function() {
+                j = !1
             }, 300);
             return this
         },
@@ -16532,8 +16546,8 @@ var C;
             this.column_width = [];
             for (var e = this.id + "_cwST_body", d = '<div style="overflow-y:auto"><table id="' + e + '" class="basicTable"><thead><tr class="basicTableHiddenRow">', f = 0; f < this.column_num; f++) {
                 d += "<th></th>";
-                var g = b(this.header_row[f]);
-                this.column_padding[f] = g.outerWidth() - g.width()
+                var i = b(this.header_row[f]);
+                this.column_padding[f] = i.outerWidth() - i.width()
             }
             d +=
                 "</tr></thead><tbody></tbody></table>";
@@ -16550,10 +16564,10 @@ var C;
             var d = b("<tr></tr>");
             e.tr != void 0 && d.attr(e.tr);
             for (var f = 0; f < this.column_num; f++) {
-                var g = b('<td><div class="autotrim" style="width:' + this.column_width[f] + 'px;">' + a[f] +
+                var i = b('<td><div class="autotrim" style="width:' + this.column_width[f] + 'px;">' + a[f] +
                     "</div></td>");
-                e.td != void 0 && e.td[f] != void 0 && g.attr(e.td[f]);
-                d.append(g)
+                e.td != void 0 && e.td[f] != void 0 && i.attr(e.td[f]);
+                d.append(i)
             }
             this.body_table_body.append(d);
             return this
@@ -16576,18 +16590,18 @@ var C;
             typeof this.option.preResize == "function" && this.option.preResize.apply(this);
             var e = this.$el.width(),
                 d = this.option.columnWidth,
-                f, g, j, k = 0,
-                l = [];
-            for (j = 0; j < this.column_num; j++) {
-                var h = d[j];
-                h != "auto" ? (k += h, j != this.column_num - 1 && (f = b(this.body_table_head[j]), g = this.column_padding[j], this.column_width[j] = h - g, f.width(this.column_width[j]))) : l.push(j)
+                f, i, h, j = 0,
+                k = [];
+            for (h = 0; h < this.column_num; h++) {
+                var g = d[h];
+                g != "auto" ? (j += g, h != this.column_num - 1 && (f = b(this.body_table_head[h]), i = this.column_padding[h], this.column_width[h] = g - i, f.width(this.column_width[h]))) : k.push(h)
             }
-            d = l.length;
+            d = k.length;
             if (d > 0) {
-                e = parseInt((e - k) / d, 10);
-                for (j = 0; j < d; j++) f = b(this.body_table_head[l[j]]), g = this.column_padding[j], this.column_width[j] = e - g, f.width(this.column_width[j])
+                e = parseInt((e - j) / d, 10);
+                for (h = 0; h < d; h++) f = b(this.body_table_head[k[h]]), i = this.column_padding[h], this.column_width[h] = e - i, f.width(this.column_width[h])
             }
-            for (j = 0; j < this.column_num - 1; j++) b(this.header_row[j]).width(b(this.body_table_head[j]).width());
+            for (h = 0; h < this.column_num - 1; h++) b(this.header_row[h]).width(b(this.body_table_head[h]).width());
             this.body_box.height(a - this.$el.height());
             typeof this.option.postResize == "function" && this.option.postResize.apply(this);
             return this
@@ -16603,9 +16617,9 @@ var C;
         b(document.body).on("keydown.cwSearchBox", "._cwSB", function(b) {
             a = b.keyCode
         }).on("keyup.cwSearchBox", "._cwSB", function(e) {
-            var g = b(this);
-            g.val().length > 0 ? g.parent().find("._cwSBCancel").show() : g.parent().find("._cwSBCancel").hide();
-            g = g.cwSearchBox();
+            var i = b(this);
+            i.val().length > 0 ? i.parent().find("._cwSBCancel").show() : i.parent().find("._cwSBCancel").hide();
+            i = i.cwSearchBox();
             switch (e.keyCode) {
                 case 37:
                 case 38:
@@ -16618,7 +16632,7 @@ var C;
                 case 13:
                     if (a == 13) break;
                 default:
-                    typeof g.option.update == "function" && g.option.update.apply(g)
+                    typeof i.option.update == "function" && i.option.update.apply(i)
             }
         }).on("click.cwSearchBox",
             "._cwSBCancel",
@@ -16637,8 +16651,8 @@ var C;
             var e = this.$el;
             this.is_disabled = !1;
             e.addClass("_cwSB searchBox").attr("role", "search");
-            var g = e.attr("placeholder");
-            if (g) a.placeHolder = g;
+            var i = e.attr("placeholder");
+            if (i) a.placeHolder = i;
             e.wrap('<div class="search"></div>').on("focus.cwSearchBox", function() {
                 b(this).parent().addClass("focus")
             }).on("blur.cwSearchBox",
@@ -16822,39 +16836,39 @@ var C;
             e || (e = "");
             f == void 0 && (f = {});
             d == void 0 && (d = "");
-            var g = "<div",
-                j = "_cwSL selectbox cwTextUnselectable",
-                k;
-            for (k in f) switch (k) {
+            var i = "<div",
+                h = "_cwSL selectbox cwTextUnselectable",
+                j;
+            for (j in f) switch (j) {
                 case "class":
-                    j +=
-                        " " + f[k];
+                    h +=
+                        " " + f[j];
                     break;
                 default:
-                    g += " " + k + '="' + f[k] + '"'
+                    i += " " + j + '="' + f[j] + '"'
             }
             f = '<ul role="list" class="_cwSLList selectboxContent cwNoWrap cwTextUnselectable" style="display:none">' + this.createOptionList(a) + "</ul>";
-            k = "";
-            for (var l = 0; l < a.length; l++) {
-                var h = a[l];
-                if (h.value == d) {
-                    k = h.label;
+            j = "";
+            for (var k = 0; k < a.length; k++) {
+                var g = a[k];
+                if (g.value == d) {
+                    j = g.label;
                     break
                 }
             }
-            a = '<div class="_cwSLBox selectboxDefault"><span class="_cwSLSelectedLabel cwNoWrap">' + b.cwUI.escapeHTML(k) + '</span><span class="icoFontTriangleDown"></span></div>';
-            k = '<input class="_cwSLInput" type="hidden"';
-            e && (k += ' name="' + e + '"');
-            k += ' value="' +
+            a = '<div class="_cwSLBox selectboxDefault"><span class="_cwSLSelectedLabel cwNoWrap">' + b.cwUI.escapeHTML(j) + '</span><span class="icoFontTriangleDown"></span></div>';
+            j = '<input class="_cwSLInput" type="hidden"';
+            e && (j += ' name="' + e + '"');
+            j += ' value="' +
                 b.cwUI.escapeHTML(d) + '"/>';
-            return g + ' class="' + j + '">' + a + f + k + "</div>"
+            return i + ' class="' + h + '">' + a + f + j + "</div>"
         },
         createOptionList: function(a, e) {
             for (var d = "", f = 0; f < a.length; f++) {
-                var g = a[f];
-                if (g.value == e) selected_label = g.label;
-                d += g.tooltip ? '<li role="listitem" class="_showDescription" aria-label="' + g.tooltip + '" ' : '<li role="listitem" ';
-                d += 'data-cwui-sb-value="' + b.cwUI.escapeHTML(g.value) + '">' + b.cwUI.escapeHTML(g.label) + "</li>"
+                var i = a[f];
+                if (i.value == e) selected_label = i.label;
+                d += i.tooltip ? '<li role="listitem" class="_showDescription" aria-label="' + i.tooltip + '" ' : '<li role="listitem" ';
+                d += 'data-cwui-sb-value="' + b.cwUI.escapeHTML(i.value) + '">' + b.cwUI.escapeHTML(i.label) + "</li>"
             }
             return d
         }
@@ -16880,9 +16894,9 @@ var C;
                                 if (b.option.toggleMode) b.selected_idx = null, b.option.update && b.option.update.apply(b, [a, !1]);
                                 else return !1
                         } else if (f) {
-                            var g = b.selected_idx;
+                            var i = b.selected_idx;
                             b.selected_idx = a;
-                            this.deSelect(g);
+                            this.deSelect(i);
                             b.option.update && b.option.update.apply(b, [a, !0])
                         }
                     }
@@ -16977,7 +16991,7 @@ var C;
         move: function(a) {
             var d = this.$el,
                 f = this.option.offsetTop ? this.option.offsetTop : 0,
-                g = this.option.offsetLeft ? this.option.offsetLeft : 0;
+                i = this.option.offsetLeft ? this.option.offsetLeft : 0;
             if (a instanceof jQuery) {
                 if (!a.isVisible()) {
                     this.close();
@@ -17001,15 +17015,15 @@ var C;
             };
             this.tipFrom =
                 a;
-            var j = b(document.body),
-                k = j.width(),
-                l = j.height(),
-                h = a.offset(),
-                j = d.outerWidth(),
-                i = d.outerHeight(),
-                m = parseInt(i / 2, 10),
+            var h = b(document.body),
+                j = h.width(),
+                k = h.height(),
+                g = a.offset(),
+                h = d.outerWidth(),
+                l = d.outerHeight(),
+                m = parseInt(l / 2, 10),
                 n = "",
-                n = this.option.direction == "vertical" ? h.top - i < 0 ? "bottom" : "top" : this.option.direction == "horizontal" ? h.left > parseInt(k / 2, 10) ? "left" : "right" : this.option.direction,
+                n = this.option.direction == "vertical" ? g.top - l < 0 ? "bottom" : "top" : this.option.direction == "horizontal" ? g.left > parseInt(j / 2, 10) ? "left" : "right" : this.option.direction,
                 o = b.cwUI.ucFirst(this.option.theme.toLowerCase());
             switch (n) {
                 case "top":
@@ -17032,72 +17046,72 @@ var C;
             if (!this.option.noTriangle) d.prepend('<div class="_cwTTTriangle toolTipTriangle ' + o + '"></div>'), this.triangle = n;
             if (this.option.noTriangle) var o = null,
                 u = 0,
-                s = 0;
-            else o = d.find("._cwTTTriangle"), u = o.outerHeight(), s = o.outerWidth();
+                r = 0;
+            else o = d.find("._cwTTTriangle"), u = o.outerHeight(), r = o.outerWidth();
             var v = a.outerWidth(),
                 w = parseInt(v / 2, 10),
                 A = a.outerHeight(),
                 x = parseInt(A / 2, 10);
             switch (n) {
                 case "top":
-                    var p = h.top - i - u + f;
+                    var q = g.top - l - u + f;
                     break;
                 case "bottom":
-                    p = h.top + A + u + f;
+                    q = g.top + A + u + f;
                     break;
                 case "left":
-                    var q = h.left - j - s + g;
+                    var p = g.left - h - r + i;
                     break;
                 case "right":
-                    q = h.left +
-                        v + s + g
+                    p = g.left +
+                        v + r + i
             }
             switch (n) {
                 case "top":
                 case "bottom":
                     switch (this.option.showPosition) {
                         case "left":
-                            q = this.option.noTriangle ? h.left + g : h.left - parseInt(j / 2, 10) + g;
+                            p = this.option.noTriangle ? g.left + i : g.left - parseInt(h / 2, 10) + i;
                             break;
                         case "right":
-                            q = this.option.noTriangle ? h.left - j + v + g : h.left - parseInt(j / 2, 10) + v + g;
+                            p = this.option.noTriangle ? g.left - h + v + i : g.left - parseInt(h / 2, 10) + v + i;
                             break;
                         default:
-                            q = h.left - parseInt(j / 2, 10) + w + g
+                            p = g.left - parseInt(h / 2, 10) + w + i
                     }
                     break;
                 case "left":
                 case "right":
                     switch (this.option.showPosition) {
                         case "top":
-                            p = h.top + f;
+                            q = g.top + f;
                             break;
                         case "bottom":
-                            p = h.top + A - i + f;
+                            q = g.top + A - l + f;
                             break;
                         default:
-                            p = h.top + x - m + f
+                            q = g.top + x - m + f
                     }
             }
-            q + j > k && (q = k - this.option.windowMargin - j);
-            if (q < this.option.windowMargin) q = this.option.windowMargin;
-            p + i > l && (p = l - this.option.windowMargin - i);
+            p + h > j && (p = j - this.option.windowMargin - h);
             if (p < this.option.windowMargin) p = this.option.windowMargin;
-            if (o) switch (k = parseInt(u / 2, 10), l = parseInt(s / 2, 10), n) {
+            q + l > k && (q = k - this.option.windowMargin - l);
+            if (q < this.option.windowMargin) q = this.option.windowMargin;
+            if (o) switch (j = parseInt(u / 2, 10), k = parseInt(r / 2, 10), n) {
                 case "top":
                 case "bottom":
                     switch (this.option.showPosition) {
                         case "left":
-                            f = h.left - q - l + g;
+                            f = g.left - p - k + i;
                             if (f < this.option.triangleMargin) f = this.option.triangleMargin;
                             break;
                         case "right":
-                            f = h.left - q + v - l + g;
-                            g = j - s - this.option.triangleMargin;
-                            f > g && (tip_p_left = g);
+                            f = g.left - p + v - k + i;
+                            i = h - r - this.option.triangleMargin;
+                            f > i && (tip_p_left = i);
                             break;
                         default:
-                            f = h.left - q + w - l + g
+                            f = g.left - p + w - k + i
                     }
                     o.css("left", f);
                     break;
@@ -17106,19 +17120,19 @@ var C;
                     switch (this.option.showPosition) {
                         case "top":
                             f =
-                                h.top - p + this.option.triangleMargin + f;
+                                g.top - q + this.option.triangleMargin + f;
                             break;
                         case "bottom":
-                            f = h.top - p + i - u - this.option.triangleMargin + f;
+                            f = g.top - q + l - u - this.option.triangleMargin + f;
                             break;
                         default:
-                            f = h.top - p + m - k + f
+                            f = g.top - q + m - j + f
                     }
                     o.css("top", f)
             }
             d.css({
-                top: p,
-                left: q
+                top: q,
+                left: p
             });
             return this
         },
@@ -17144,6 +17158,9 @@ var _is_oldmsie = typeof window.addEventListener == "undefined" && typeof docume
     _has_sandbox = "sandbox" in document.createElement("iframe"),
     NotificationAPI = null,
     _is_modern_ie = !!(_is_msie && typeof(history || {}).pushState === "function");
+jQuery.support.isWindowsFirefox = function() {
+    return /windows.+\sfirefox\//.test(navigator.userAgent.toLowerCase()) ? !0 : !1
+}();
 window.webkitNotifications ? NotificationAPI = {
     createNotification: function(b, a, e) {
         return webkitNotifications.createNotification(b, a, e)
@@ -17229,18 +17246,18 @@ $.fn.extend({
                 if (ST.data.shorten_url && (d = (d.target.tagName ||
                         "").toLowerCase()) && !(d === "textarea" || d === "input") && !f) {
                     var d = window.getSelection().getRangeAt(0),
-                        j = d.commonAncestorContainer;
-                    if (j.childElementCount) d = j.getElementsByClassName(b.targetClass), d.length && (f = a(Array.prototype.slice.call(d), function() {
+                        h = d.commonAncestorContainer;
+                    if (h.childElementCount) d = h.getElementsByClassName(b.targetClass), d.length && (f = a(Array.prototype.slice.call(d), function() {
                         f = void 0
                     }));
                     else {
-                        var k = e(d);
-                        k && (f = a([k], function() {
+                        var j = e(d);
+                        j && (f = a([j], function() {
                             var a = document.createRange();
-                            a.selectNode(k);
+                            a.selectNode(j);
                             window.getSelection().addRange(a);
                             f = void 0
-                        }), d = document.createRange(), d.selectNode(k), window.getSelection().addRange(d))
+                        }), d = document.createRange(), d.selectNode(j), window.getSelection().addRange(d))
                     }
                 }
             })
@@ -17256,15 +17273,15 @@ _is_msie && !_is_modern_ie ? function() {
             e.focus();
             var d = e.value,
                 f = b,
-                g = f + a.length,
-                j = d.substr(0, f);
-            e.value = j + a + d.substr(f);
+                i = f + a.length,
+                h = d.substr(0, f);
+            e.value = h + a + d.substr(f);
             b += a.length;
-            a = (a = j.match(/\n/g)) ? a.length : 0;
+            a = (a = h.match(/\n/g)) ? a.length : 0;
             e = e.createTextRange();
             e.collapse(!0);
-            e.moveEnd("character", g - a);
-            e.moveStart("character", g - a);
+            e.moveEnd("character", i - a);
+            e.moveStart("character", i - a);
             e.select()
         }
     });
@@ -17345,7 +17362,7 @@ function Analytics() {
         e = [],
         d = GA_PROFILE_ID,
         f = null,
-        g = {
+        i = {
             plan: "dimension1",
             device: "dimension2",
             lang: "dimension3",
@@ -17358,26 +17375,26 @@ function Analytics() {
             pnum: "dimension10",
             dhash: "dimension11"
         };
-    b.start = function(g) {
+    b.start = function(h) {
         if (!a) {
             a = !0;
-            f = g;
-            (function(a, b, d, e, f, g, j) {
+            f = h;
+            (function(a, b, d, e, f, h, i) {
                 a.GoogleAnalyticsObject = f;
                 a[f] = a[f] || function() {
                     (a[f].q = a[f].q || []).push(arguments)
                 };
                 a[f].l = 1 * new Date;
-                g = b.createElement(d);
-                j = b.getElementsByTagName(d)[0];
-                g.async = 1;
-                g.src = e;
-                j.parentNode.insertBefore(g, j)
+                h = b.createElement(d);
+                i = b.getElementsByTagName(d)[0];
+                h.async = 1;
+                h.src = e;
+                i.parentNode.insertBefore(h, i)
             })(window, document, "script", "//www.google-analytics.com/analytics.js", "ga");
             ga("create", d, "auto");
             ga("require", "displayfeatures");
             b.trackPageView();
-            for (var g = 0, k = e.length; g < k; g++) e[g]();
+            for (var h = 0, i = e.length; h < i; h++) e[h]();
             e = [];
             return b
         }
@@ -17386,21 +17403,21 @@ function Analytics() {
         if (!a) return e.push(function() {
             b.trackPageView()
         }), !1;
-        for (var d in g) g.hasOwnProperty(d) && typeof f[d] !== "undefined" && ga("set", g[d], f[d]);
+        for (var d in i) i.hasOwnProperty(d) && typeof f[d] !== "undefined" && ga("set", i[d], f[d]);
         ga("send", "pageview", {
             title: ""
         })
     };
-    b.trackEvent = function(d, f, g, h) {
+    b.trackEvent = function(d, f, i, g) {
         if (!a) return e.push(function() {
             b.trackEvent(d,
-                f, g, h)
+                f, i, g)
         }), !1;
         ga("send", "event", {
             eventCategory: d,
             eventAction: f,
-            eventLabel: g,
-            eventValue: h,
+            eventLabel: i,
+            eventValue: g,
             title: ""
         });
         return b
@@ -17468,18 +17485,18 @@ function Request() {
         });
         else {
             for (; $("#wcs-iframe").length;) $("#wcs-iframe").remove();
-            if (f) j(f);
+            if (f) h(f);
             else {
                 var f = AC.myid,
-                    g = a.getItem("session.account_id");
-                g ? f != g && (l(), a.setItem("session.account_id",
-                    f)) : (a.getItem("session.account_id") && l(), a.setItem("session.account_id", f));
-                (f = a.getItem("channel_token_key")) ? j(f): CW.post("gateway.php", {
+                    i = a.getItem("session.account_id");
+                i ? f != i && (k(), a.setItem("session.account_id",
+                    f)) : (a.getItem("session.account_id") && k(), a.setItem("session.account_id", f));
+                (f = a.getItem("channel_token_key")) ? h(f): CW.post("gateway.php", {
                     cmd: "get_comet_token_key"
                 }, function(b) {
                     e = 3E3;
                     d = 7;
-                    j(b.token_key, !0);
+                    h(b.token_key, !0);
                     a.setItem("channel_token_key", b.token_key)
                 }, function() {
                     if (d < 0) return !1;
@@ -17493,10 +17510,10 @@ function Request() {
         }
     };
     var f = 3E3,
-        g = 7,
-        j = function(d, e) {
-            var j = a.getItem("channel_token");
-            j ? k(j) : $.jsonp({
+        i = 7,
+        h = function(d, e) {
+            var h = a.getItem("channel_token");
+            h ? j(h) : $.jsonp({
                 url: COMET_SERVER_PATH + "/token?callback=?",
                 data: {
                     myid: AC.myid,
@@ -17504,25 +17521,25 @@ function Request() {
                 },
                 success: function(b) {
                     b.status &&
-                        b.status.success && (a.setItem("channel_token", b.result.token), k(b.result.token), f = 3E3, g = 7, e != !0 && CW.post("gateway.php", {
+                        b.status.success && (a.setItem("channel_token", b.result.token), j(b.result.token), f = 3E3, i = 7, e != !0 && CW.post("gateway.php", {
                             cmd: "update_comet_token_key",
                             token_key: d
                         }))
                 },
                 error: function() {
-                    if (g < 0) return !1;
+                    if (i < 0) return !1;
                     setTimeout(function() {
                         b.comet(d, e)
                     }, f);
                     f *= 2;
-                    g--
+                    i--
                 }
             })
         },
-        k = function(a) {
+        j = function(a) {
             var a = (new goog.appengine.Channel(a)).open(),
                 d = function() {
-                    l();
+                    k();
                     b.comet()
                 };
             a.onopen = function() {
@@ -17535,11 +17552,11 @@ function Request() {
                         CW.watch();
                         break;
                     case "reconnect":
-                        l(), b.comet()
+                        k(), b.comet()
                 }
             }
         },
-        l = function() {
+        k = function() {
             a.removeItem("channel_token");
             a.removeItem("channel_token_key")
         }

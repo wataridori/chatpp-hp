@@ -300,7 +300,6 @@ body {
 
 #home-row-1,
 #home-row-2 {
-    padding-top: 25px;
 }
 
 #home-row-1 h1 {
@@ -512,6 +511,10 @@ i {
     text-decoration: none;
 }
 
+#slide-6 .regular-link {
+    color: #28c3ab;
+    font-weight: bold;
+}
 @media (max-width: 767px) {
     .with-hover-text {
         margin-bottom: 2em;
