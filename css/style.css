@@ -271,10 +271,6 @@ body {
         min-height: 1000px;
     }
 
-    #slide-1 h1 {
-        padding-top: 100px;
-    }
-
     #slide-1 .line-row {
         margin-bottom: 50px;
     }
@@ -481,11 +477,6 @@ i {
     padding-top: 90px;
 }
 
-#slide-4 i {
-    font-size: 80px;
-    color: white;
-}
-
 #slide-5 {
     background-color: #2f2f2f;
     color: #e4e6e5;
@@ -509,6 +500,10 @@ i {
     color: inherit;
     outline: none;
     text-decoration: none;
+}
+
+#slide-6 i {
+    font-size: 6em;
 }
 
 #slide-6 .regular-link {
@@ -677,4 +672,8 @@ i {
 
 .theme-color {
     color: #7550ba;
+}
+
+.browsers a {
+    margin: 0 50px;
 }
